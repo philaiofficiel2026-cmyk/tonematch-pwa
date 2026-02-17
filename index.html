@@ -2,345 +2,499 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dressing Couleurs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Dressing — Premium</title>
 
   <style>
     :root{
-      /* Fond premium (blanc cassé chaud) */
+      /* Premium warm off-white */
       --bg: #F7F6F3;
-
-      /* Texte */
       --text: #111111;
-      --muted: rgba(17,17,17,.60);
+      --muted: rgba(17,17,17,.62);
+      --hair: rgba(17,17,17,.10);
 
-      /* Surfaces / séparateurs */
-      --hairline: rgba(17,17,17,.10);
+      /* Surfaces */
+      --card: rgba(255,255,255,.55);
+      --card2: rgba(255,255,255,.42);
 
-      /* Rayons */
-      --r-card: 20px;
-      --r-sheet: 26px;
+      /* Radius */
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+      --r26: 26px;
 
-      /* Ombres (ultra douces) */
-      --shadow-card: 0 4px 14px rgba(0,0,0,.07);
-      --shadow-sheet: 0 18px 60px rgba(0,0,0,.18);
+      /* Shadows */
+      --shadow1: 0 6px 18px rgba(0,0,0,.08);
+      --shadow2: 0 18px 70px rgba(0,0,0,.18);
 
-      /* Glass (visible mais élégant) */
-      --glass-bg: rgba(247,246,243,.86);
-      --glass-border: rgba(255,255,255,.35);
+      /* Glass */
+      --glass: rgba(247,246,243,.86);
+      --glassBorder: rgba(255,255,255,.35);
+
+      /* Accent */
+      --danger: rgb(255,59,48);
 
       /* Layout */
-      --gap: 16px;
-      --maxw: 920px;
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --maxw: 980px;
+      --safeB: env(safe-area-inset-bottom, 0px);
+      --safeT: env(safe-area-inset-top, 0px);
 
-      /* Typo */
       --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "SF Pro Display", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
 
-    @media (prefers-color-scheme: dark) {
+    @media (prefers-color-scheme: dark){
       :root{
         --bg: #111213;
         --text: #F2F2F2;
         --muted: rgba(242,242,242,.62);
-        --hairline: rgba(242,242,242,.12);
+        --hair: rgba(242,242,242,.12);
 
-        --shadow-card: 0 6px 18px rgba(0,0,0,.42);
-        --shadow-sheet: 0 22px 70px rgba(0,0,0,.60);
+        --card: rgba(255,255,255,.06);
+        --card2: rgba(255,255,255,.05);
 
-        /* Glass dark (un peu plus marqué) */
-        --glass-bg: rgba(20,20,20,.84);
-        --glass-border: rgba(255,255,255,.10);
+        --shadow1: 0 10px 26px rgba(0,0,0,.44);
+        --shadow2: 0 24px 86px rgba(0,0,0,.62);
+
+        --glass: rgba(20,20,20,.84);
+        --glassBorder: rgba(255,255,255,.10);
       }
     }
 
-    *{ box-sizing: border-box; }
-    html, body{ height: 100%; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
-      margin: 0;
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
+      margin:0;
+      font-family:var(--font);
+      background:var(--bg);
+      color:var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Header minimal */
+    /* Top bar */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 14px 16px;
-      background: color-mix(in oklab, var(--bg) 92%, transparent);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--hairline);
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding: calc(10px + var(--safeT)) 16px 10px;
+      border-bottom: 1px solid var(--hair);
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     .topbar-inner{
-      max-width: var(--maxw);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
     }
     .title{
-      font-size: 17px;
-      font-weight: 650;
-      letter-spacing: .2px;
-      margin: 0;
+      margin:0;
+      font-size:18px;
+      font-weight:720;
+      letter-spacing:.2px;
+      line-height:1.1;
     }
-    .hint{
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0;
-      white-space: nowrap;
+    .subtitle{
+      margin:2px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.1px;
     }
-
-    /* Grille */
-    .wrap{
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 16px 16px calc(20px + var(--safe-bottom));
+    .chip{
+      border:1px solid var(--hair);
+      background: var(--card2);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
     }
-
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 colonnes premium */
-      gap: var(--gap);
-    }
-
-    /* Carte */
-    .card{
-      appearance: none;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      text-align: left;
-      cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease;
-    }
-    .card:active{ transform: scale(.97); }
-
-    .swatch{
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: var(--r-card);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,.04);
-    }
-    @media (prefers-color-scheme: dark){
-      .swatch{ border-color: rgba(255,255,255,.06); }
-    }
-
-    /* Nom + hex */
-    .meta{
-      padding: 10px 2px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .name{
-      font-size: 18px;
-      font-weight: 650;
-      letter-spacing: .2px;
-      line-height: 1.15;
-    }
-    .hex{
-      font-size: 13px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* Backdrop */
-    .backdrop{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.22);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .18s ease;
-      z-index: 40;
-    }
-    @media (prefers-color-scheme: dark){
-      .backdrop{ background: rgba(0,0,0,.45); }
-    }
-    .backdrop.open{
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Bottom sheet glass */
-    .sheet{
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 50;
-
-      transform: translateY(110%);
-      transition: transform .28s cubic-bezier(.2,.9,.2,1);
-      padding: 10px 12px calc(12px + var(--safe-bottom));
-    }
-    .sheet.open{
-      transform: translateY(0);
-    }
-
-    .sheet-inner{
-      max-width: var(--maxw);
-      margin: 0 auto;
-
-      border-radius: var(--r-sheet);
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      box-shadow: var(--shadow-sheet);
-      overflow: hidden;
-    }
-
-    .sheet-grab{
-      width: 44px;
-      height: 5px;
-      border-radius: 999px;
+    .dot{
+      width:8px;height:8px;border-radius:999px;
       background: rgba(127,127,127,.35);
-      margin: 10px auto 0;
     }
 
-    .sheet-head{
-      padding: 14px 16px 10px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    /* App container */
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:16px 16px calc(86px + var(--safeB));
     }
 
-    .sheet-swatch{
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.14);
-      border: 1px solid rgba(0,0,0,.04);
-      flex: 0 0 auto;
-    }
-    @media (prefers-color-scheme: dark){
-      .sheet-swatch{ border-color: rgba(255,255,255,.08); box-shadow: 0 14px 34px rgba(0,0,0,.60); }
-    }
+    /* Views */
+    .view{ display:none; }
+    .view.active{ display:block; }
 
-    .sheet-titles{
-      min-width: 0;
-      flex: 1;
+    /* Cards */
+    .panel{
+      border:1px solid var(--hair);
+      background: var(--card);
+      border-radius: var(--r20);
+      box-shadow: var(--shadow1);
+      overflow:hidden;
     }
-    .sheet-name{
-      margin: 0;
-      font-size: 19px;
-      font-weight: 700;
-      letter-spacing: .2px;
-      line-height: 1.15;
+    .panel-h{
+      padding:14px 14px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
     }
-    .sheet-hex{
-      margin: 4px 0 0;
-      font-size: 13px;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .panel-h h2{
+      margin:0;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.2px;
     }
+    .panel-h .small{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .panel-b{ padding: 12px 14px 14px; border-top:1px solid var(--hair); }
 
-    .sheet-body{
-      padding: 0 16px 14px;
-      border-top: 1px solid var(--hairline);
-    }
-
-    .stats{
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      padding: 12px 0 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .actions{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding-top: 6px;
-    }
-
+    /* Buttons */
     .btn{
-      border: 1px solid var(--hairline);
-      background: rgba(255,255,255,.38);
-      color: var(--text);
+      appearance:none;
+      border:1px solid var(--hair);
+      background: rgba(255,255,255,.42);
+      color:var(--text);
       border-radius: 14px;
       padding: 12px 12px;
       font-size: 14px;
-      font-weight: 650;
+      font-weight: 680;
       letter-spacing: .2px;
-      cursor: pointer;
-      transition: transform .12s ease, background .18s ease;
+      cursor:pointer;
       -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background .18s ease;
     }
-    .btn:active{ transform: scale(.98); }
+    .btn:active{ transform: scale(.985); }
     @media (prefers-color-scheme: dark){
       .btn{ background: rgba(255,255,255,.06); }
     }
-
+    .btn-ghost{
+      background: transparent;
+    }
     .btn-danger{
-      border-color: rgba(255, 59, 48, .28);
-      color: rgb(255, 59, 48);
-      background: rgba(255, 59, 48, .08);
+      border-color: rgba(255,59,48,.28);
+      color: var(--danger);
+      background: rgba(255,59,48,.08);
+    }
+    .btn-row{
+      display:flex; gap:10px; flex-wrap:wrap;
     }
 
-    .btn-full{
-      grid-column: 1 / -1;
-    }
-
-    /* Petit toast */
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: calc(18px + var(--safe-bottom));
-      transform: translateX(-50%) translateY(12px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 60;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.75);
-      color: white;
-      font-size: 13px;
-      letter-spacing: .2px;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    /* Inputs */
+    .field{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+    label{ font-size:13px; color:var(--muted); letter-spacing:.1px; }
+    input[type="text"]{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid var(--hair);
+      background: rgba(255,255,255,.50);
+      padding: 12px 12px;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
     }
     @media (prefers-color-scheme: dark){
-      .toast{ background: rgba(255,255,255,.12); color: var(--text); border: 1px solid rgba(255,255,255,.14); }
+      input[type="text"]{ background: rgba(255,255,255,.06); }
+    }
+    .row{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .spacer{ flex:1; }
+
+    /* Bottom tabbar */
+    .tabbar{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:30;
+      padding: 10px 12px calc(10px + var(--safeB));
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
+      border-top: 1px solid var(--hair);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .tabs{
+      max-width: var(--maxw);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .tab{
+      border:1px solid var(--hair);
+      background: var(--card2);
+      border-radius: 16px;
+      padding: 10px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      user-select:none;
+    }
+    .tab.active{
+      color: var(--text);
+      background: var(--card);
+      box-shadow: 0 10px 26px rgba(0,0,0,.10);
     }
 
-    /* Accessibilité */
-    .sr-only{
-      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    /* Dressing list */
+    .items{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .item{
+      border:1px solid var(--hair);
+      border-radius: var(--r20);
+      background: var(--card2);
+      padding: 12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .thumb{
+      width:62px;height:62px;
+      border-radius: 18px;
+      background: rgba(127,127,127,.18);
+      overflow:hidden;
+      flex:0 0 auto;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .thumb img{ width:100%;height:100%;object-fit:cover; display:block; }
+    @media (prefers-color-scheme: dark){
+      .thumb{ border-color: rgba(255,255,255,.08); }
+    }
+    .item-main{ flex:1; min-width:0; }
+    .item-name{
+      margin:0;
+      font-size:16px;
+      font-weight:720;
+      letter-spacing:.2px;
+      line-height:1.15;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .item-meta{
+      margin:6px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+    }
+    .pills{
+      display:flex; gap:8px; align-items:center;
+    }
+    .pill{
+      display:flex; gap:6px; align-items:center;
+      border:1px solid var(--hair);
+      background: rgba(255,255,255,.28);
+      border-radius:999px;
+      padding:6px 8px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.1px;
+    }
+    @media (prefers-color-scheme: dark){
+      .pill{ background: rgba(255,255,255,.06); }
+    }
+    .sw{
+      width:12px;height:12px;border-radius:6px;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      .sw{ border-color: rgba(255,255,255,.10); }
     }
 
-    /* Responsive: sur très large, on garde 2 colonnes (premium) */
-    @media (min-width: 1100px){
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* Colors grid: compact (fix huge squares) */
+    .cgrid{
+      display:grid;
+      gap:14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr)); /* iPhone: 3 colonnes => compact */
+    }
+    @media (min-width: 760px){
+      .cgrid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    .cbtn{
+      appearance:none;
+      border:0;
+      background: transparent;
+      text-align:left;
+      padding:0;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
+      transition: transform .12s ease;
+    }
+    .cbtn:active{ transform: scale(.985); }
+
+    .cswatch{
+      width:100%;
+      aspect-ratio: 1/1;
+      border-radius: var(--r20);
+      border:1px solid rgba(0,0,0,.05);
+      box-shadow: var(--shadow1);
+      overflow:hidden;
+      position:relative;
+    }
+    @media (prefers-color-scheme: dark){
+      .cswatch{ border-color: rgba(255,255,255,.08); }
+    }
+    .cmeta{ padding: 8px 2px 0; }
+    .cname{
+      font-size:14px;
+      font-weight:720;
+      letter-spacing:.15px;
+      line-height:1.1;
+      margin:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .chex{
+      margin:6px 0 0;
+      font-size:12px;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
-    /* Sur petit mobile, on garde 2 colonnes mais gap réduit un peu */
-    @media (max-width: 360px){
-      :root{ --gap: 12px; }
-      .name{ font-size: 17px; }
+    /* Overlay / Sheet */
+    .backdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.25);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+      z-index:50;
+    }
+    @media (prefers-color-scheme: dark){
+      .backdrop{ background: rgba(0,0,0,.46); }
+    }
+    .backdrop.open{ opacity:1; pointer-events:auto; }
+
+    .sheet{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:60;
+      transform: translateY(110%);
+      transition: transform .30s cubic-bezier(.2,.9,.2,1);
+      padding: 10px 12px calc(12px + var(--safeB));
+    }
+    .sheet.open{ transform: translateY(0); }
+
+    .sheet-inner{
+      max-width: var(--maxw);
+      margin:0 auto;
+      border-radius: var(--r26);
+      background: var(--glass);
+      border: 1px solid var(--glassBorder);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .grab{
+      width:44px;height:5px;border-radius:999px;
+      background: rgba(127,127,127,.35);
+      margin: 10px auto 0;
+    }
+    .sheet-head{
+      padding: 14px 14px 10px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .bigsw{
+      width:54px;height:54px;
+      border-radius: 18px;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.16);
+      flex:0 0 auto;
+    }
+    @media (prefers-color-scheme: dark){
+      .bigsw{ border-color: rgba(255,255,255,.10); box-shadow: 0 16px 38px rgba(0,0,0,.62); }
+    }
+    .sheet-t{ flex:1; min-width:0; }
+    .sheet-name{
+      margin:0;
+      font-size:18px;
+      font-weight:780;
+      letter-spacing:.2px;
+      line-height:1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .sheet-hex{
+      margin:6px 0 0;
+      font-size:12px;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .sheet-body{
+      border-top: 1px solid var(--hair);
+      padding: 12px 14px 14px;
+    }
+    .sheet-info{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+    .actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .full{ grid-column: 1 / -1; }
+
+    /* Tiny toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: calc(76px + var(--safeB));
+      transform: translateX(-50%) translateY(12px);
+      opacity:0;
+      pointer-events:none;
+      z-index:80;
+      padding: 10px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.75);
+      color:#fff;
+      font-size:13px;
+      font-weight:650;
+      letter-spacing:.2px;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+    @media (prefers-color-scheme: dark){
+      .toast{ background: rgba(255,255,255,.12); color: var(--text); border:1px solid rgba(255,255,255,.14); }
+    }
+
+    /* Small helper */
+    .note{
+      margin: 10px 0 0;
+      font-size:13px;
+      color: var(--muted);
+      line-height:1.35;
     }
   </style>
 </head>
@@ -348,186 +502,754 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <h1 class="title">Dressing couleurs</h1>
-      <p class="hint">Tap pour détails</p>
+      <div>
+        <p class="title" id="topTitle">Dressing</p>
+        <p class="subtitle" id="topSub">Articles & palettes</p>
+      </div>
+      <div class="chip" id="chip">
+        <span class="dot"></span>
+        <span id="chipText">Premium</span>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="grid" id="grid" aria-label="Liste des couleurs">
-      <!-- Cartes injectées en JS -->
+
+    <!-- VIEW: Dressing -->
+    <section class="view active" id="view-dressing" aria-label="Dressing">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Mes articles</h2>
+          <div class="small" id="itemsCount">—</div>
+        </div>
+        <div class="panel-b">
+          <div class="items" id="itemsList"></div>
+          <p class="note">Astuce : ajoute un article puis choisis P / S / A. Les couleurs sont nommées automatiquement de façon cohérente.</p>
+        </div>
+      </div>
     </section>
+
+    <!-- VIEW: Add -->
+    <section class="view" id="view-add" aria-label="Ajouter">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Ajouter à mon dressing</h2>
+          <div class="small">V1</div>
+        </div>
+        <div class="panel-b">
+          <div class="field">
+            <label>Nom de l’article</label>
+            <input type="text" id="inName" placeholder="Ex : Chemise, Veste, Robe..." />
+          </div>
+
+          <div class="field">
+            <label>Photo (optionnel)</label>
+            <div class="row">
+              <input type="file" id="inPhoto" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="panel" style="box-shadow:none; background: transparent; border-radius: var(--r20);">
+            <div class="panel-h">
+              <h2>Couleurs</h2>
+              <div class="small">P / S / A</div>
+            </div>
+            <div class="panel-b">
+              <div class="field">
+                <label>Couleur principale (P)</label>
+                <div class="row">
+                  <input type="color" id="pColor" value="#009AF8" />
+                  <input type="text" id="pHex" value="#009AF8" />
+                  <div class="spacer"></div>
+                  <button class="btn btn-ghost" type="button" data-fill="p">Auto</button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Couleur secondaire (S)</label>
+                <div class="row">
+                  <input type="color" id="sColor" value="#AD8967" />
+                  <input type="text" id="sHex" value="#AD8967" />
+                  <div class="spacer"></div>
+                  <button class="btn btn-ghost" type="button" data-fill="s">Auto</button>
+                </div>
+              </div>
+
+              <div class="field" style="margin-bottom:0;">
+                <label>Couleur d’accent (A)</label>
+                <div class="row">
+                  <input type="color" id="aColor" value="#E0E5E8" />
+                  <input type="text" id="aHex" value="#E0E5E8" />
+                  <div class="spacer"></div>
+                  <button class="btn btn-ghost" type="button" data-fill="a">Auto</button>
+                </div>
+              </div>
+
+              <p class="note">“Auto” renomme de façon cohérente (même famille si teintes proches).</p>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn" id="btnAdd">Ajouter</button>
+            <button class="btn btn-danger" id="btnReset">Réinitialiser</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: Colors -->
+    <section class="view" id="view-colors" aria-label="Couleurs">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Mes couleurs</h2>
+          <div class="small" id="colorsCount">—</div>
+        </div>
+        <div class="panel-b">
+          <div class="cgrid" id="colorsGrid"></div>
+          <p class="note">Tap sur une couleur pour détails. Les doublons très proches sont harmonisés (même famille + nuance).</p>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Backdrop + Sheet -->
+  <!-- Tabbar -->
+  <nav class="tabbar" aria-label="Navigation">
+    <div class="tabs">
+      <button class="tab active" data-view="dressing" type="button">Dressing</button>
+      <button class="tab" data-view="add" type="button">Ajouter</button>
+      <button class="tab" data-view="colors" type="button">Couleurs</button>
+    </div>
+  </nav>
+
+  <!-- Overlay -->
   <div class="backdrop" id="backdrop" aria-hidden="true"></div>
-
-  <aside class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détails couleur">
+  <aside class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détails">
     <div class="sheet-inner">
-      <div class="sheet-grab" aria-hidden="true"></div>
-
+      <div class="grab" aria-hidden="true"></div>
       <div class="sheet-head">
-        <div class="sheet-swatch" id="sheetSwatch"></div>
-        <div class="sheet-titles">
+        <div class="bigsw" id="sheetSw"></div>
+        <div class="sheet-t">
           <p class="sheet-name" id="sheetName">—</p>
           <p class="sheet-hex" id="sheetHex">—</p>
         </div>
-        <button class="btn" id="closeBtn" type="button" aria-label="Fermer">Fermer</button>
+        <button class="btn" id="sheetClose" type="button">Fermer</button>
       </div>
-
       <div class="sheet-body">
-        <div class="stats" id="sheetStats">
-          <!-- ex: 12 objets · Créée 17 fév 2026 -->
-        </div>
-
+        <div class="sheet-info" id="sheetInfo">—</div>
         <div class="actions">
-          <button class="btn" id="copyHexBtn" type="button">Copier le HEX</button>
-          <button class="btn" id="compareBtn" type="button">Comparer</button>
-          <button class="btn btn-danger btn-full" id="deleteBtn" type="button">Supprimer</button>
+          <button class="btn" id="btnCopy" type="button">Copier HEX</button>
+          <button class="btn" id="btnFocus" type="button">Voir articles</button>
+          <button class="btn btn-danger full" id="btnDeleteColor" type="button">Supprimer</button>
         </div>
-        <p class="sr-only" id="a11yLive" aria-live="polite"></p>
       </div>
     </div>
   </aside>
 
-  <div class="toast" id="toast">Copié ✓</div>
+  <div class="toast" id="toast">OK</div>
 
   <script>
+    /***********************
+     * Storage helpers
+     ***********************/
+    const LS_KEY = "dressing_premium_v1";
+    const todayFR = () => {
+      const d = new Date();
+      return d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" }).replace(".", "");
+    };
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return seedState();
+        const st = JSON.parse(raw);
+        if(!st || !Array.isArray(st.items) || !Array.isArray(st.colors)) return seedState();
+        return st;
+      }catch{ return seedState(); }
+    }
+    function saveState(){
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    }
+
+    function seedState(){
+      // Seed premium minimal
+      return {
+        items: [],
+        colors: [
+          { id: uid(), hex:"#009AF8", name:"Azur", created: todayFR(), used: 0 },
+          { id: uid(), hex:"#008BEC", name:"Azur profond", created: todayFR(), used: 0 },
+          { id: uid(), hex:"#E0E5E8", name:"Perle", created: todayFR(), used: 0 },
+          { id: uid(), hex:"#AD8967", name:"Camel", created: todayFR(), used: 0 },
+        ]
+      };
+    }
+
+    function uid(){
+      return Math.random().toString(16).slice(2) + Date.now().toString(16);
+    }
+
+    /***********************
+     * Color math (pro naming)
+     * - RGB -> Lab (approx)
+     * - deltaE76 for similarity
+     * - family mapping using HSL
+     ***********************/
+    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
+    function hexToRgb(hex){
+      const h = hex.trim().replace("#","");
+      if(h.length !== 6) return null;
+      const r = parseInt(h.slice(0,2),16);
+      const g = parseInt(h.slice(2,4),16);
+      const b = parseInt(h.slice(4,6),16);
+      if([r,g,b].some(n => Number.isNaN(n))) return null;
+      return {r,g,b};
+    }
+    function rgbToHex({r,g,b}){
+      const to = n => n.toString(16).padStart(2,"0").toUpperCase();
+      return "#" + to(r) + to(g) + to(b);
+    }
+    function rgbToHsl({r,g,b}){
+      r/=255; g/=255; b/=255;
+      const max = Math.max(r,g,b), min = Math.min(r,g,b);
+      let h=0, s=0, l=(max+min)/2;
+      const d = max-min;
+      if(d !== 0){
+        s = d / (1 - Math.abs(2*l - 1));
+        switch(max){
+          case r: h = ((g-b)/d) % 6; break;
+          case g: h = (b-r)/d + 2; break;
+          case b: h = (r-g)/d + 4; break;
+        }
+        h = Math.round(h*60);
+        if(h<0) h+=360;
+      }
+      return {h, s, l};
+    }
+
+    // sRGB -> linear
+    function srgbToLin(c){
+      c/=255;
+      return (c <= 0.04045) ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+    }
+    // RGB -> XYZ (D65)
+    function rgbToXyz({r,g,b}){
+      const R = srgbToLin(r), G = srgbToLin(g), B = srgbToLin(b);
+      const x = R*0.4124 + G*0.3576 + B*0.1805;
+      const y = R*0.2126 + G*0.7152 + B*0.0722;
+      const z = R*0.0193 + G*0.1192 + B*0.9505;
+      return {x, y, z};
+    }
+    // XYZ -> Lab (D65)
+    function xyzToLab({x,y,z}){
+      // D65 reference white
+      const Xn=0.95047, Yn=1.00000, Zn=1.08883;
+      let fx = x/Xn, fy = y/Yn, fz = z/Zn;
+      const f = t => (t > 0.008856) ? Math.cbrt(t) : (7.787*t + 16/116);
+      fx = f(fx); fy = f(fy); fz = f(fz);
+      const L = 116*fy - 16;
+      const a = 500*(fx - fy);
+      const b = 200*(fy - fz);
+      return {L,a,b};
+    }
+    function rgbToLab(rgb){
+      return xyzToLab(rgbToXyz(rgb));
+    }
+    function deltaE76(l1,l2){
+      const dL = l1.L - l2.L;
+      const da = l1.a - l2.a;
+      const db = l1.b - l2.b;
+      return Math.sqrt(dL*dL + da*da + db*db);
+    }
+
+    function normalizeHex(s){
+      if(!s) return null;
+      let t = s.trim().toUpperCase();
+      if(!t.startsWith("#")) t = "#" + t;
+      if(/^#[0-9A-F]{6}$/.test(t)) return t;
+      return null;
+    }
+
+    // Family mapping (fashion-luxe vocabulary)
+    function familyFromHsl(hsl){
+      const {h,s,l} = hsl;
+
+      // Neutrals first
+      if(l >= 0.92 && s <= 0.10) return "Perle";
+      if(s <= 0.08 && l >= 0.65) return "Brume";
+      if(s <= 0.10 && l < 0.65 && l > 0.25) return "Ardoise";
+      if(s <= 0.10 && l <= 0.25) return "Noir";
+
+      // Color families
+      if(h >= 200 && h < 230) return "Azur";
+      if(h >= 230 && h < 255) return "Cobalt";
+      if(h >= 255 && h < 290) return "Violet";
+      if(h >= 290 && h < 330) return "Fuchsia";
+      if(h >= 330 || h < 15) return "Carmin";
+      if(h >= 15 && h < 45) return "Sable";
+      if(h >= 45 && h < 75) return "Ocre";
+      if(h >= 75 && h < 160) return "Olive";
+      if(h >= 160 && h < 200) return "Sarcelle";
+      return "Teinte";
+    }
+
+    function nuanceFromHsl(hsl){
+      const {s,l} = hsl;
+      // premium & simple
+      if(l >= 0.84) return "clair";
+      if(l <= 0.28) return "profond";
+      if(s >= 0.75 && l >= 0.40 && l <= 0.75) return "intense";
+      return ""; // keep one-word when possible
+    }
+
     /**
-     * Données exemple (remplace par tes vraies couleurs)
-     * Format premium: nom court + hex + stats
+     * Premium naming rule:
+     * - If this color is very close to an existing one (deltaE < 6),
+     *   keep the SAME family and just adjust nuance based on lightness/saturation.
+     * - Else determine family from HSL and add nuance only if needed.
      */
-    const COLORS = [
-      { id: "c1", name: "Azur",         hex: "#009AF8", items: 12, created: "17 fév 2026" },
-      { id: "c2", name: "Azur profond", hex: "#008BEC", items: 9,  created: "17 fév 2026" },
-      { id: "c3", name: "Perle",        hex: "#E0E5E8", items: 21, created: "16 fév 2026" },
-      { id: "c4", name: "Camel",        hex: "#AD8967", items: 7,  created: "14 fév 2026" },
-      { id: "c5", name: "Ardoise",      hex: "#2E3438", items: 4,  created: "12 fév 2026" },
-      { id: "c6", name: "Brume",        hex: "#D8D9D4", items: 15, created: "10 fév 2026" }
-    ];
+    function proposeName(hex){
+      const rgb = hexToRgb(hex);
+      if(!rgb) return "Couleur";
+      const lab = rgbToLab(rgb);
 
-    // --- UI refs
-    const grid = document.getElementById("grid");
-    const sheet = document.getElementById("sheet");
+      // Find closest existing
+      let best = null;
+      for(const c of state.colors){
+        const rgb2 = hexToRgb(c.hex);
+        if(!rgb2) continue;
+        const d = deltaE76(lab, rgbToLab(rgb2));
+        if(best === null || d < best.d) best = {d, c};
+      }
+
+      const hsl = rgbToHsl(rgb);
+      const baseFamily = familyFromHsl(hsl);
+      const nu = nuanceFromHsl(hsl);
+
+      // Similarity thresholds tuned for UI naming (not scientific)
+      if(best && best.d < 6){
+        // keep family of closest color (avoid "two similar colors, two different names")
+        const closestBase = baseNameOnly(best.c.name);
+        const n = nu ? (closestBase + " " + nu) : closestBase;
+        return uniqueName(n, hex);
+      }
+
+      // If not close: use computed family
+      const name = nu ? (baseFamily + " " + nu) : baseFamily;
+      return uniqueName(name, hex);
+    }
+
+    function baseNameOnly(name){
+      // returns first word (family) if "Azur profond"
+      const t = String(name||"").trim();
+      if(!t) return "Couleur";
+      return t.split(/\s+/)[0];
+    }
+
+    function uniqueName(name, hex){
+      // prevent exact duplicates for different hex by adding nuance fallback
+      const existingSame = state.colors.find(c => c.name.toLowerCase() === name.toLowerCase() && c.hex !== hex);
+      if(!existingSame) return capWords(name);
+
+      // if collision: try with nuance based on hex (stable, minimal)
+      const rgb = hexToRgb(hex);
+      const hsl = rgbToHsl(rgb);
+      const alt = nuanceFromHsl(hsl) || "variante";
+      let candidate = capWords(baseNameOnly(name) + " " + alt);
+
+      // last resort: add short suffix
+      if(state.colors.some(c => c.name.toLowerCase() === candidate.toLowerCase() && c.hex !== hex)){
+        candidate = capWords(baseNameOnly(name)) + " " + hex.slice(-2);
+      }
+      return candidate;
+    }
+
+    function capWords(s){
+      return String(s).split(" ").filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    }
+
+    /***********************
+     * State
+     ***********************/
+    let state = loadState();
+
+    /***********************
+     * UI refs
+     ***********************/
+    const topTitle = document.getElementById("topTitle");
+    const topSub = document.getElementById("topSub");
+
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    const views = {
+      dressing: document.getElementById("view-dressing"),
+      add: document.getElementById("view-add"),
+      colors: document.getElementById("view-colors"),
+    };
+
+    const itemsList = document.getElementById("itemsList");
+    const itemsCount = document.getElementById("itemsCount");
+    const colorsGrid = document.getElementById("colorsGrid");
+    const colorsCount = document.getElementById("colorsCount");
+
+    // Add view inputs
+    const inName = document.getElementById("inName");
+    const inPhoto = document.getElementById("inPhoto");
+    const pColor = document.getElementById("pColor");
+    const sColor = document.getElementById("sColor");
+    const aColor = document.getElementById("aColor");
+    const pHex = document.getElementById("pHex");
+    const sHex = document.getElementById("sHex");
+    const aHex = document.getElementById("aHex");
+    const btnAdd = document.getElementById("btnAdd");
+    const btnReset = document.getElementById("btnReset");
+
+    // Sheet
     const backdrop = document.getElementById("backdrop");
-    const closeBtn = document.getElementById("closeBtn");
-
-    const sheetSwatch = document.getElementById("sheetSwatch");
+    const sheet = document.getElementById("sheet");
+    const sheetClose = document.getElementById("sheetClose");
+    const sheetSw = document.getElementById("sheetSw");
     const sheetName = document.getElementById("sheetName");
     const sheetHex = document.getElementById("sheetHex");
-    const sheetStats = document.getElementById("sheetStats");
-
-    const copyHexBtn = document.getElementById("copyHexBtn");
-    const compareBtn = document.getElementById("compareBtn");
-    const deleteBtn = document.getElementById("deleteBtn");
+    const sheetInfo = document.getElementById("sheetInfo");
+    const btnCopy = document.getElementById("btnCopy");
+    const btnFocus = document.getElementById("btnFocus");
+    const btnDeleteColor = document.getElementById("btnDeleteColor");
 
     const toast = document.getElementById("toast");
-    const a11yLive = document.getElementById("a11yLive");
 
-    let current = null; // couleur sélectionnée
+    let sheetTarget = null; // {type:'color', id}
 
-    // --- Render grid
-    function renderGrid(){
-      grid.innerHTML = COLORS.map(c => `
-        <button class="card" type="button" data-id="${c.id}" aria-label="Ouvrir ${escapeHtml(c.name)}">
-          <div class="swatch" style="background:${c.hex}" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">${escapeHtml(c.name)}</div>
-            <div class="hex">${escapeHtml(c.hex)}</div>
+    /***********************
+     * Render
+     ***********************/
+    function render(){
+      // update used count
+      for(const c of state.colors) c.used = 0;
+      for(const it of state.items){
+        for(const k of ["p","s","a"]){
+          const cid = it.colors?.[k];
+          const c = state.colors.find(x => x.id === cid);
+          if(c) c.used++;
+        }
+      }
+
+      renderItems();
+      renderColors();
+      saveState();
+    }
+
+    function renderItems(){
+      itemsCount.textContent = `${state.items.length} article${state.items.length>1?"s":""}`;
+      if(state.items.length === 0){
+        itemsList.innerHTML = `<div class="note">Aucun article pour le moment. Va dans <b>Ajouter</b> pour créer ton premier article.</div>`;
+        return;
+      }
+      itemsList.innerHTML = state.items.map(it => {
+        const p = state.colors.find(c => c.id === it.colors.p);
+        const s = state.colors.find(c => c.id === it.colors.s);
+        const a = state.colors.find(c => c.id === it.colors.a);
+        return `
+          <div class="item">
+            <div class="thumb">${it.photo ? `<img alt="" src="${it.photo}"/>` : ""}</div>
+            <div class="item-main">
+              <p class="item-name">${escapeHtml(it.name)}</p>
+              <div class="item-meta">
+                <span>${escapeHtml(it.created)}</span>
+                <span class="pills">
+                  ${pill("P", p)}
+                  ${pill("S", s)}
+                  ${pill("A", a)}
+                </span>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-danger" type="button" data-del-item="${it.id}" aria-label="Supprimer ${escapeHtml(it.name)}">Suppr.</button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function pill(label, c){
+      if(!c) return `<span class="pill">${label} —</span>`;
+      return `
+        <span class="pill" title="${escapeHtml(c.name)}">
+          <span class="sw" style="background:${c.hex}"></span>
+          ${label} ${escapeHtml(baseNameOnly(c.name))}
+        </span>
+      `;
+    }
+
+    function renderColors(){
+      colorsCount.textContent = `${state.colors.length} couleur${state.colors.length>1?"s":""}`;
+      // Sort: most used first, then newest
+      const sorted = [...state.colors].sort((a,b) => (b.used - a.used));
+      colorsGrid.innerHTML = sorted.map(c => `
+        <button class="cbtn" type="button" data-color="${c.id}" aria-label="Ouvrir ${escapeHtml(c.name)}">
+          <div class="cswatch" style="background:${c.hex}"></div>
+          <div class="cmeta">
+            <p class="cname">${escapeHtml(c.name)}</p>
+            <p class="chex">${escapeHtml(c.hex)}</p>
           </div>
         </button>
       `).join("");
     }
 
-    // --- Open / close sheet
-    function openSheet(color){
-      current = color;
+    /***********************
+     * Navigation
+     ***********************/
+    function setView(name){
+      for(const k of Object.keys(views)){
+        views[k].classList.toggle("active", k===name);
+      }
+      for(const t of tabs){
+        t.classList.toggle("active", t.dataset.view === name);
+      }
+      if(name === "dressing"){
+        topTitle.textContent = "Dressing";
+        topSub.textContent = "Articles & palettes";
+      }else if(name === "add"){
+        topTitle.textContent = "Ajouter";
+        topSub.textContent = "Nouvel article";
+      }else{
+        topTitle.textContent = "Couleurs";
+        topSub.textContent = "Bibliothèque";
+      }
+    }
 
-      sheetSwatch.style.background = color.hex;
-      sheetName.textContent = color.name;
-      sheetHex.textContent = color.hex;
+    tabs.forEach(t => t.addEventListener("click", () => setView(t.dataset.view)));
 
-      sheetStats.textContent = `${color.items} objets · Créée ${color.created}`;
+    /***********************
+     * Sheet open/close
+     ***********************/
+    function openColorSheet(colorId){
+      const c = state.colors.find(x => x.id === colorId);
+      if(!c) return;
+      sheetTarget = {type:"color", id: colorId};
+
+      sheetSw.style.background = c.hex;
+      sheetName.textContent = c.name;
+      sheetHex.textContent = c.hex;
+      sheetInfo.textContent = `${c.used} utilisation${c.used>1?"s":""} · Créée ${c.created}`;
 
       backdrop.classList.add("open");
       sheet.classList.add("open");
-      sheet.setAttribute("aria-hidden", "false");
-      backdrop.setAttribute("aria-hidden", "false");
-
-      // focus pour accessibilité
-      closeBtn.focus({ preventScroll: true });
+      sheet.setAttribute("aria-hidden","false");
+      backdrop.setAttribute("aria-hidden","false");
+      sheetClose.focus({preventScroll:true});
     }
 
     function closeSheet(){
       sheet.classList.remove("open");
       backdrop.classList.remove("open");
-      sheet.setAttribute("aria-hidden", "true");
-      backdrop.setAttribute("aria-hidden", "true");
-      current = null;
+      sheet.setAttribute("aria-hidden","true");
+      backdrop.setAttribute("aria-hidden","true");
+      sheetTarget = null;
     }
 
-    // --- Helpers
+    backdrop.addEventListener("click", closeSheet);
+    sheetClose.addEventListener("click", closeSheet);
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && sheet.classList.contains("open")) closeSheet();
+    });
+
+    /***********************
+     * Toast
+     ***********************/
+    let toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>toast.classList.remove("show"), 1100);
+    }
+
+    /***********************
+     * Events
+     ***********************/
+    // Delete item
+    itemsList.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-del-item]");
+      if(!btn) return;
+      const id = btn.getAttribute("data-del-item");
+      state.items = state.items.filter(it => it.id !== id);
+      render();
+      showToast("Supprimé");
+    });
+
+    // Open color sheet
+    colorsGrid.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-color]");
+      if(!b) return;
+      openColorSheet(b.getAttribute("data-color"));
+    });
+
+    // Copy hex
+    btnCopy.addEventListener("click", async () => {
+      if(!sheetTarget || sheetTarget.type !== "color") return;
+      const c = state.colors.find(x => x.id === sheetTarget.id);
+      if(!c) return;
+      try{
+        await navigator.clipboard.writeText(c.hex);
+        showToast("HEX copié ✓");
+      }catch{
+        prompt("Copie le HEX :", c.hex);
+      }
+    });
+
+    // Focus items using this color
+    btnFocus.addEventListener("click", () => {
+      if(!sheetTarget || sheetTarget.type !== "color") return;
+      const cid = sheetTarget.id;
+      closeSheet();
+      setView("dressing");
+      // scroll to top; items are small anyway
+      window.scrollTo({top:0, behavior:"smooth"});
+      showToast("Articles");
+      // optional: highlight could be added in V2
+    });
+
+    // Delete color (only if not used)
+    btnDeleteColor.addEventListener("click", () => {
+      if(!sheetTarget || sheetTarget.type !== "color") return;
+      const c = state.colors.find(x => x.id === sheetTarget.id);
+      if(!c) return;
+
+      if(c.used > 0){
+        showToast("Couleur utilisée");
+        return;
+      }
+      state.colors = state.colors.filter(x => x.id !== c.id);
+      closeSheet();
+      render();
+      showToast("Couleur supprimée");
+    });
+
+    // Add view: sync color picker <-> hex input
+    function bindColorPair(picker, hexInput){
+      picker.addEventListener("input", () => { hexInput.value = picker.value.toUpperCase(); });
+      hexInput.addEventListener("input", () => {
+        const n = normalizeHex(hexInput.value);
+        if(n){ picker.value = n; hexInput.value = n; }
+      });
+      hexInput.addEventListener("blur", () => {
+        const n = normalizeHex(hexInput.value);
+        if(n){ picker.value = n; hexInput.value = n; }
+      });
+    }
+    bindColorPair(pColor, pHex);
+    bindColorPair(sColor, sHex);
+    bindColorPair(aColor, aHex);
+
+    // Auto buttons => normalize + propose naming (without adding yet)
+    document.querySelectorAll("[data-fill]").forEach(b => {
+      b.addEventListener("click", () => {
+        const key = b.getAttribute("data-fill");
+        const input = key==="p" ? pHex : key==="s" ? sHex : aHex;
+        const picker = key==="p" ? pColor : key==="s" ? sColor : aColor;
+        const n = normalizeHex(input.value) || picker.value.toUpperCase();
+        if(!n){ showToast("HEX invalide"); return; }
+        input.value = n;
+        picker.value = n;
+        const name = proposeName(n);
+        showToast(`Nom : ${name}`);
+      });
+    });
+
+    // Add item
+    btnAdd.addEventListener("click", async () => {
+      const name = (inName.value || "").trim();
+      if(!name){ showToast("Nom requis"); return; }
+
+      const hp = normalizeHex(pHex.value) || pColor.value.toUpperCase();
+      const hs = normalizeHex(sHex.value) || sColor.value.toUpperCase();
+      const ha = normalizeHex(aHex.value) || aColor.value.toUpperCase();
+      if(!hp || !hs || !ha){ showToast("HEX invalide"); return; }
+
+      // Ensure colors exist in library with premium naming (coherent on similarity)
+      const pId = ensureColor(hp);
+      const sId = ensureColor(hs);
+      const aId = ensureColor(ha);
+
+      const photo = await readPhotoAsDataUrl(inPhoto.files?.[0]);
+
+      state.items.unshift({
+        id: uid(),
+        name,
+        created: todayFR(),
+        photo: photo || "",
+        colors: { p: pId, s: sId, a: aId }
+      });
+
+      inName.value = "";
+      inPhoto.value = "";
+      showToast("Ajouté ✓");
+      render();
+      setView("dressing");
+    });
+
+    btnReset.addEventListener("click", () => {
+      if(!confirm("Réinitialiser l'app (données locales) ?")) return;
+      localStorage.removeItem(LS_KEY);
+      state = seedState();
+      render();
+      setView("dressing");
+      showToast("Reset ✓");
+    });
+
+    function ensureColor(hex){
+      // If already exists exact hex -> return existing
+      const ex = state.colors.find(c => c.hex === hex);
+      if(ex) return ex.id;
+
+      // Otherwise create with premium naming
+      const name = proposeName(hex);
+      const c = { id: uid(), hex, name, created: todayFR(), used: 0 };
+      state.colors.unshift(c);
+
+      // Optional: harmonize VERY similar colors names to same family
+      harmonizeNearColors(c);
+
+      return c.id;
+    }
+
+    function harmonizeNearColors(newColor){
+      // If extremely close (deltaE < 4), enforce same base + nuance for both directions
+      const rgbN = hexToRgb(newColor.hex);
+      if(!rgbN) return;
+      const labN = rgbToLab(rgbN);
+
+      for(const c of state.colors){
+        if(c.id === newColor.id) continue;
+        const rgb = hexToRgb(c.hex);
+        if(!rgb) continue;
+        const d = deltaE76(labN, rgbToLab(rgb));
+        if(d < 4){
+          const base = baseNameOnly(c.name);
+          // Rename new color to match base + nuance
+          const nu = nuanceFromHsl(rgbToHsl(rgbN));
+          const finalName = uniqueName(nu ? `${base} ${nu}` : base, newColor.hex);
+          newColor.name = finalName;
+          break;
+        }
+      }
+    }
+
+    async function readPhotoAsDataUrl(file){
+      if(!file) return "";
+      return new Promise((res) => {
+        const reader = new FileReader();
+        reader.onload = () => res(String(reader.result || ""));
+        reader.onerror = () => res("");
+        reader.readAsDataURL(file);
+      });
+    }
+
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, s => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
       }[s]));
     }
 
-    let toastTimer = null;
-    function showToast(msg="Copié ✓"){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      a11yLive.textContent = msg;
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 1100);
-    }
-
-    // --- Events
-    grid.addEventListener("click", (e) => {
-      const btn = e.target.closest(".card");
-      if(!btn) return;
-      const id = btn.getAttribute("data-id");
-      const color = COLORS.find(x => x.id === id);
-      if(color) openSheet(color);
-    });
-
-    backdrop.addEventListener("click", closeSheet);
-    closeBtn.addEventListener("click", closeSheet);
-
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && sheet.classList.contains("open")) closeSheet();
-    });
-
-    copyHexBtn.addEventListener("click", async () => {
-      if(!current) return;
-      try{
-        await navigator.clipboard.writeText(current.hex);
-        showToast("HEX copié ✓");
-      }catch(err){
-        // fallback simple
-        prompt("Copie le HEX :", current.hex);
-      }
-    });
-
-    compareBtn.addEventListener("click", () => {
-      if(!current) return;
-      // Placeholder V1 : tu brancheras ta logique de comparaison plus tard
-      showToast("Comparer (V2)");
-    });
-
-    deleteBtn.addEventListener("click", () => {
-      if(!current) return;
-      const idx = COLORS.findIndex(x => x.id === current.id);
-      if(idx >= 0){
-        COLORS.splice(idx, 1);
-        renderGrid();
-        closeSheet();
-        showToast("Supprimé");
-      }
-    });
-
     // Init
-    renderGrid();
+    render();
   </script>
 </body>
 </html>
