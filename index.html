@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#0b0711" />
   <title>ToneMatch AI</title>
@@ -438,8 +439,8 @@
       <span class="dot"></span>
       <div class="brand">ToneMatch <span class="muted">AI</span></div>
       <div class="spacer"></div>
-      <div class="seg" id="modeSeg" title="Mode dâusage">
-        <button type="button" data-mode="vetements" class="on">VÃªtements</button>
+      <div class="seg" id="modeSeg" title="Mode d&#8217;usage">
+        <button type="button" data-mode="vetements" class="on">V&#234;tements</button>
         <button type="button" data-mode="objets">Objets</button>
       </div>
     </div>
@@ -448,15 +449,15 @@
     <div class="card hero" id="home">
       <h1 class="title">Identifiez vos couleurs</h1>
       <p class="sub">
-        Prends une photo ou importe une image. DÃ©place la cible pour prÃ©lever.
+        Prends une photo ou importe une image. D&#233;place la cible pour pr&#233;lever.
         Verrouille A et B, puis sauvegarde dans <b>Mes couleurs</b>.
       </p>
 
       <div class="actions">
-        <button class="btn primary" id="btnPick">ð¸ <span>Prendre / importer une image</span></button>
-        <button class="btn" id="btnCompare">ð§© <span>Comparer</span></button>
-        <button class="btn" id="btnDressing">ð <span>Mon dressing</span></button>
-        <button class="btn" id="btnColors">ð¨ <span>Mes couleurs</span></button>
+        <button class="btn primary" id="btnPick"><span>Prendre / importer une image</span></button>
+        <button class="btn" id="btnCompare"><span>Comparer</span></button>
+        <button class="btn" id="btnDressing"><span>Mon dressing</span></button>
+        <button class="btn" id="btnColors"><span>Mes couleurs</span></button>
       </div>
     </div>
 
@@ -464,44 +465,44 @@
     <div class="stage" id="stage">
       <div class="card imgCard">
         <div class="imgWrap" id="imgWrap">
-          <img id="img" alt="Image sÃ©lectionnÃ©e" />
+          <img id="img" alt="Image s&#233;lectionn&#233;e" />
           <div class="crosshair" id="crosshair"></div>
         </div>
 
         <div class="row">
-          <button class="btn" id="btnChangeImg">ð¼ï¸ Changer dâimage</button>
-          <button class="btn" id="btnCompare2">ð§© Comparer</button>
-          <button class="btn" id="btnColors2">ð¨ Mes couleurs</button>
+          <button class="btn" id="btnChangeImg">Changer d&#8217;image</button>
+          <button class="btn" id="btnCompare2">Comparer</button>
+          <button class="btn" id="btnColors2">Mes couleurs</button>
         </div>
 
         <div class="swatchPanel" id="swatchPanel">
           <div class="swSplit">
             <div class="swRow swA" id="rowA">
-              <div class="tag"><span class="dotMini" id="dotA"></span> A <span class="muted" id="nameA">â</span></div>
-              <div class="hexSmall" id="hexA">â</div>
+              <div class="tag"><span class="dotMini" id="dotA"></span> A <span class="muted" id="nameA">&#8212;</span></div>
+              <div class="hexSmall" id="hexA">&#8212;</div>
             </div>
 
             <div class="swCenter" id="rowCenter">
-              <div class="centerHex" id="hexCenter">â</div>
+              <div class="centerHex" id="hexCenter">&#8212;</div>
             </div>
 
             <div class="swRow swB" id="rowB">
-              <div class="tag"><span class="dotMini" id="dotB"></span> B <span class="muted" id="nameB">â</span></div>
-              <div class="hexSmall" id="hexB">â</div>
+              <div class="tag"><span class="dotMini" id="dotB"></span> B <span class="muted" id="nameB">&#8212;</span></div>
+              <div class="hexSmall" id="hexB">&#8212;</div>
             </div>
           </div>
 
           <div class="barBtns">
-            <button class="btn" id="lockA">ð Verrouiller A</button>
-            <button class="btn" id="lockB">ð Verrouiller B</button>
-            <button class="btn primary" id="saveColors">ð¾ Sauvegarder dans Mes couleurs</button>
+            <button class="btn" id="lockA">Verrouiller A</button>
+            <button class="btn" id="lockB">Verrouiller B</button>
+            <button class="btn primary" id="saveColors">Sauvegarder dans Mes couleurs</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FILE INPUTS (picker gÃ©nÃ©ral) -->
+  <!-- FILE INPUTS (picker g&#233;n&#233;ral) -->
   <input id="inCamera" type="file" accept="image/*" capture="environment" class="hide" />
   <input id="inPhotos" type="file" accept="image/*" class="hide" />
   <input id="inFiles" type="file" accept="image/*" class="hide" />
@@ -516,16 +517,16 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Choisir une source</h3>
-        <button class="x" type="button" data-close="bdPick">Ã</button>
+        <button class="x" type="button" data-close="bdPick">&#215;</button>
       </div>
       <div class="modalBody">
         <div class="sheetBtns">
-          <button class="btn primary" type="button" id="pickCamera">ð¸ CamÃ©ra</button>
-          <button class="btn" type="button" id="pickPhotos">ð¼ï¸ Photos / Galerie</button>
-          <button class="btn" type="button" id="pickFiles">ð Fichiers</button>
+          <button class="btn primary" type="button" id="pickCamera">&#128248; Cam&#233;ra</button>
+          <button class="btn" type="button" id="pickPhotos">Photos / Galerie</button>
+          <button class="btn" type="button" id="pickFiles">&#128193; Fichiers</button>
         </div>
         <p class="small muted" style="margin:12px 2px 0">
-          Astuce iPhone : âPhotos / Galerieâ ouvre ton album, âFichiersâ ouvre iCloud/Drive.
+          Astuce iPhone : &#8220;Photos / Galerie&#8221; ouvre ton album, &#8220;Fichiers&#8221; ouvre iCloud/Drive.
         </p>
       </div>
     </div>
@@ -536,21 +537,21 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Mes couleurs</h3>
-        <button class="x" type="button" data-close="bdColors">Ã</button>
+        <button class="x" type="button" data-close="bdColors">&#215;</button>
       </div>
       <div class="modalBody">
         <p class="small muted" style="margin-top:0" id="colorsHint">
-          Historique sans doublons. Tu peux sÃ©lectionner des couleurs et lancer le comparatif.
+          Historique sans doublons. Tu peux s&#233;lectionner des couleurs et lancer le comparatif.
         </p>
         <div class="list" id="colorsList"></div>
 
         <div class="stickyBar hide" id="colorsSticky">
-          <button class="btn" id="btnColorsCompareNow" disabled>ð§© Comparer maintenant (0)</button>
-          <button class="btn danger" id="btnColorsClearSel">ð§¼ Effacer sÃ©lection</button>
+          <button class="btn" id="btnColorsCompareNow" disabled>Comparer maintenant (0)</button>
+          <button class="btn danger" id="btnColorsClearSel">Effacer s&#233;lection</button>
         </div>
 
         <div style="margin-top:12px">
-          <button class="btn danger" id="resetAll">ðï¸ Tout supprimer</button>
+          <button class="btn danger" id="resetAll">Tout supprimer</button>
         </div>
       </div>
     </div>
@@ -561,13 +562,13 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Comparer</h3>
-        <button class="x" type="button" data-close="bdCompare">Ã</button>
+        <button class="x" type="button" data-close="bdCompare">&#215;</button>
       </div>
       <div class="modalBody">
         <div class="compareTop">
           <p class="small muted" style="margin:0">
-            SÃ©lectionne jusquâÃ  <b>4 couleurs</b>. Score basÃ© sur <b>DeltaE</b> (perception visuelle).
-            <br><b>95%+</b> = MATCH â¢ <b>100%</b> = MATCH PARFAIT
+            S&#233;lectionne jusqu&#8217;&#224; <b>4 couleurs</b>. Score bas&#233; sur <b>DeltaE</b> (perception visuelle).
+            <br><b>95%+</b> = MATCH &#8226; <b>100%</b> = MATCH PARFAIT
           </p>
           <div class="selRow" id="selRow"></div>
         </div>
@@ -575,8 +576,8 @@
         <div class="pairs" id="pairs"></div>
 
         <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="btnPickFromHistory">ð¨ Choisir dans Mes couleurs</button>
-          <button class="btn danger" id="btnClearSelection">ð§¼ RÃ©initialiser sÃ©lection</button>
+          <button class="btn" id="btnPickFromHistory">Choisir dans Mes couleurs</button>
+          <button class="btn danger" id="btnClearSelection">R&#233;initialiser s&#233;lection</button>
         </div>
       </div>
     </div>
@@ -587,15 +588,15 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Mon dressing</h3>
-        <button class="x" type="button" data-close="bdDressing">Ã</button>
+        <button class="x" type="button" data-close="bdDressing">&#215;</button>
       </div>
       <div class="modalBody">
         <p class="small muted" style="margin-top:0">
-          JusquâÃ  <b>30</b> photos. Ouvre un item pour dÃ©finir <b>4 couleurs</b> (1/2/3/4) avec la pipette.
+          Jusqu&#8217;&#224; <b>30</b> photos. Ouvre un item pour d&#233;finir <b>4 couleurs</b> (1/2/3/4) avec la pipette.
         </p>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn primary" id="btnDressAdd">â Ajouter une photo</button>
+          <button class="btn primary" id="btnDressAdd">Ajouter une photo</button>
         </div>
 
         <div class="grid" id="dressGrid"></div>
@@ -608,16 +609,16 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Ajouter au dressing</h3>
-        <button class="x" type="button" data-close="bdDressPick">Ã</button>
+        <button class="x" type="button" data-close="bdDressPick">&#215;</button>
       </div>
       <div class="modalBody">
         <div class="sheetBtns">
-          <button class="btn primary" type="button" id="dressPickCamera">ð¸ CamÃ©ra</button>
-          <button class="btn" type="button" id="dressPickPhotos">ð¼ï¸ Photos / Galerie</button>
-          <button class="btn" type="button" id="dressPickFiles">ð Fichiers</button>
+          <button class="btn primary" type="button" id="dressPickCamera">&#128248; Cam&#233;ra</button>
+          <button class="btn" type="button" id="dressPickPhotos">Photos / Galerie</button>
+          <button class="btn" type="button" id="dressPickFiles">&#128193; Fichiers</button>
         </div>
         <p class="small muted" style="margin:12px 2px 0">
-          Les images sont optimisÃ©es (miniature + version nette) pour rester fluide.
+          Les images sont optimis&#233;es (miniature + version nette) pour rester fluide.
         </p>
       </div>
     </div>
@@ -627,8 +628,8 @@
   <div class="backdrop" id="bdDressDetail">
     <div class="modal">
       <div class="modalHead">
-        <h3 id="dressDetailTitle">DÃ©tail</h3>
-        <button class="x" type="button" data-close="bdDressDetail">Ã</button>
+        <h3 id="dressDetailTitle">D&#233;tail</h3>
+        <button class="x" type="button" data-close="bdDressDetail">&#215;</button>
       </div>
       <div class="modalBody">
         <div class="imgWrap" id="dressImgWrap" style="aspect-ratio: 4/3;">
@@ -637,21 +638,21 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <button class="btn" id="btnDressRename">âï¸ Renommer</button>
-          <button class="btn danger" id="btnDressDelete">ðï¸ Supprimer</button>
+          <button class="btn" id="btnDressRename">Renommer</button>
+          <button class="btn danger" id="btnDressDelete">Supprimer</button>
         </div>
 
         <div class="slots" id="dressSlots"></div>
 
         <div class="stickyBar">
-          <button class="btn" id="btnDressToCompare" disabled>ð§© Ajouter au comparateur (0)</button>
-          <button class="btn primary" id="btnDressSaveColors">ð¾ Sauvegarder couleurs</button>
+          <button class="btn" id="btnDressToCompare" disabled>Ajouter au comparateur (0)</button>
+          <button class="btn primary" id="btnDressSaveColors">Sauvegarder couleurs</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">â</div>
+  <div class="toast" id="toast">&#9989;</div>
   <canvas id="cv" class="hide"></canvas>
 
   <script>
@@ -665,7 +666,7 @@
       imgEl: $("img"),
       imgReady: false,
       pos: { x: 0.5, y: 0.5 },
-      sample: { r:0,g:0,b:0, hex:"#000000", name:"â" },
+      sample: { r:0,g:0,b:0, hex:"#000000", name:"\u2014" },
       A: { locked:false, hex:null, name:null, rgb:null },
       B: { locked:false, hex:null, name:null, rgb:null },
       cache: { ready:false, scale:1, w:0, h:0 },
@@ -679,7 +680,7 @@
         imgReady: false,
         pos: { x:0.5, y:0.5 },
         cache: { ready:false, scale:1, w:0, h:0 },
-        sample: { r:0,g:0,b:0, hex:"#000000", name:"â" },
+        sample: { r:0,g:0,b:0, hex:"#000000", name:"\u2014" },
         slots: [null,null,null,null], // each {hex,name,rgb}
         pickingSlot: null,
       }
@@ -707,29 +708,25 @@
     };
     const saveSaved = (arr)=> localStorage.setItem(LS_KEY, JSON.stringify(arr));
 
-    function ensureUniqueName(name){
-      // Ensures: no 2 different hex share exact same displayed name
-      // Suffix style: "Orange vif Â· B" / "Orange vif Â· C" ...
+    function ensureUniqueName(baseName, hex){
+      // Objectif: pas de doublons de NOM pour des HEX differents.
+      // Si un nom existe deja, on ajoute un suffixe premium (I, II, III...).
       const saved = loadSaved();
-      const existingNames = saved.map(x=>x.name);
-      if(!existingNames.includes(name)) return name;
+      const sameBase = saved.filter(x => (x.baseName || x.name) === baseName && x.hex !== hex);
+      if(sameBase.length === 0) return baseName;
 
-      const alpha = "BCDEFGHIJKLMNPQRSTUVWXYZ"; // skip A, avoid confusion
-      for(let i=0;i<alpha.length;i++){
-        const candidate = `${name} Â· ${alpha[i]}`;
-        if(!existingNames.includes(candidate)) return candidate;
-      }
-      // fallback numeric
-      let n=2;
-      while(existingNames.includes(`${name} Â· ${n}`)) n++;
-      return `${name} Â· ${n}`;
+      const romans = ["I","II","III","IV","V","VI","VII","VIII","IX","X"];
+      const n = sameBase.length + 1;
+      const suf = romans[n-1] || String(n);
+      return `${baseName} ${suf}`;
     }
 
-    function addColorIfNew(hex, name, rgb){
+    function addColorIfNew(hex, baseName, rgb){
       const saved = loadSaved();
       if(saved.some(x=>x.hex===hex)) return false;
-      const safeName = ensureUniqueName(name);
-      saved.unshift({ hex, name: safeName, rgb, mode: state.mode, ts: Date.now() });
+
+      const name = ensureUniqueName(baseName, hex);
+      saved.unshift({ hex, name, baseName, rgb, mode: state.mode, ts: Date.now() });
       saveSaved(saved.slice(0, MAX_HISTORY));
       return true;
     }
@@ -787,11 +784,11 @@
       const tags = [];
       if(l >= 0.82) tags.push("clair");
       else if(l <= 0.22) tags.push("profond");
-      else if(l <= 0.34) tags.push("foncÃ©");
+      else if(l <= 0.34) tags.push("fonc\u00E9");
 
       if(s >= 0.72) tags.push("vif");
-      else if(s <= 0.18) tags.push("cendrÃ©");
-      else if(s <= 0.32 && l > 0.55) tags.push("poudrÃ©");
+      else if(s <= 0.18) tags.push("cendr\u00E9");
+      else if(s <= 0.32 && l > 0.55) tags.push("poudr\u00E9");
 
       // Warm/cool hint (gentle)
       const warm = inRange(h, 330, 70);
@@ -812,12 +809,12 @@
       // Neutrals (no funny names)
       if(s < 0.10){
         if(l > 0.93) return "Blanc neige";
-        if(l > 0.86) return "Blanc cassÃ©";
+        if(l > 0.86) return "Blanc cass\u00E9";
         if(l > 0.78) return "Ivoire";
-        if(l > 0.70) return "Ãcru";
+        if(l > 0.70) return "\u00C9cru";
         if(l > 0.60) return "Gris clair";
         if(l > 0.48) return "Gris perle";
-        if(l > 0.36) return "Gris fumÃ©";
+        if(l > 0.36) return "Gris fum\u00E9";
         if(l > 0.26) return "Anthracite";
         return "Ardoise";
       }
@@ -832,7 +829,7 @@
       if(looksGold) return "Or";
       if(isBrown){
         if(l < 0.22) return "Cacao";
-        if(l < 0.30) return "ChÃ¢taigne";
+        if(l < 0.30) return "Ch\u00E2taigne";
         if(l < 0.38) return "Noisette";
         if(l < 0.48) return "Caramel";
         return "Camel";
@@ -842,7 +839,7 @@
       if(inRange(h, 345, 15)) return l < 0.35 ? "Bordeaux" : "Rouge";
       if(inRange(h, 15, 40))  return l < 0.42 ? "Terracotta" : "Orange";
       if(inRange(h, 40, 70))  return l < 0.45 ? "Miel" : "Jaune";
-      if(inRange(h, 70, 165)) return l < 0.38 ? "Vert sapin" : (l > 0.78 ? "Vert dâeau" : "Vert");
+      if(inRange(h, 70, 165)) return l < 0.38 ? "Vert sapin" : (l > 0.78 ? "Vert d\u2019eau" : "Vert");
       if(inRange(h, 165, 255)) return l < 0.32 ? "Bleu nuit" : (l > 0.78 ? "Bleu ciel" : "Bleu");
       if(inRange(h, 255, 345)) return l < 0.40 ? "Prune" : "Violet";
 
@@ -855,9 +852,9 @@
       const suf = suffixFR(h,s,l);
 
       // Keep specific bases clean
-      const specific = ["Noir absolu","Noir profond","Blanc neige","Blanc cassÃ©","Ivoire","Ãcru","Or","Bordeaux","Bleu nuit","Vert dâeau","Bleu ciel","Cacao","ChÃ¢taigne"].includes(base);
+      const specific = ["Noir absolu","Noir profond","Blanc neige","Blanc cass\u00E9","Ivoire","\u00C9cru","Or","Bordeaux","Bleu nuit","Vert d\u2019eau","Bleu ciel","Cacao","Ch\u00E2taigne"].includes(base);
       if(specific){
-        const ok = suf.filter(x=>x==="clair"||x==="foncÃ©"||x==="profond").slice(0,1);
+        const ok = suf.filter(x=>x==="clair"||x==="fonc\u00E9"||x==="profond").slice(0,1);
         return ok.length ? `${base} ${ok[0]}` : base;
       }
       return suf.length ? `${base} ${suf.join(" ")}` : base;
@@ -907,22 +904,20 @@
     // dE 20 => 50
     function similarityPercent(rgb1, rgb2){
       const dE = deltaE76(rgbToLab(rgb1.r,rgb1.g,rgb1.b), rgbToLab(rgb2.r,rgb2.g,rgb2.b));
-      let p;
-      if(dE <= 2) p = 100 - (dE * 2.5);               // 0..2 => 100..95
-      else if(dE <= 10) p = 95 - ((dE-2) * (20/8));   // 2..10 => 95..75
-      else if(dE <= 20) p = 75 - ((dE-10) * 2.5);     // 10..20 => 75..50
-      else if(dE <= 40) p = 50 - ((dE-20) * 1.25);    // 20..40 => 50..25
-      else p = 0;
-
-      p = Math.max(0, Math.min(100, p));
-      return Math.round(p);
+      // Mapping premium & lisible :
+      //  - 100% = identique
+      //  - 95%+ = Match (DeltaE <= 5)
+      //  - Pour le shopping: on reste simple et intuitif => Similarite = 100 - DeltaE (clamp)
+      const p = 100 - dE;
+      return Math.max(0, Math.min(100, Math.round(p)));
     }
     function labelForPercent(p){
       if(p === 100) return "MATCH PARFAIT";
       if(p >= 95) return "MATCH";
-      if(p >= 85) return "TrÃ¨s proche";
-      if(p >= 70) return "Proche";
-      return "ÃloignÃ©";
+      if(p >= 90) return "Tres proche";
+      if(p >= 80) return "Proche";
+      if(p >= 65) return "Assez proche";
+      return "Contraste";
     }
 
     // ===========================================================
@@ -1031,15 +1026,15 @@
     function renderStageSwatches(){
       $("hexCenter").textContent = state.sample.hex;
 
-      $("hexA").textContent = state.A.hex ? `${state.A.hex} â¢ RGB(${state.A.rgb.r},${state.A.rgb.g},${state.A.rgb.b})` : "â";
-      $("nameA").textContent = state.A.name || "â";
+      $("hexA").textContent = state.A.hex ? `${state.A.hex} \u2022 RGB(${state.A.rgb.r},${state.A.rgb.g},${state.A.rgb.b})` : "\u2014";
+      $("nameA").textContent = state.A.name || "\u2014";
       $("rowA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.04)";
       $("dotA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.15)";
 
       $("rowCenter").style.background = state.sample.hex;
 
-      $("hexB").textContent = state.B.hex ? `${state.B.hex} â¢ RGB(${state.B.rgb.r},${state.B.rgb.g},${state.B.rgb.b})` : "â";
-      $("nameB").textContent = state.B.name || "â";
+      $("hexB").textContent = state.B.hex ? `${state.B.hex} \u2022 RGB(${state.B.rgb.r},${state.B.rgb.g},${state.B.rgb.b})` : "\u2014";
+      $("nameB").textContent = state.B.name || "\u2014";
       $("rowB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.04)";
       $("dotB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.15)";
 
@@ -1091,8 +1086,8 @@
       const a = $("lockA"), b = $("lockB");
       a.classList.toggle("locked", state.A.locked);
       b.classList.toggle("locked", state.B.locked);
-      a.textContent = state.A.locked ? "ð DÃ©verrouiller A" : "ð Verrouiller A";
-      b.textContent = state.B.locked ? "ð DÃ©verrouiller B" : "ð Verrouiller B";
+      a.textContent = state.A.locked ? " D\u00E9verrouiller A" : " Verrouiller A";
+      b.textContent = state.B.locked ? " D\u00E9verrouiller B" : " Verrouiller B";
     }
     $("lockA").onclick = ()=>{
       state.A.locked = !state.A.locked;
@@ -1125,9 +1120,9 @@
 
       if(aHex === bHex){
         if(addColorIfNew(aHex, state.A.name, state.A.rgb)){
-          showToast("â Couleur ajoutÃ©e Ã  lâhistorique");
+          showToast("\u2705 Couleur ajout\u00E9e \u00E0 l\u2019historique");
         } else {
-          showToast("Couleur dÃ©jÃ  prÃ©sente dans lâhistorique");
+          showToast("Couleur d\u00E9j\u00E0 pr\u00E9sente dans l\u2019historique");
         }
         return;
       }
@@ -1136,16 +1131,16 @@
       const bNew = addColorIfNew(bHex, state.B.name, state.B.rgb);
 
       if(!aNew && !bNew){
-        showToast("Couleurs dÃ©jÃ  prÃ©sentes dans lâhistorique");
+        showToast("Couleurs d\u00E9j\u00E0 pr\u00E9sentes dans l\u2019historique");
       } else if(aNew && bNew){
-        showToast("â Couleurs ajoutÃ©es Ã  lâhistorique");
+        showToast("\u2705 Couleurs ajout\u00E9es \u00E0 l\u2019historique");
       } else {
-        showToast("Couleur dÃ©jÃ  prÃ©sente dans lâhistorique");
+        showToast("Couleur d\u00E9j\u00E0 pr\u00E9sente dans l\u2019historique");
       }
     };
 
     // ===========================================================
-    // Mes couleurs + sÃ©lection + bouton comparer maintenant
+    // Mes couleurs + s\u00E9lection + bouton comparer maintenant
     // ===========================================================
     function openColors(selectMode=false){
       renderColorsList(selectMode);
@@ -1159,7 +1154,7 @@
     function updateColorsSticky(){
       const n = state.compare.selectedHex.length;
       const btn = $("btnColorsCompareNow");
-      btn.textContent = `ð§© Comparer maintenant (${n})`;
+      btn.textContent = ` Comparer maintenant (${n})`;
       btn.disabled = n < 2;
     }
 
@@ -1170,7 +1165,7 @@
         sel.splice(idx,1);
       } else {
         if(sel.length >= 4){
-          showToast("SÃ©lection max : 4 couleurs");
+          showToast("S\u00E9lection max : 4 couleurs");
           return;
         }
         sel.push(hex);
@@ -1184,7 +1179,7 @@
       list.innerHTML = "";
 
       if(saved.length===0){
-        list.innerHTML = `<div class="muted small">Aucune couleur sauvegardÃ©e pour le moment.</div>`;
+        list.innerHTML = `<div class="muted small">Aucune couleur sauvegard\u00E9e pour le moment.</div>`;
         return;
       }
 
@@ -1205,12 +1200,12 @@
 
         const sub = document.createElement("p");
         sub.className = "itemSub";
-        sub.textContent = it.mode === "objets" ? "Objets" : "VÃªtements";
+        sub.textContent = it.mode === "objets" ? "Objets" : "V\u00EAtements";
 
         const meta = document.createElement("div");
         meta.className = "itemMeta";
         const d = new Date(it.ts);
-        meta.textContent = `${it.hex} â¢ RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""}) â¢ ${d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" })}`;
+        meta.textContent = `${it.hex} \u2022 RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""}) \u2022 ${d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" })}`;
 
         main.appendChild(t); main.appendChild(sub); main.appendChild(meta);
 
@@ -1237,7 +1232,7 @@
         if(selectMode){
           const pill = document.createElement("div");
           pill.className = "selectPill";
-          pill.innerHTML = `<span class="check"></span><span>SÃ©lectionner</span>`;
+          pill.innerHTML = `<span class="check"></span><span>S\u00E9lectionner</span>`;
           const check = pill.querySelector(".check");
 
           const isOn = state.compare.selectedHex.includes(it.hex);
@@ -1270,7 +1265,7 @@
     };
 
     $("resetAll").onclick = ()=>{
-      if(confirm("Supprimer toutes les couleurs sauvegardÃ©es ?")){
+      if(confirm("Supprimer toutes les couleurs sauvegard\u00E9es ?")){
         saveSaved([]);
         state.compare.selectedHex = [];
         renderColorsList(false);
@@ -1306,8 +1301,8 @@
       const sel = state.compare.selectedHex;
 
       if(sel.length === 0){
-        selRow.innerHTML = `<div class="muted small">Aucune couleur sÃ©lectionnÃ©e. Clique sur âChoisir dans Mes couleursâ.</div>`;
-        pairs.innerHTML = `<div class="muted small">SÃ©lectionne au moins 2 couleurs pour comparer.</div>`;
+        selRow.innerHTML = `<div class="muted small">Aucune couleur s\u00E9lectionn\u00E9e. Clique sur \u201CChoisir dans Mes couleurs\u201D.</div>`;
+        pairs.innerHTML = `<div class="muted small">S\u00E9lectionne au moins 2 couleurs pour comparer.</div>`;
         return;
       }
 
@@ -1320,7 +1315,7 @@
           <div class="chipSw" style="background:${it.hex}"></div>
           <div class="chipTxt">
             <div class="chipName">${it.name}</div>
-            <div class="chipCode">${it.hex} â¢ RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""})</div>
+            <div class="chipCode">${it.hex} \u2022 RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""})</div>
           </div>
         `;
         chip.onclick = ()=>{
@@ -1332,7 +1327,7 @@
       });
 
       if(entries.length < 2){
-        pairs.innerHTML = `<div class="muted small">SÃ©lectionne au moins 2 couleurs pour comparer.</div>`;
+        pairs.innerHTML = `<div class="muted small">S\u00E9lectionne au moins 2 couleurs pour comparer.</div>`;
         return;
       }
 
@@ -1355,10 +1350,10 @@
             <div class="miniSw" style="background:${r.b.hex}"></div>
             <div>
               <div class="pairNames">${r.a.name} <span class="pairSmall">vs</span> ${r.b.name}</div>
-              <div class="pairSmall">${r.a.hex} â¢ ${r.b.hex}</div>
+              <div class="pairSmall">${r.a.hex} \u2022 ${r.b.hex}</div>
             </div>
           </div>
-          <div class="badge"><b>${r.p}%</b> â¢ ${r.label}</div>
+          <div class="badge"><b>${r.p}%</b> \u2022 Similarite \u2022 ${r.label}</div>
         `;
         pairs.appendChild(el);
       });
@@ -1492,7 +1487,7 @@
         return;
       }
 
-      showToast("Optimisation de lâimageâ¦");
+      showToast("Optimisation de l\u2019image\u2026");
       const {fullBlob, thumbBlob} = await fileToBlobs(file);
 
       const createdAt = Date.now();
@@ -1500,7 +1495,7 @@
       const item = { name, createdAt, fullBlob, thumbBlob, colors: [] };
 
       const id = await idbAdd(item);
-      showToast("â AjoutÃ© au dressing");
+      showToast("\u2705 Ajout\u00E9 au dressing");
       await renderDressingGrid();
       await openDressingDetail(id);
     }
@@ -1515,7 +1510,7 @@
       grid.innerHTML = "";
 
       if(items.length === 0){
-        grid.innerHTML = `<div class="muted small">Aucun item pour le moment. Clique sur âAjouter une photoâ.</div>`;
+        grid.innerHTML = `<div class="muted small">Aucun item pour le moment. Clique sur \u201CAjouter une photo\u201D.</div>`;
         return;
       }
 
@@ -1555,12 +1550,12 @@
         const del = document.createElement("button");
         del.className = "iconBtn danger";
         del.type = "button";
-        del.textContent = "ðï¸";
+        del.textContent = "";
         del.onclick = async (ev)=>{
           ev.stopPropagation();
           if(confirm("Supprimer cet item du dressing ?")){
             await idbDelete(it.id);
-            showToast("SupprimÃ©");
+            showToast("Supprim\u00E9");
             await renderDressingGrid();
           }
         };
@@ -1587,7 +1582,7 @@
       const cols = (item.colors || []).slice(0,4);
       state.dress.slots = [cols[0]||null, cols[1]||null, cols[2]||null, cols[3]||null];
 
-      $("dressDetailTitle").textContent = item.name || "DÃ©tail";
+      $("dressDetailTitle").textContent = item.name || "D\u00E9tail";
 
       const url = URL.createObjectURL(item.fullBlob);
       const imgEl = $("dressImg");
@@ -1605,7 +1600,7 @@
       };
 
       $("btnDressRename").onclick = async ()=>{
-        const newName = prompt("Nom de lâitem :", item.name || "");
+        const newName = prompt("Nom de l\u2019item :", item.name || "");
         if(newName === null) return;
         item.name = newName.trim() || "Sans nom";
         await idbPut(item);
@@ -1617,18 +1612,13 @@
         if(confirm("Supprimer cet item du dressing ?")){
           await idbDelete(id);
           closeBD("bdDressDetail");
-          showToast("SupprimÃ©");
+          showToast("Supprim\u00E9");
           await renderDressingGrid();
         }
       };
 
       $("btnDressSaveColors").onclick = async ()=>{
-        const fresh = await idbGet(id);
-        if(!fresh) return;
-        fresh.colors = state.dress.slots.filter(Boolean).slice(0,4);
-        await idbPut(fresh);
-        showToast("â Couleurs sauvegardÃ©es");
-        await renderDressingGrid();
+        await persistDressColors(false);
         renderDressSlotsUI();
       };
 
@@ -1646,7 +1636,7 @@
           }
         }
 
-        showToast(addedAny ? "â AjoutÃ© Ã  Mes couleurs + Comparer" : "AjoutÃ© au comparateur");
+        showToast(addedAny ? "\u2705 Ajout\u00E9 \u00E0 Mes couleurs + Comparer" : "Ajout\u00E9 au comparateur");
         closeBD("bdDressDetail");
         openCompare();
       };
@@ -1750,7 +1740,19 @@
       }, {passive:true});
     }
 
-    function renderDressSlotsUI(){
+    
+    async function persistDressColors(silent=true){
+      const id = state.dress.currentId;
+      if(!id) return;
+      const item = await idbGet(id);
+      if(!item) return;
+      item.colors = state.dress.slots.filter(Boolean).slice(0,4);
+      await idbPut(item);
+      await renderDressingGrid();
+      if(!silent) showToast("Couleurs sauvegardees");
+    }
+
+function renderDressSlotsUI(){
       const slots = $("dressSlots");
       slots.innerHTML = "";
 
@@ -1776,11 +1778,11 @@
 
         const nm = document.createElement("div");
         nm.className = "slotName";
-        nm.textContent = val?.name ? `${idx+1}. ${val.name}` : `${idx+1}. (non dÃ©fini)`;
+        nm.textContent = val?.name ? `${idx+1}. ${val.name}` : `${idx+1}. (non d\u00E9fini)`;
 
         const cd = document.createElement("div");
         cd.className = "slotCode";
-        cd.textContent = val?.hex ? `${val.hex} â¢ RGB(${val.rgb.r},${val.rgb.g},${val.rgb.b})` : "â";
+        cd.textContent = val?.hex ? `${val.hex} \u2022 RGB(${val.rgb.r},${val.rgb.g},${val.rgb.b})` : "\u2014";
 
         txt.appendChild(nm);
         txt.appendChild(cd);
@@ -1794,20 +1796,22 @@
         const setBtn = document.createElement("button");
         setBtn.className = "btn";
         setBtn.type = "button";
-        setBtn.textContent = `ð¯ DÃ©finir ${idx+1} avec la pipette`;
-        setBtn.onclick = ()=>{
+        setBtn.textContent = ` D\u00E9finir ${idx+1} avec la pipette`;
+        setBtn.onclick = async ()=>{
           state.dress.slots[idx] = { ...current };
           renderDressSlotsUI();
-          showToast(`Couleur ${idx+1} dÃ©finie`);
+          await persistDressColors(true);
+          showToast(`Couleur ${idx+1} definie`);
         };
 
         const clearBtn = document.createElement("button");
         clearBtn.className = "btn danger";
         clearBtn.type = "button";
-        clearBtn.textContent = `ð§¼ Effacer ${idx+1}`;
-        clearBtn.onclick = ()=>{
+        clearBtn.textContent = ` Effacer ${idx+1}`;
+        clearBtn.onclick = async ()=>{
           state.dress.slots[idx] = null;
           renderDressSlotsUI();
+          await persistDressColors(true);
         };
 
         btns.appendChild(setBtn);
@@ -1821,7 +1825,7 @@
 
       const count = state.dress.slots.filter(Boolean).length;
       const btnToCompare = $("btnDressToCompare");
-      btnToCompare.textContent = `ð§© Ajouter au comparateur (${count})`;
+      btnToCompare.textContent = ` Ajouter au comparateur (${count})`;
       btnToCompare.disabled = count === 0;
     }
 
