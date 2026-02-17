@@ -7,281 +7,213 @@
 
   <style>
     :root{
-      /* Premium warm off-white */
-      --bg: #F7F6F3;
-      --text: #111111;
-      --muted: rgba(17,17,17,.62);
-      --hair: rgba(17,17,17,.10);
+      --bg:#F7F6F3;
+      --text:#111;
+      --muted:rgba(17,17,17,.62);
+      --hair:rgba(17,17,17,.10);
 
-      /* Surfaces */
-      --card: rgba(255,255,255,.55);
-      --card2: rgba(255,255,255,.42);
+      --card:rgba(255,255,255,.55);
+      --card2:rgba(255,255,255,.42);
 
-      /* Radius */
-      --r12: 12px;
-      --r16: 16px;
-      --r20: 20px;
-      --r26: 26px;
+      --r12:12px; --r16:16px; --r20:20px; --r26:26px;
 
-      /* Shadows */
-      --shadow1: 0 6px 18px rgba(0,0,0,.08);
-      --shadow2: 0 18px 70px rgba(0,0,0,.18);
+      --shadow1:0 6px 18px rgba(0,0,0,.08);
+      --shadow2:0 18px 70px rgba(0,0,0,.18);
 
-      /* Glass */
-      --glass: rgba(247,246,243,.86);
-      --glassBorder: rgba(255,255,255,.35);
+      --glass:rgba(247,246,243,.86);
+      --glassBorder:rgba(255,255,255,.35);
 
-      /* Accent */
-      --danger: rgb(255,59,48);
+      --danger:rgb(255,59,48);
 
-      /* Layout */
-      --maxw: 980px;
-      --safeB: env(safe-area-inset-bottom, 0px);
-      --safeT: env(safe-area-inset-top, 0px);
+      --maxw:980px;
+      --safeB:env(safe-area-inset-bottom,0px);
+      --safeT:env(safe-area-inset-top,0px);
 
       --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "SF Pro Display", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
-
     @media (prefers-color-scheme: dark){
       :root{
-        --bg: #111213;
-        --text: #F2F2F2;
-        --muted: rgba(242,242,242,.62);
-        --hair: rgba(242,242,242,.12);
+        --bg:#111213;
+        --text:#F2F2F2;
+        --muted:rgba(242,242,242,.62);
+        --hair:rgba(242,242,242,.12);
 
-        --card: rgba(255,255,255,.06);
-        --card2: rgba(255,255,255,.05);
+        --card:rgba(255,255,255,.06);
+        --card2:rgba(255,255,255,.05);
 
-        --shadow1: 0 10px 26px rgba(0,0,0,.44);
-        --shadow2: 0 24px 86px rgba(0,0,0,.62);
+        --shadow1:0 10px 26px rgba(0,0,0,.44);
+        --shadow2:0 24px 86px rgba(0,0,0,.62);
 
-        --glass: rgba(20,20,20,.84);
-        --glassBorder: rgba(255,255,255,.10);
+        --glass:rgba(20,20,20,.84);
+        --glassBorder:rgba(255,255,255,.10);
       }
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family:var(--font);
       background:var(--bg);
       color:var(--text);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Top bar */
+    /* Topbar */
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:20;
+      position:sticky; top:0; z-index:20;
       padding: calc(10px + var(--safeT)) 16px 10px;
-      border-bottom: 1px solid var(--hair);
+      border-bottom:1px solid var(--hair);
       background: color-mix(in oklab, var(--bg) 88%, transparent);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
     .topbar-inner{
-      max-width:var(--maxw);
-      margin:0 auto;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
+      max-width:var(--maxw); margin:0 auto;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
     }
-    .title{
-      margin:0;
-      font-size:18px;
-      font-weight:720;
-      letter-spacing:.2px;
-      line-height:1.1;
-    }
-    .subtitle{
-      margin:2px 0 0;
-      font-size:13px;
-      color:var(--muted);
-      letter-spacing:.1px;
-    }
+    .title{margin:0; font-size:18px; font-weight:780; letter-spacing:.2px; line-height:1.1;}
+    .subtitle{margin:2px 0 0; font-size:13px; color:var(--muted); letter-spacing:.1px;}
     .chip{
       border:1px solid var(--hair);
-      background: var(--card2);
+      background:var(--card2);
       border-radius:999px;
       padding:8px 10px;
       font-size:13px;
       color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:8px;
+      display:flex; align-items:center; gap:8px;
       user-select:none;
     }
-    .dot{
-      width:8px;height:8px;border-radius:999px;
-      background: rgba(127,127,127,.35);
-    }
+    .dot{width:8px;height:8px;border-radius:999px;background:rgba(127,127,127,.35);}
 
-    /* App container */
-    .wrap{
-      max-width:var(--maxw);
-      margin:0 auto;
-      padding:16px 16px calc(86px + var(--safeB));
-    }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:16px 16px calc(86px + var(--safeB));}
 
-    /* Views */
-    .view{ display:none; }
-    .view.active{ display:block; }
+    .view{display:none}
+    .view.active{display:block}
 
-    /* Cards */
     .panel{
       border:1px solid var(--hair);
-      background: var(--card);
-      border-radius: var(--r20);
-      box-shadow: var(--shadow1);
+      background:var(--card);
+      border-radius:var(--r20);
+      box-shadow:var(--shadow1);
       overflow:hidden;
     }
     .panel-h{
       padding:14px 14px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .panel-h h2{
-      margin:0;
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .panel-h .small{
-      font-size:13px;
-      color:var(--muted);
-    }
-    .panel-b{ padding: 12px 14px 14px; border-top:1px solid var(--hair); }
+    .panel-h h2{margin:0; font-size:14px; font-weight:800; letter-spacing:.2px;}
+    .panel-h .small{font-size:13px; color:var(--muted);}
+    .panel-b{padding:12px 14px 14px; border-top:1px solid var(--hair);}
 
-    /* Buttons */
     .btn{
       appearance:none;
       border:1px solid var(--hair);
-      background: rgba(255,255,255,.42);
+      background:rgba(255,255,255,.42);
       color:var(--text);
-      border-radius: 14px;
-      padding: 12px 12px;
-      font-size: 14px;
-      font-weight: 680;
-      letter-spacing: .2px;
+      border-radius:14px;
+      padding:12px 12px;
+      font-size:14px;
+      font-weight:720;
+      letter-spacing:.2px;
       cursor:pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease, background .18s ease;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .12s ease, background .18s ease;
     }
-    .btn:active{ transform: scale(.985); }
-    @media (prefers-color-scheme: dark){
-      .btn{ background: rgba(255,255,255,.06); }
-    }
-    .btn-ghost{
-      background: transparent;
-    }
+    .btn:active{transform:scale(.985)}
+    @media (prefers-color-scheme: dark){ .btn{background:rgba(255,255,255,.06);} }
+    .btn-ghost{background:transparent}
     .btn-danger{
       border-color: rgba(255,59,48,.28);
       color: var(--danger);
       background: rgba(255,59,48,.08);
     }
-    .btn-row{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
 
-    /* Inputs */
-    .field{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
-    label{ font-size:13px; color:var(--muted); letter-spacing:.1px; }
-    input[type="text"]{
-      width:100%;
-      border-radius: 14px;
-      border: 1px solid var(--hair);
-      background: rgba(255,255,255,.50);
-      padding: 12px 12px;
-      font-size: 15px;
-      color: var(--text);
-      outline: none;
-    }
-    @media (prefers-color-scheme: dark){
-      input[type="text"]{ background: rgba(255,255,255,.06); }
-    }
-    .row{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-    }
-    .spacer{ flex:1; }
+    .note{margin:10px 0 0; font-size:13px; color:var(--muted); line-height:1.35;}
 
-    /* Bottom tabbar */
+    /* Tabbar */
     .tabbar{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      z-index:30;
-      padding: 10px 12px calc(10px + var(--safeB));
+      position:fixed; left:0; right:0; bottom:0; z-index:30;
+      padding:10px 12px calc(10px + var(--safeB));
       background: color-mix(in oklab, var(--bg) 88%, transparent);
-      border-top: 1px solid var(--hair);
+      border-top:1px solid var(--hair);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
-    .tabs{
-      max-width: var(--maxw);
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
+    .tabs{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
     .tab{
       border:1px solid var(--hair);
-      background: var(--card2);
-      border-radius: 16px;
-      padding: 10px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
+      background:var(--card2);
+      border-radius:16px;
+      padding:10px 10px;
+      font-size:13px;
+      font-weight:800;
+      color:var(--muted);
       cursor:pointer;
-      -webkit-tap-highlight-color: transparent;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
+      -webkit-tap-highlight-color:transparent;
+      display:flex; align-items:center; justify-content:center;
       user-select:none;
     }
     .tab.active{
-      color: var(--text);
-      background: var(--card);
-      box-shadow: 0 10px 26px rgba(0,0,0,.10);
+      color:var(--text);
+      background:var(--card);
+      box-shadow:0 10px 26px rgba(0,0,0,.10);
     }
 
-    /* Dressing list */
-    .items{
+    /* Home tiles */
+    .tiles{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .tile{
+      border:1px solid var(--hair);
+      background:var(--card2);
+      border-radius:var(--r20);
+      padding:16px;
+      min-height:120px;
+      box-shadow: var(--shadow1);
       display:flex;
       flex-direction:column;
-      gap:12px;
+      justify-content:space-between;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .12s ease;
     }
+    .tile:active{transform:scale(.985)}
+    .tile h3{margin:0; font-size:16px; font-weight:850; letter-spacing:.2px;}
+    .tile p{margin:6px 0 0; font-size:13px; color:var(--muted); line-height:1.35;}
+    .tile .tag{margin-top:10px; font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;}
+
+    /* Dressing items */
+    .items{display:flex; flex-direction:column; gap:12px;}
     .item{
       border:1px solid var(--hair);
-      border-radius: var(--r20);
-      background: var(--card2);
-      padding: 12px;
+      border-radius:var(--r20);
+      background:var(--card2);
+      padding:12px;
       display:flex;
       gap:12px;
       align-items:center;
     }
     .thumb{
-      width:62px;height:62px;
-      border-radius: 18px;
-      background: rgba(127,127,127,.18);
+      width:92px; height:92px; /* ✅ plus grand */
+      border-radius:22px;
+      background:rgba(127,127,127,.18);
       overflow:hidden;
       flex:0 0 auto;
       border:1px solid rgba(0,0,0,.06);
+      cursor:pointer;
     }
-    .thumb img{ width:100%;height:100%;object-fit:cover; display:block; }
-    @media (prefers-color-scheme: dark){
-      .thumb{ border-color: rgba(255,255,255,.08); }
-    }
-    .item-main{ flex:1; min-width:0; }
+    .thumb img{width:100%;height:100%;object-fit:cover; display:block;}
+    @media (prefers-color-scheme: dark){ .thumb{border-color:rgba(255,255,255,.10);} }
+
+    .item-main{flex:1; min-width:0;}
     .item-name{
       margin:0;
       font-size:16px;
-      font-weight:720;
+      font-weight:850;
       letter-spacing:.2px;
       line-height:1.15;
       white-space:nowrap;
@@ -292,209 +224,205 @@
       margin:6px 0 0;
       font-size:13px;
       color:var(--muted);
-      display:flex; gap:10px; flex-wrap:wrap;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       align-items:center;
     }
-    .pills{
-      display:flex; gap:8px; align-items:center;
-    }
-    .pill{
-      display:flex; gap:6px; align-items:center;
+
+    /* ✅ Pills are clickable buttons now */
+    .pills{display:flex; gap:8px; align-items:center;}
+    .pillbtn{
       border:1px solid var(--hair);
       background: rgba(255,255,255,.28);
       border-radius:999px;
       padding:6px 8px;
       font-size:12px;
+      font-weight:750;
       color:var(--muted);
       letter-spacing:.1px;
-    }
-    @media (prefers-color-scheme: dark){
-      .pill{ background: rgba(255,255,255,.06); }
-    }
-    .sw{
-      width:12px;height:12px;border-radius:6px;
-      border:1px solid rgba(0,0,0,.06);
-    }
-    @media (prefers-color-scheme: dark){
-      .sw{ border-color: rgba(255,255,255,.10); }
-    }
-
-    /* Colors grid: compact (fix huge squares) */
-    .cgrid{
-      display:grid;
-      gap:14px;
-      grid-template-columns: repeat(3, minmax(0, 1fr)); /* iPhone: 3 colonnes => compact */
-    }
-    @media (min-width: 760px){
-      .cgrid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-    .cbtn{
-      appearance:none;
-      border:0;
-      background: transparent;
-      text-align:left;
-      padding:0;
+      display:flex;
+      align-items:center;
+      gap:6px;
       cursor:pointer;
-      -webkit-tap-highlight-color: transparent;
-      user-select:none;
-      transition: transform .12s ease;
+      -webkit-tap-highlight-color:transparent;
     }
-    .cbtn:active{ transform: scale(.985); }
+    .pillbtn:active{transform:scale(.99)}
+    @media (prefers-color-scheme: dark){ .pillbtn{background:rgba(255,255,255,.06);} }
 
-    .cswatch{
+    .sw{width:12px;height:12px;border-radius:6px;border:1px solid rgba(0,0,0,.06);}
+    @media (prefers-color-scheme: dark){ .sw{border-color:rgba(255,255,255,.12);} }
+
+    /* Add view */
+    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px;}
+    label{font-size:13px; color:var(--muted); letter-spacing:.1px;}
+    input[type="text"]{
       width:100%;
-      aspect-ratio: 1/1;
-      border-radius: var(--r20);
+      border-radius:14px;
+      border:1px solid var(--hair);
+      background:rgba(255,255,255,.50);
+      padding:12px 12px;
+      font-size:15px;
+      color:var(--text);
+      outline:none;
+    }
+    @media (prefers-color-scheme: dark){ input[type="text"]{background:rgba(255,255,255,.06);} }
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .spacer{flex:1;}
+
+    .photoCard{
+      border:1px solid var(--hair);
+      background:var(--card2);
+      border-radius:var(--r20);
+      padding:12px;
+    }
+    .photoPreview{
+      width:100%;
+      aspect-ratio: 4 / 3; /* ✅ grand */
+      border-radius:var(--r20);
+      background:rgba(127,127,127,.18);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow1);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .photoPreview img{width:100%;height:100%;object-fit:cover; display:block;}
+    @media (prefers-color-scheme: dark){ .photoPreview{border-color:rgba(255,255,255,.10);} }
+
+    /* Colors grid */
+    .cgrid{display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr));}
+    @media (min-width:760px){ .cgrid{grid-template-columns:repeat(4,minmax(0,1fr));} }
+    .cbtn{border:0; background:transparent; text-align:left; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+    .cswatch{
+      width:100%; aspect-ratio:1/1;
+      border-radius:var(--r20);
       border:1px solid rgba(0,0,0,.05);
       box-shadow: var(--shadow1);
-      overflow:hidden;
-      position:relative;
     }
-    @media (prefers-color-scheme: dark){
-      .cswatch{ border-color: rgba(255,255,255,.08); }
-    }
-    .cmeta{ padding: 8px 2px 0; }
-    .cname{
-      font-size:14px;
-      font-weight:720;
-      letter-spacing:.15px;
-      line-height:1.1;
-      margin:0;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .chex{
-      margin:6px 0 0;
-      font-size:12px;
-      letter-spacing:.09em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
+    @media (prefers-color-scheme: dark){ .cswatch{border-color:rgba(255,255,255,.10);} }
+    .cname{margin:8px 2px 0; font-size:14px; font-weight:850; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .chex{margin:6px 2px 0; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);}
 
-    /* Overlay / Sheet */
+    /* Overlays */
     .backdrop{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.25);
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .18s ease;
-      z-index:50;
+      position:fixed; inset:0; z-index:50;
+      background:rgba(0,0,0,.25);
+      opacity:0; pointer-events:none;
+      transition:opacity .18s ease;
     }
-    @media (prefers-color-scheme: dark){
-      .backdrop{ background: rgba(0,0,0,.46); }
-    }
-    .backdrop.open{ opacity:1; pointer-events:auto; }
+    @media (prefers-color-scheme: dark){ .backdrop{background:rgba(0,0,0,.46);} }
+    .backdrop.open{opacity:1; pointer-events:auto;}
 
     .sheet{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      z-index:60;
-      transform: translateY(110%);
-      transition: transform .30s cubic-bezier(.2,.9,.2,1);
-      padding: 10px 12px calc(12px + var(--safeB));
+      position:fixed; left:0; right:0; bottom:0; z-index:60;
+      transform:translateY(110%);
+      transition:transform .30s cubic-bezier(.2,.9,.2,1);
+      padding:10px 12px calc(12px + var(--safeB));
     }
-    .sheet.open{ transform: translateY(0); }
-
+    .sheet.open{transform:translateY(0);}
     .sheet-inner{
-      max-width: var(--maxw);
-      margin:0 auto;
-      border-radius: var(--r26);
-      background: var(--glass);
-      border: 1px solid var(--glassBorder);
+      max-width:var(--maxw); margin:0 auto;
+      border-radius:var(--r26);
+      background:var(--glass);
+      border:1px solid var(--glassBorder);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .grab{
-      width:44px;height:5px;border-radius:999px;
-      background: rgba(127,127,127,.35);
-      margin: 10px auto 0;
+    .grab{width:44px;height:5px;border-radius:999px;background:rgba(127,127,127,.35);margin:10px auto 0;}
+    .sheet-head{padding:14px 14px 10px; display:flex; gap:12px; align-items:center;}
+    .bigsw{width:54px;height:54px;border-radius:18px;border:1px solid rgba(0,0,0,.06); box-shadow:0 12px 30px rgba(0,0,0,.16); flex:0 0 auto;}
+    @media (prefers-color-scheme: dark){ .bigsw{border-color:rgba(255,255,255,.10); box-shadow:0 16px 38px rgba(0,0,0,.62);} }
+    .sheet-t{flex:1; min-width:0;}
+    .sheet-name{margin:0; font-size:18px; font-weight:900; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .sheet-hex{margin:6px 0 0; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);}
+    .sheet-body{border-top:1px solid var(--hair); padding:12px 14px 14px;}
+    .sheet-info{display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:var(--muted); margin-bottom:12px;}
+    .actions{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .full{grid-column:1/-1;}
+
+    /* Photo + pipette modal */
+    .modal{
+      position:fixed; inset:0; z-index:70;
+      display:none;
     }
-    .sheet-head{
-      padding: 14px 14px 10px;
-      display:flex;
-      gap:12px;
-      align-items:center;
+    .modal.open{display:block;}
+    .modal-inner{
+      position:absolute; left:0; right:0; bottom:0;
+      padding:10px 12px calc(12px + var(--safeB));
     }
-    .bigsw{
-      width:54px;height:54px;
-      border-radius: 18px;
-      border:1px solid rgba(0,0,0,.06);
-      box-shadow: 0 12px 30px rgba(0,0,0,.16);
+    .modal-card{
+      max-width:var(--maxw);
+      margin:0 auto;
+      border-radius:var(--r26);
+      background:var(--glass);
+      border:1px solid var(--glassBorder);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 14px 10px;
+      display:flex; align-items:center; gap:10px; justify-content:space-between;
+      border-bottom:1px solid var(--hair);
+    }
+    .modal-head .mh-title{
+      margin:0; font-size:14px; font-weight:900; letter-spacing:.2px;
+    }
+    .modal-body{padding:12px 14px 14px;}
+    .canvasWrap{
+      border-radius:var(--r20);
+      overflow:hidden;
+      border:1px solid var(--hair);
+      background:rgba(127,127,127,.12);
+      box-shadow: var(--shadow1);
+      touch-action:none; /* important for drag pick */
+    }
+    canvas{display:block; width:100%; height:auto;}
+    .pickerRow{
+      margin-top:12px;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .previewSw{
+      width:44px;height:44px;border-radius:14px;border:1px solid var(--hair);
+      box-shadow: var(--shadow1);
+      background:#000;
       flex:0 0 auto;
     }
-    @media (prefers-color-scheme: dark){
-      .bigsw{ border-color: rgba(255,255,255,.10); box-shadow: 0 16px 38px rgba(0,0,0,.62); }
-    }
-    .sheet-t{ flex:1; min-width:0; }
-    .sheet-name{
-      margin:0;
-      font-size:18px;
-      font-weight:780;
-      letter-spacing:.2px;
-      line-height:1.1;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .sheet-hex{
-      margin:6px 0 0;
-      font-size:12px;
-      letter-spacing:.09em;
-      text-transform:uppercase;
+    .hexBox{
+      font-size:13px; letter-spacing:.09em; text-transform:uppercase;
       color:var(--muted);
+      border:1px solid var(--hair);
+      background: var(--card2);
+      padding:10px 12px;
+      border-radius:14px;
+      flex:1; min-width:140px;
     }
-    .sheet-body{
-      border-top: 1px solid var(--hair);
-      padding: 12px 14px 14px;
-    }
-    .sheet-info{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      font-size:13px;
-      color:var(--muted);
-      margin-bottom:12px;
-    }
-    .actions{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .full{ grid-column: 1 / -1; }
 
-    /* Tiny toast */
     .toast{
-      position:fixed;
-      left:50%;
+      position:fixed; left:50%;
       bottom: calc(76px + var(--safeB));
       transform: translateX(-50%) translateY(12px);
-      opacity:0;
-      pointer-events:none;
-      z-index:80;
-      padding: 10px 12px;
+      opacity:0; pointer-events:none; z-index:80;
+      padding:10px 12px;
       border-radius:999px;
-      background: rgba(0,0,0,.75);
+      background:rgba(0,0,0,.75);
       color:#fff;
       font-size:13px;
-      font-weight:650;
+      font-weight:800;
       letter-spacing:.2px;
       transition: opacity .18s ease, transform .18s ease;
     }
-    .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(0);}
     @media (prefers-color-scheme: dark){
-      .toast{ background: rgba(255,255,255,.12); color: var(--text); border:1px solid rgba(255,255,255,.14); }
-    }
-
-    /* Small helper */
-    .note{
-      margin: 10px 0 0;
-      font-size:13px;
-      color: var(--muted);
-      line-height:1.35;
+      .toast{background:rgba(255,255,255,.12); color:var(--text); border:1px solid rgba(255,255,255,.14);}
     }
   </style>
 </head>
@@ -503,20 +431,59 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div>
-        <p class="title" id="topTitle">Dressing</p>
-        <p class="subtitle" id="topSub">Articles & palettes</p>
+        <p class="title" id="topTitle">Accueil</p>
+        <p class="subtitle" id="topSub">Prendre photo · Couleurs · Comparer</p>
       </div>
-      <div class="chip" id="chip">
+      <div class="chip">
         <span class="dot"></span>
-        <span id="chipText">Premium</span>
+        <span>Premium</span>
       </div>
     </div>
   </header>
 
   <main class="wrap">
 
-    <!-- VIEW: Dressing -->
-    <section class="view active" id="view-dressing" aria-label="Dressing">
+    <!-- HOME -->
+    <section class="view active" id="view-home" aria-label="Accueil">
+      <div class="tiles">
+        <button class="tile" id="homeTakePhoto" type="button">
+          <div>
+            <h3>Prendre photo</h3>
+            <p>Ajoute un article, ouvre la photo, puis pipette pour P / S / A.</p>
+          </div>
+          <div class="tag">Caméra</div>
+        </button>
+
+        <button class="tile" id="homeDressing" type="button">
+          <div>
+            <h3>Dressing</h3>
+            <p>Articles & palettes. Pastilles P/S/A cliquables.</p>
+          </div>
+          <div class="tag">Organisation</div>
+        </button>
+
+        <button class="tile" id="homeColors" type="button">
+          <div>
+            <h3>Mes couleurs</h3>
+            <p>Grille compacte premium + détails glass.</p>
+          </div>
+          <div class="tag">Bibliothèque</div>
+        </button>
+
+        <button class="tile" id="homeCompare" type="button">
+          <div>
+            <h3>Comparer</h3>
+            <p>Deux couleurs → DeltaE + contraste (V1).</p>
+          </div>
+          <div class="tag">Studio</div>
+        </button>
+      </div>
+
+      <p class="note">Objectif : Apple × fashion luxe × précis. On garde V1 simple, tout est local.</p>
+    </section>
+
+    <!-- DRESSING -->
+    <section class="view" id="view-dressing" aria-label="Dressing">
       <div class="panel">
         <div class="panel-h">
           <h2>Mes articles</h2>
@@ -524,12 +491,12 @@
         </div>
         <div class="panel-b">
           <div class="items" id="itemsList"></div>
-          <p class="note">Astuce : ajoute un article puis choisis P / S / A. Les couleurs sont nommées automatiquement de façon cohérente.</p>
+          <p class="note">Tap sur une pastille P/S/A → ouvre la couleur. Tap sur la photo → plein écran.</p>
         </div>
       </div>
     </section>
 
-    <!-- VIEW: Add -->
+    <!-- ADD -->
     <section class="view" id="view-add" aria-label="Ajouter">
       <div class="panel">
         <div class="panel-h">
@@ -543,25 +510,34 @@
           </div>
 
           <div class="field">
-            <label>Photo (optionnel)</label>
-            <div class="row">
-              <input type="file" id="inPhoto" accept="image/*" />
+            <label>Photo</label>
+            <div class="photoCard">
+              <div class="row">
+                <input type="file" id="inPhoto" accept="image/*" capture="environment" />
+                <button class="btn btn-ghost" id="btnOpenPicker" type="button">Ouvrir pipette</button>
+              </div>
+              <div class="photoPreview" id="photoPreview" title="Tap pour ouvrir">
+                <span>Ajoute une photo</span>
+              </div>
+              <p class="note">Astuce : ouvre pipette → tap/glisse pour récupérer la couleur → Assigner à P / S / A.</p>
             </div>
           </div>
 
-          <div class="panel" style="box-shadow:none; background: transparent; border-radius: var(--r20);">
+          <div class="panel" style="box-shadow:none; background: transparent;">
             <div class="panel-h">
               <h2>Couleurs</h2>
               <div class="small">P / S / A</div>
             </div>
             <div class="panel-b">
+
               <div class="field">
                 <label>Couleur principale (P)</label>
                 <div class="row">
                   <input type="color" id="pColor" value="#009AF8" />
                   <input type="text" id="pHex" value="#009AF8" />
                   <div class="spacer"></div>
-                  <button class="btn btn-ghost" type="button" data-fill="p">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-auto="p">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-pip="p">Pipette</button>
                 </div>
               </div>
 
@@ -571,7 +547,8 @@
                   <input type="color" id="sColor" value="#AD8967" />
                   <input type="text" id="sHex" value="#AD8967" />
                   <div class="spacer"></div>
-                  <button class="btn btn-ghost" type="button" data-fill="s">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-auto="s">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-pip="s">Pipette</button>
                 </div>
               </div>
 
@@ -581,23 +558,24 @@
                   <input type="color" id="aColor" value="#E0E5E8" />
                   <input type="text" id="aHex" value="#E0E5E8" />
                   <div class="spacer"></div>
-                  <button class="btn btn-ghost" type="button" data-fill="a">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-auto="a">Auto</button>
+                  <button class="btn btn-ghost" type="button" data-pip="a">Pipette</button>
                 </div>
               </div>
 
-              <p class="note">“Auto” renomme de façon cohérente (même famille si teintes proches).</p>
+              <p class="note">“Auto” utilise un naming cohérent. Si teintes proches → même famille + nuance.</p>
             </div>
           </div>
 
-          <div class="btn-row" style="margin-top:12px;">
-            <button class="btn" id="btnAdd">Ajouter</button>
-            <button class="btn btn-danger" id="btnReset">Réinitialiser</button>
+          <div class="row" style="margin-top:12px;">
+            <button class="btn" id="btnAdd" type="button">Ajouter</button>
+            <button class="btn btn-danger" id="btnReset" type="button">Réinitialiser</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- VIEW: Colors -->
+    <!-- COLORS -->
     <section class="view" id="view-colors" aria-label="Couleurs">
       <div class="panel">
         <div class="panel-h">
@@ -606,7 +584,48 @@
         </div>
         <div class="panel-b">
           <div class="cgrid" id="colorsGrid"></div>
-          <p class="note">Tap sur une couleur pour détails. Les doublons très proches sont harmonisés (même famille + nuance).</p>
+          <p class="note">Grille compacte premium. Tap → détails glass.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="view" id="view-compare" aria-label="Comparer">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Comparer</h2>
+          <div class="small">V1</div>
+        </div>
+        <div class="panel-b">
+          <div class="field">
+            <label>Couleur A</label>
+            <select id="cmpA" class="btn" style="width:100%; text-align:left;"></select>
+          </div>
+          <div class="field">
+            <label>Couleur B</label>
+            <select id="cmpB" class="btn" style="width:100%; text-align:left;"></select>
+          </div>
+
+          <div class="row" style="gap:12px; align-items:flex-start;">
+            <div style="flex:1">
+              <div class="cswatch" id="cmpSwA" style="aspect-ratio: 16/10;"></div>
+              <p class="chex" id="cmpHexA" style="margin-top:10px;">—</p>
+            </div>
+            <div style="flex:1">
+              <div class="cswatch" id="cmpSwB" style="aspect-ratio: 16/10;"></div>
+              <p class="chex" id="cmpHexB" style="margin-top:10px;">—</p>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:12px; box-shadow:none; background:transparent;">
+            <div class="panel-h">
+              <h2>Résultat</h2>
+              <div class="small">DeltaE · Contraste</div>
+            </div>
+            <div class="panel-b">
+              <p class="note" id="cmpResult">Sélectionne 2 couleurs.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -616,15 +635,16 @@
   <!-- Tabbar -->
   <nav class="tabbar" aria-label="Navigation">
     <div class="tabs">
-      <button class="tab active" data-view="dressing" type="button">Dressing</button>
+      <button class="tab active" data-view="home" type="button">Accueil</button>
+      <button class="tab" data-view="dressing" type="button">Dressing</button>
       <button class="tab" data-view="add" type="button">Ajouter</button>
       <button class="tab" data-view="colors" type="button">Couleurs</button>
     </div>
   </nav>
 
-  <!-- Overlay -->
+  <!-- Color details sheet -->
   <div class="backdrop" id="backdrop" aria-hidden="true"></div>
-  <aside class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détails">
+  <aside class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détails couleur">
     <div class="sheet-inner">
       <div class="grab" aria-hidden="true"></div>
       <div class="sheet-head">
@@ -639,128 +659,80 @@
         <div class="sheet-info" id="sheetInfo">—</div>
         <div class="actions">
           <button class="btn" id="btnCopy" type="button">Copier HEX</button>
-          <button class="btn" id="btnFocus" type="button">Voir articles</button>
+          <button class="btn" id="btnGoCompare" type="button">Comparer</button>
           <button class="btn btn-danger full" id="btnDeleteColor" type="button">Supprimer</button>
         </div>
       </div>
     </div>
   </aside>
 
+  <!-- Photo / Pipette modal -->
+  <section class="modal" id="photoModal" aria-hidden="true">
+    <div class="backdrop open" id="photoBackdrop"></div>
+    <div class="modal-inner">
+      <div class="modal-card">
+        <div class="modal-head">
+          <p class="mh-title">Photo · Pipette</p>
+          <div class="row" style="gap:8px;">
+            <button class="btn btn-ghost" id="pipTargetBtn" type="button">Assigner : P</button>
+            <button class="btn" id="photoClose" type="button">Fermer</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="canvasWrap" id="canvasWrap">
+            <canvas id="pipCanvas"></canvas>
+          </div>
+
+          <div class="pickerRow">
+            <div class="previewSw" id="pipPreview"></div>
+            <div class="hexBox" id="pipHex">—</div>
+            <button class="btn" id="pipAssign" type="button">Assigner</button>
+          </div>
+          <p class="note">Tap / glisse sur l’image pour prélever une couleur. Puis “Assigner” à P/S/A.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="toast" id="toast">OK</div>
 
   <script>
     /***********************
-     * Storage helpers
+     * Storage
      ***********************/
-    const LS_KEY = "dressing_premium_v1";
-    const todayFR = () => {
-      const d = new Date();
-      return d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" }).replace(".", "");
-    };
+    const LS_KEY = "dressing_premium_v2";
+    const todayFR = () => new Date().toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"}).replace(".","");
 
-    function loadState(){
-      try{
-        const raw = localStorage.getItem(LS_KEY);
-        if(!raw) return seedState();
-        const st = JSON.parse(raw);
-        if(!st || !Array.isArray(st.items) || !Array.isArray(st.colors)) return seedState();
-        return st;
-      }catch{ return seedState(); }
-    }
-    function saveState(){
-      localStorage.setItem(LS_KEY, JSON.stringify(state));
-    }
+    const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
 
-    function seedState(){
-      // Seed premium minimal
+    function seed(){
       return {
         items: [],
         colors: [
-          { id: uid(), hex:"#009AF8", name:"Azur", created: todayFR(), used: 0 },
-          { id: uid(), hex:"#008BEC", name:"Azur profond", created: todayFR(), used: 0 },
-          { id: uid(), hex:"#E0E5E8", name:"Perle", created: todayFR(), used: 0 },
-          { id: uid(), hex:"#AD8967", name:"Camel", created: todayFR(), used: 0 },
+          { id: uid(), hex:"#009AF8", name:"Azur", created: todayFR(), used:0 },
+          { id: uid(), hex:"#008BEC", name:"Azur profond", created: todayFR(), used:0 },
+          { id: uid(), hex:"#E0E5E8", name:"Perle", created: todayFR(), used:0 },
+          { id: uid(), hex:"#AD8967", name:"Camel", created: todayFR(), used:0 },
         ]
       };
     }
 
-    function uid(){
-      return Math.random().toString(16).slice(2) + Date.now().toString(16);
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return seed();
+        const st = JSON.parse(raw);
+        if(!st || !Array.isArray(st.items) || !Array.isArray(st.colors)) return seed();
+        return st;
+      }catch{ return seed(); }
     }
+    function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+    let state = loadState();
 
     /***********************
-     * Color math (pro naming)
-     * - RGB -> Lab (approx)
-     * - deltaE76 for similarity
-     * - family mapping using HSL
+     * Color math (Lab + naming)
      ***********************/
-    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
-    function hexToRgb(hex){
-      const h = hex.trim().replace("#","");
-      if(h.length !== 6) return null;
-      const r = parseInt(h.slice(0,2),16);
-      const g = parseInt(h.slice(2,4),16);
-      const b = parseInt(h.slice(4,6),16);
-      if([r,g,b].some(n => Number.isNaN(n))) return null;
-      return {r,g,b};
-    }
-    function rgbToHex({r,g,b}){
-      const to = n => n.toString(16).padStart(2,"0").toUpperCase();
-      return "#" + to(r) + to(g) + to(b);
-    }
-    function rgbToHsl({r,g,b}){
-      r/=255; g/=255; b/=255;
-      const max = Math.max(r,g,b), min = Math.min(r,g,b);
-      let h=0, s=0, l=(max+min)/2;
-      const d = max-min;
-      if(d !== 0){
-        s = d / (1 - Math.abs(2*l - 1));
-        switch(max){
-          case r: h = ((g-b)/d) % 6; break;
-          case g: h = (b-r)/d + 2; break;
-          case b: h = (r-g)/d + 4; break;
-        }
-        h = Math.round(h*60);
-        if(h<0) h+=360;
-      }
-      return {h, s, l};
-    }
-
-    // sRGB -> linear
-    function srgbToLin(c){
-      c/=255;
-      return (c <= 0.04045) ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
-    }
-    // RGB -> XYZ (D65)
-    function rgbToXyz({r,g,b}){
-      const R = srgbToLin(r), G = srgbToLin(g), B = srgbToLin(b);
-      const x = R*0.4124 + G*0.3576 + B*0.1805;
-      const y = R*0.2126 + G*0.7152 + B*0.0722;
-      const z = R*0.0193 + G*0.1192 + B*0.9505;
-      return {x, y, z};
-    }
-    // XYZ -> Lab (D65)
-    function xyzToLab({x,y,z}){
-      // D65 reference white
-      const Xn=0.95047, Yn=1.00000, Zn=1.08883;
-      let fx = x/Xn, fy = y/Yn, fz = z/Zn;
-      const f = t => (t > 0.008856) ? Math.cbrt(t) : (7.787*t + 16/116);
-      fx = f(fx); fy = f(fy); fz = f(fz);
-      const L = 116*fy - 16;
-      const a = 500*(fx - fy);
-      const b = 200*(fy - fz);
-      return {L,a,b};
-    }
-    function rgbToLab(rgb){
-      return xyzToLab(rgbToXyz(rgb));
-    }
-    function deltaE76(l1,l2){
-      const dL = l1.L - l2.L;
-      const da = l1.a - l2.a;
-      const db = l1.b - l2.b;
-      return Math.sqrt(dL*dL + da*da + db*db);
-    }
-
     function normalizeHex(s){
       if(!s) return null;
       let t = s.trim().toUpperCase();
@@ -768,141 +740,157 @@
       if(/^#[0-9A-F]{6}$/.test(t)) return t;
       return null;
     }
+    function hexToRgb(hex){
+      const h = hex.replace("#","").trim();
+      if(h.length!==6) return null;
+      const r = parseInt(h.slice(0,2),16);
+      const g = parseInt(h.slice(2,4),16);
+      const b = parseInt(h.slice(4,6),16);
+      if([r,g,b].some(Number.isNaN)) return null;
+      return {r,g,b};
+    }
+    function rgbToHsl({r,g,b}){
+      r/=255; g/=255; b/=255;
+      const max=Math.max(r,g,b), min=Math.min(r,g,b);
+      let h=0,s=0,l=(max+min)/2;
+      const d=max-min;
+      if(d!==0){
+        s = d/(1-Math.abs(2*l-1));
+        switch(max){
+          case r: h=((g-b)/d)%6; break;
+          case g: h=(b-r)/d+2; break;
+          case b: h=(r-g)/d+4; break;
+        }
+        h=Math.round(h*60); if(h<0) h+=360;
+      }
+      return {h,s,l};
+    }
+    function srgbToLin(c){ c/=255; return (c<=0.04045)? c/12.92 : Math.pow((c+0.055)/1.055,2.4); }
+    function rgbToXyz({r,g,b}){
+      const R=srgbToLin(r), G=srgbToLin(g), B=srgbToLin(b);
+      return {
+        x: R*0.4124 + G*0.3576 + B*0.1805,
+        y: R*0.2126 + G*0.7152 + B*0.0722,
+        z: R*0.0193 + G*0.1192 + B*0.9505
+      };
+    }
+    function xyzToLab({x,y,z}){
+      const Xn=0.95047, Yn=1.00000, Zn=1.08883;
+      const f = t => (t>0.008856)? Math.cbrt(t) : (7.787*t + 16/116);
+      let fx=f(x/Xn), fy=f(y/Yn), fz=f(z/Zn);
+      return { L:116*fy-16, a:500*(fx-fy), b:200*(fy-fz) };
+    }
+    function rgbToLab(rgb){ return xyzToLab(rgbToXyz(rgb)); }
+    function deltaE76(l1,l2){
+      const dL=l1.L-l2.L, da=l1.a-l2.a, db=l1.b-l2.b;
+      return Math.sqrt(dL*dL+da*da+db*db);
+    }
+    function capWords(s){
+      return String(s).split(" ").filter(Boolean).map(w => w[0].toUpperCase()+w.slice(1)).join(" ");
+    }
+    function baseNameOnly(name){
+      const t = String(name||"").trim();
+      return t ? t.split(/\s+/)[0] : "Couleur";
+    }
+    function familyFromHsl({h,s,l}){
+      if(l>=0.92 && s<=0.10) return "Perle";
+      if(s<=0.08 && l>=0.65) return "Brume";
+      if(s<=0.10 && l<0.65 && l>0.25) return "Ardoise";
+      if(s<=0.10 && l<=0.25) return "Noir";
 
-    // Family mapping (fashion-luxe vocabulary)
-    function familyFromHsl(hsl){
-      const {h,s,l} = hsl;
-
-      // Neutrals first
-      if(l >= 0.92 && s <= 0.10) return "Perle";
-      if(s <= 0.08 && l >= 0.65) return "Brume";
-      if(s <= 0.10 && l < 0.65 && l > 0.25) return "Ardoise";
-      if(s <= 0.10 && l <= 0.25) return "Noir";
-
-      // Color families
-      if(h >= 200 && h < 230) return "Azur";
-      if(h >= 230 && h < 255) return "Cobalt";
-      if(h >= 255 && h < 290) return "Violet";
-      if(h >= 290 && h < 330) return "Fuchsia";
-      if(h >= 330 || h < 15) return "Carmin";
-      if(h >= 15 && h < 45) return "Sable";
-      if(h >= 45 && h < 75) return "Ocre";
-      if(h >= 75 && h < 160) return "Olive";
-      if(h >= 160 && h < 200) return "Sarcelle";
+      if(h>=200 && h<230) return "Azur";
+      if(h>=230 && h<255) return "Cobalt";
+      if(h>=255 && h<290) return "Violet";
+      if(h>=290 && h<330) return "Fuchsia";
+      if(h>=330 || h<15) return "Carmin";
+      if(h>=15 && h<45) return "Sable";
+      if(h>=45 && h<75) return "Ocre";
+      if(h>=75 && h<160) return "Olive";
+      if(h>=160 && h<200) return "Sarcelle";
       return "Teinte";
     }
-
-    function nuanceFromHsl(hsl){
-      const {s,l} = hsl;
-      // premium & simple
-      if(l >= 0.84) return "clair";
-      if(l <= 0.28) return "profond";
-      if(s >= 0.75 && l >= 0.40 && l <= 0.75) return "intense";
-      return ""; // keep one-word when possible
+    function nuanceFromHsl({s,l}){
+      if(l>=0.84) return "clair";
+      if(l<=0.28) return "profond";
+      if(s>=0.75 && l>=0.40 && l<=0.75) return "intense";
+      return "";
+    }
+    function uniqueName(name, hex){
+      const exists = state.colors.find(c => c.name.toLowerCase()===name.toLowerCase() && c.hex!==hex);
+      if(!exists) return capWords(name);
+      const rgb = hexToRgb(hex);
+      const nu = rgb ? (nuanceFromHsl(rgbToHsl(rgb)) || "variante") : "variante";
+      let cand = capWords(baseNameOnly(name)+" "+nu);
+      if(state.colors.some(c => c.name.toLowerCase()===cand.toLowerCase() && c.hex!==hex)){
+        cand = capWords(baseNameOnly(name)) + " " + hex.slice(-2);
+      }
+      return cand;
     }
 
-    /**
-     * Premium naming rule:
-     * - If this color is very close to an existing one (deltaE < 6),
-     *   keep the SAME family and just adjust nuance based on lightness/saturation.
-     * - Else determine family from HSL and add nuance only if needed.
-     */
     function proposeName(hex){
       const rgb = hexToRgb(hex);
       if(!rgb) return "Couleur";
       const lab = rgbToLab(rgb);
 
-      // Find closest existing
-      let best = null;
+      let best=null;
       for(const c of state.colors){
         const rgb2 = hexToRgb(c.hex);
         if(!rgb2) continue;
         const d = deltaE76(lab, rgbToLab(rgb2));
-        if(best === null || d < best.d) best = {d, c};
+        if(!best || d<best.d) best={d,c};
       }
 
       const hsl = rgbToHsl(rgb);
-      const baseFamily = familyFromHsl(hsl);
+      const base = familyFromHsl(hsl);
       const nu = nuanceFromHsl(hsl);
 
-      // Similarity thresholds tuned for UI naming (not scientific)
+      // ✅ Important : teintes proches = même famille
       if(best && best.d < 6){
-        // keep family of closest color (avoid "two similar colors, two different names")
         const closestBase = baseNameOnly(best.c.name);
-        const n = nu ? (closestBase + " " + nu) : closestBase;
+        const n = nu ? (closestBase+" "+nu) : closestBase;
         return uniqueName(n, hex);
       }
 
-      // If not close: use computed family
-      const name = nu ? (baseFamily + " " + nu) : baseFamily;
+      const name = nu ? (base+" "+nu) : base;
       return uniqueName(name, hex);
     }
-
-    function baseNameOnly(name){
-      // returns first word (family) if "Azur profond"
-      const t = String(name||"").trim();
-      if(!t) return "Couleur";
-      return t.split(/\s+/)[0];
-    }
-
-    function uniqueName(name, hex){
-      // prevent exact duplicates for different hex by adding nuance fallback
-      const existingSame = state.colors.find(c => c.name.toLowerCase() === name.toLowerCase() && c.hex !== hex);
-      if(!existingSame) return capWords(name);
-
-      // if collision: try with nuance based on hex (stable, minimal)
-      const rgb = hexToRgb(hex);
-      const hsl = rgbToHsl(rgb);
-      const alt = nuanceFromHsl(hsl) || "variante";
-      let candidate = capWords(baseNameOnly(name) + " " + alt);
-
-      // last resort: add short suffix
-      if(state.colors.some(c => c.name.toLowerCase() === candidate.toLowerCase() && c.hex !== hex)){
-        candidate = capWords(baseNameOnly(name)) + " " + hex.slice(-2);
-      }
-      return candidate;
-    }
-
-    function capWords(s){
-      return String(s).split(" ").filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-    }
-
-    /***********************
-     * State
-     ***********************/
-    let state = loadState();
 
     /***********************
      * UI refs
      ***********************/
-    const topTitle = document.getElementById("topTitle");
-    const topSub = document.getElementById("topSub");
-
-    const tabs = Array.from(document.querySelectorAll(".tab"));
     const views = {
+      home: document.getElementById("view-home"),
       dressing: document.getElementById("view-dressing"),
       add: document.getElementById("view-add"),
       colors: document.getElementById("view-colors"),
+      compare: document.getElementById("view-compare"),
     };
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    const topTitle = document.getElementById("topTitle");
+    const topSub = document.getElementById("topSub");
 
     const itemsList = document.getElementById("itemsList");
     const itemsCount = document.getElementById("itemsCount");
     const colorsGrid = document.getElementById("colorsGrid");
     const colorsCount = document.getElementById("colorsCount");
 
-    // Add view inputs
+    // Add
     const inName = document.getElementById("inName");
     const inPhoto = document.getElementById("inPhoto");
+    const photoPreview = document.getElementById("photoPreview");
+    const btnOpenPicker = document.getElementById("btnOpenPicker");
+
     const pColor = document.getElementById("pColor");
     const sColor = document.getElementById("sColor");
     const aColor = document.getElementById("aColor");
     const pHex = document.getElementById("pHex");
     const sHex = document.getElementById("sHex");
     const aHex = document.getElementById("aHex");
+
     const btnAdd = document.getElementById("btnAdd");
     const btnReset = document.getElementById("btnReset");
 
-    // Sheet
+    // Sheet (color details)
     const backdrop = document.getElementById("backdrop");
     const sheet = document.getElementById("sheet");
     const sheetClose = document.getElementById("sheetClose");
@@ -911,149 +899,44 @@
     const sheetHex = document.getElementById("sheetHex");
     const sheetInfo = document.getElementById("sheetInfo");
     const btnCopy = document.getElementById("btnCopy");
-    const btnFocus = document.getElementById("btnFocus");
+    const btnGoCompare = document.getElementById("btnGoCompare");
     const btnDeleteColor = document.getElementById("btnDeleteColor");
+    let sheetColorId = null;
 
+    // Compare
+    const cmpA = document.getElementById("cmpA");
+    const cmpB = document.getElementById("cmpB");
+    const cmpSwA = document.getElementById("cmpSwA");
+    const cmpSwB = document.getElementById("cmpSwB");
+    const cmpHexA = document.getElementById("cmpHexA");
+    const cmpHexB = document.getElementById("cmpHexB");
+    const cmpResult = document.getElementById("cmpResult");
+
+    // Home buttons
+    document.getElementById("homeTakePhoto").addEventListener("click", () => { setView("add"); inPhoto.click(); });
+    document.getElementById("homeDressing").addEventListener("click", () => setView("dressing"));
+    document.getElementById("homeColors").addEventListener("click", () => setView("colors"));
+    document.getElementById("homeCompare").addEventListener("click", () => setView("compare"));
+
+    // Photo modal / pipette
+    const photoModal = document.getElementById("photoModal");
+    const photoBackdrop = document.getElementById("photoBackdrop");
+    const photoClose = document.getElementById("photoClose");
+    const pipCanvas = document.getElementById("pipCanvas");
+    const canvasWrap = document.getElementById("canvasWrap");
+    const pipPreview = document.getElementById("pipPreview");
+    const pipHex = document.getElementById("pipHex");
+    const pipAssign = document.getElementById("pipAssign");
+    const pipTargetBtn = document.getElementById("pipTargetBtn");
+    let pipTarget = "p"; // p/s/a
+    let currentPhotoDataUrl = "";
+    let canvasCtx = null;
+    let canvasImg = new Image();
+    let lastPickedHex = null;
+
+    // Toast
     const toast = document.getElementById("toast");
-
-    let sheetTarget = null; // {type:'color', id}
-
-    /***********************
-     * Render
-     ***********************/
-    function render(){
-      // update used count
-      for(const c of state.colors) c.used = 0;
-      for(const it of state.items){
-        for(const k of ["p","s","a"]){
-          const cid = it.colors?.[k];
-          const c = state.colors.find(x => x.id === cid);
-          if(c) c.used++;
-        }
-      }
-
-      renderItems();
-      renderColors();
-      saveState();
-    }
-
-    function renderItems(){
-      itemsCount.textContent = `${state.items.length} article${state.items.length>1?"s":""}`;
-      if(state.items.length === 0){
-        itemsList.innerHTML = `<div class="note">Aucun article pour le moment. Va dans <b>Ajouter</b> pour créer ton premier article.</div>`;
-        return;
-      }
-      itemsList.innerHTML = state.items.map(it => {
-        const p = state.colors.find(c => c.id === it.colors.p);
-        const s = state.colors.find(c => c.id === it.colors.s);
-        const a = state.colors.find(c => c.id === it.colors.a);
-        return `
-          <div class="item">
-            <div class="thumb">${it.photo ? `<img alt="" src="${it.photo}"/>` : ""}</div>
-            <div class="item-main">
-              <p class="item-name">${escapeHtml(it.name)}</p>
-              <div class="item-meta">
-                <span>${escapeHtml(it.created)}</span>
-                <span class="pills">
-                  ${pill("P", p)}
-                  ${pill("S", s)}
-                  ${pill("A", a)}
-                </span>
-              </div>
-            </div>
-            <button class="btn btn-ghost btn-danger" type="button" data-del-item="${it.id}" aria-label="Supprimer ${escapeHtml(it.name)}">Suppr.</button>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function pill(label, c){
-      if(!c) return `<span class="pill">${label} —</span>`;
-      return `
-        <span class="pill" title="${escapeHtml(c.name)}">
-          <span class="sw" style="background:${c.hex}"></span>
-          ${label} ${escapeHtml(baseNameOnly(c.name))}
-        </span>
-      `;
-    }
-
-    function renderColors(){
-      colorsCount.textContent = `${state.colors.length} couleur${state.colors.length>1?"s":""}`;
-      // Sort: most used first, then newest
-      const sorted = [...state.colors].sort((a,b) => (b.used - a.used));
-      colorsGrid.innerHTML = sorted.map(c => `
-        <button class="cbtn" type="button" data-color="${c.id}" aria-label="Ouvrir ${escapeHtml(c.name)}">
-          <div class="cswatch" style="background:${c.hex}"></div>
-          <div class="cmeta">
-            <p class="cname">${escapeHtml(c.name)}</p>
-            <p class="chex">${escapeHtml(c.hex)}</p>
-          </div>
-        </button>
-      `).join("");
-    }
-
-    /***********************
-     * Navigation
-     ***********************/
-    function setView(name){
-      for(const k of Object.keys(views)){
-        views[k].classList.toggle("active", k===name);
-      }
-      for(const t of tabs){
-        t.classList.toggle("active", t.dataset.view === name);
-      }
-      if(name === "dressing"){
-        topTitle.textContent = "Dressing";
-        topSub.textContent = "Articles & palettes";
-      }else if(name === "add"){
-        topTitle.textContent = "Ajouter";
-        topSub.textContent = "Nouvel article";
-      }else{
-        topTitle.textContent = "Couleurs";
-        topSub.textContent = "Bibliothèque";
-      }
-    }
-
-    tabs.forEach(t => t.addEventListener("click", () => setView(t.dataset.view)));
-
-    /***********************
-     * Sheet open/close
-     ***********************/
-    function openColorSheet(colorId){
-      const c = state.colors.find(x => x.id === colorId);
-      if(!c) return;
-      sheetTarget = {type:"color", id: colorId};
-
-      sheetSw.style.background = c.hex;
-      sheetName.textContent = c.name;
-      sheetHex.textContent = c.hex;
-      sheetInfo.textContent = `${c.used} utilisation${c.used>1?"s":""} · Créée ${c.created}`;
-
-      backdrop.classList.add("open");
-      sheet.classList.add("open");
-      sheet.setAttribute("aria-hidden","false");
-      backdrop.setAttribute("aria-hidden","false");
-      sheetClose.focus({preventScroll:true});
-    }
-
-    function closeSheet(){
-      sheet.classList.remove("open");
-      backdrop.classList.remove("open");
-      sheet.setAttribute("aria-hidden","true");
-      backdrop.setAttribute("aria-hidden","true");
-      sheetTarget = null;
-    }
-
-    backdrop.addEventListener("click", closeSheet);
-    sheetClose.addEventListener("click", closeSheet);
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && sheet.classList.contains("open")) closeSheet();
-    });
-
-    /***********************
-     * Toast
-     ***********************/
-    let toastTimer = null;
+    let toastTimer=null;
     function showToast(msg){
       toast.textContent = msg;
       toast.classList.add("show");
@@ -1062,186 +945,439 @@
     }
 
     /***********************
-     * Events
+     * Navigation
      ***********************/
-    // Delete item
-    itemsList.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-del-item]");
-      if(!btn) return;
-      const id = btn.getAttribute("data-del-item");
-      state.items = state.items.filter(it => it.id !== id);
-      render();
-      showToast("Supprimé");
-    });
+    function setView(name){
+      Object.keys(views).forEach(k => views[k].classList.toggle("active", k===name));
+      tabs.forEach(t => t.classList.toggle("active", t.dataset.view === name));
+      if(name==="home"){ topTitle.textContent="Accueil"; topSub.textContent="Prendre photo · Couleurs · Comparer"; }
+      if(name==="dressing"){ topTitle.textContent="Dressing"; topSub.textContent="Articles & palettes"; }
+      if(name==="add"){ topTitle.textContent="Ajouter"; topSub.textContent="Nouvel article"; }
+      if(name==="colors"){ topTitle.textContent="Couleurs"; topSub.textContent="Bibliothèque"; }
+      if(name==="compare"){ topTitle.textContent="Comparer"; topSub.textContent="DeltaE · Contraste"; }
+    }
 
-    // Open color sheet
-    colorsGrid.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-color]");
-      if(!b) return;
-      openColorSheet(b.getAttribute("data-color"));
-    });
+    tabs.forEach(t => t.addEventListener("click", () => {
+      const v = t.dataset.view;
+      setView(v);
+      if(v==="compare") renderCompareSelects();
+    }));
 
-    // Copy hex
-    btnCopy.addEventListener("click", async () => {
-      if(!sheetTarget || sheetTarget.type !== "color") return;
-      const c = state.colors.find(x => x.id === sheetTarget.id);
-      if(!c) return;
-      try{
-        await navigator.clipboard.writeText(c.hex);
-        showToast("HEX copié ✓");
-      }catch{
-        prompt("Copie le HEX :", c.hex);
-      }
-    });
+    /***********************
+     * Rendering
+     ***********************/
+    function render(){
+      // used count
+      state.colors.forEach(c => c.used = 0);
+      state.items.forEach(it => {
+        ["p","s","a"].forEach(k => {
+          const cid = it.colors?.[k];
+          const c = state.colors.find(x=>x.id===cid);
+          if(c) c.used++;
+        });
+      });
 
-    // Focus items using this color
-    btnFocus.addEventListener("click", () => {
-      if(!sheetTarget || sheetTarget.type !== "color") return;
-      const cid = sheetTarget.id;
-      closeSheet();
-      setView("dressing");
-      // scroll to top; items are small anyway
-      window.scrollTo({top:0, behavior:"smooth"});
-      showToast("Articles");
-      // optional: highlight could be added in V2
-    });
+      renderItems();
+      renderColors();
+      renderCompareSelects();
+      saveState();
+    }
 
-    // Delete color (only if not used)
-    btnDeleteColor.addEventListener("click", () => {
-      if(!sheetTarget || sheetTarget.type !== "color") return;
-      const c = state.colors.find(x => x.id === sheetTarget.id);
-      if(!c) return;
-
-      if(c.used > 0){
-        showToast("Couleur utilisée");
+    function renderItems(){
+      itemsCount.textContent = `${state.items.length} article${state.items.length>1?"s":""}`;
+      if(state.items.length===0){
+        itemsList.innerHTML = `<div class="note">Aucun article. Va dans <b>Ajouter</b> puis utilise la pipette.</div>`;
         return;
       }
-      state.colors = state.colors.filter(x => x.id !== c.id);
-      closeSheet();
-      render();
-      showToast("Couleur supprimée");
+
+      itemsList.innerHTML = state.items.map(it => {
+        const p = state.colors.find(c=>c.id===it.colors.p);
+        const s = state.colors.find(c=>c.id===it.colors.s);
+        const a = state.colors.find(c=>c.id===it.colors.a);
+        return `
+          <div class="item">
+            <div class="thumb" data-photo="${escapeHtml(it.photo||"")}" title="Ouvrir">
+              ${it.photo ? `<img alt="" src="${it.photo}"/>` : ``}
+            </div>
+            <div class="item-main">
+              <p class="item-name">${escapeHtml(it.name)}</p>
+              <div class="item-meta">
+                <span>${escapeHtml(it.created)}</span>
+                <span class="pills">
+                  ${pillBtn("P", p)}
+                  ${pillBtn("S", s)}
+                  ${pillBtn("A", a)}
+                </span>
+              </div>
+            </div>
+            <button class="btn btn-danger btn-ghost" type="button" data-del-item="${it.id}">Suppr.</button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function pillBtn(label, c){
+      if(!c) return `<button class="pillbtn" type="button" disabled>${label} —</button>`;
+      return `
+        <button class="pillbtn" type="button" data-color-open="${c.id}" title="${escapeHtml(c.name)}">
+          <span class="sw" style="background:${c.hex}"></span>
+          ${label} ${escapeHtml(baseNameOnly(c.name))}
+        </button>
+      `;
+    }
+
+    function renderColors(){
+      colorsCount.textContent = `${state.colors.length} couleur${state.colors.length>1?"s":""}`;
+      const sorted = [...state.colors].sort((a,b)=>b.used-a.used);
+      colorsGrid.innerHTML = sorted.map(c => `
+        <button class="cbtn" type="button" data-color="${c.id}">
+          <div class="cswatch" style="background:${c.hex}"></div>
+          <p class="cname">${escapeHtml(c.name)}</p>
+          <p class="chex">${escapeHtml(c.hex)}</p>
+        </button>
+      `).join("");
+    }
+
+    function renderCompareSelects(){
+      // Populate selects with colors
+      const opts = state.colors.map(c => `<option value="${c.id}">${escapeHtml(c.name)} · ${c.hex}</option>`).join("");
+      cmpA.innerHTML = `<option value="">—</option>` + opts;
+      cmpB.innerHTML = `<option value="">—</option>` + opts;
+      updateCompare();
+    }
+
+    /***********************
+     * Color sheet
+     ***********************/
+    function openColorSheet(colorId){
+      const c = state.colors.find(x=>x.id===colorId);
+      if(!c) return;
+      sheetColorId = colorId;
+      sheetSw.style.background = c.hex;
+      sheetName.textContent = c.name;
+      sheetHex.textContent = c.hex;
+      sheetInfo.textContent = `${c.used} utilisation${c.used>1?"s":""} · Créée ${c.created}`;
+      backdrop.classList.add("open");
+      sheet.classList.add("open");
+      sheet.setAttribute("aria-hidden","false");
+      sheetClose.focus({preventScroll:true});
+    }
+    function closeSheet(){
+      sheet.classList.remove("open");
+      backdrop.classList.remove("open");
+      sheet.setAttribute("aria-hidden","true");
+      sheetColorId=null;
+    }
+    backdrop.addEventListener("click", closeSheet);
+    sheetClose.addEventListener("click", closeSheet);
+    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ closeSheet(); closePhotoModal(); } });
+
+    btnCopy.addEventListener("click", async ()=>{
+      const c = state.colors.find(x=>x.id===sheetColorId);
+      if(!c) return;
+      try{ await navigator.clipboard.writeText(c.hex); showToast("HEX copié ✓"); }
+      catch{ prompt("Copie le HEX :", c.hex); }
     });
 
-    // Add view: sync color picker <-> hex input
+    btnGoCompare.addEventListener("click", ()=>{
+      if(!sheetColorId) return;
+      setView("compare");
+      renderCompareSelects();
+      cmpA.value = sheetColorId;
+      updateCompare();
+      closeSheet();
+    });
+
+    btnDeleteColor.addEventListener("click", ()=>{
+      const c = state.colors.find(x=>x.id===sheetColorId);
+      if(!c) return;
+      if(c.used>0){ showToast("Couleur utilisée"); return; }
+      state.colors = state.colors.filter(x=>x.id!==c.id);
+      closeSheet();
+      render();
+      showToast("Supprimée");
+    });
+
+    /***********************
+     * Compare V1 (DeltaE + contraste)
+     ***********************/
+    function relLum({r,g,b}){
+      const lin = v => {
+        v/=255;
+        return (v<=0.03928)? v/12.92 : Math.pow((v+0.055)/1.055,2.4);
+      };
+      const R=lin(r), G=lin(g), B=lin(b);
+      return 0.2126*R + 0.7152*G + 0.0722*B;
+    }
+    function contrastRatio(rgb1,rgb2){
+      const L1 = relLum(rgb1);
+      const L2 = relLum(rgb2);
+      const hi = Math.max(L1,L2), lo = Math.min(L1,L2);
+      return (hi+0.05)/(lo+0.05);
+    }
+
+    function updateCompare(){
+      const aId = cmpA.value;
+      const bId = cmpB.value;
+      if(!aId || !bId){
+        cmpSwA.style.background = "rgba(127,127,127,.18)";
+        cmpSwB.style.background = "rgba(127,127,127,.18)";
+        cmpHexA.textContent = "—";
+        cmpHexB.textContent = "—";
+        cmpResult.textContent = "Sélectionne 2 couleurs.";
+        return;
+      }
+      const A = state.colors.find(c=>c.id===aId);
+      const B = state.colors.find(c=>c.id===bId);
+      if(!A || !B) return;
+
+      cmpSwA.style.background = A.hex;
+      cmpSwB.style.background = B.hex;
+      cmpHexA.textContent = `${A.name} · ${A.hex}`;
+      cmpHexB.textContent = `${B.name} · ${B.hex}`;
+
+      const labA = rgbToLab(hexToRgb(A.hex));
+      const labB = rgbToLab(hexToRgb(B.hex));
+      const dE = deltaE76(labA, labB);
+      const cr = contrastRatio(hexToRgb(A.hex), hexToRgb(B.hex));
+
+      const simLabel = dE < 3 ? "Quasi identiques" : dE < 6 ? "Très proches" : dE < 12 ? "Proches" : "Différentes";
+      const crLabel = cr >= 7 ? "Excellent (AAA)" : cr >= 4.5 ? "Bon (AA)" : cr >= 3 ? "Moyen" : "Faible";
+
+      cmpResult.innerHTML =
+        `DeltaE ≈ <b>${dE.toFixed(1)}</b> — ${simLabel}.<br/>Contraste ≈ <b>${cr.toFixed(2)}:1</b> — ${crLabel}.`;
+    }
+    cmpA.addEventListener("change", updateCompare);
+    cmpB.addEventListener("change", updateCompare);
+
+    /***********************
+     * Add page: sync inputs
+     ***********************/
     function bindColorPair(picker, hexInput){
-      picker.addEventListener("input", () => { hexInput.value = picker.value.toUpperCase(); });
-      hexInput.addEventListener("input", () => {
+      picker.addEventListener("input", ()=>{ hexInput.value = picker.value.toUpperCase(); });
+      hexInput.addEventListener("blur", ()=>{
         const n = normalizeHex(hexInput.value);
-        if(n){ picker.value = n; hexInput.value = n; }
-      });
-      hexInput.addEventListener("blur", () => {
-        const n = normalizeHex(hexInput.value);
-        if(n){ picker.value = n; hexInput.value = n; }
+        if(n){ picker.value=n; hexInput.value=n; }
       });
     }
-    bindColorPair(pColor, pHex);
-    bindColorPair(sColor, sHex);
-    bindColorPair(aColor, aHex);
+    bindColorPair(pColor,pHex);
+    bindColorPair(sColor,sHex);
+    bindColorPair(aColor,aHex);
 
-    // Auto buttons => normalize + propose naming (without adding yet)
-    document.querySelectorAll("[data-fill]").forEach(b => {
-      b.addEventListener("click", () => {
-        const key = b.getAttribute("data-fill");
-        const input = key==="p" ? pHex : key==="s" ? sHex : aHex;
-        const picker = key==="p" ? pColor : key==="s" ? sColor : aColor;
-        const n = normalizeHex(input.value) || picker.value.toUpperCase();
+    document.querySelectorAll("[data-auto]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const key = btn.dataset.auto;
+        const inp = key==="p"?pHex:key==="s"?sHex:aHex;
+        const n = normalizeHex(inp.value);
         if(!n){ showToast("HEX invalide"); return; }
-        input.value = n;
-        picker.value = n;
         const name = proposeName(n);
         showToast(`Nom : ${name}`);
       });
     });
 
-    // Add item
-    btnAdd.addEventListener("click", async () => {
-      const name = (inName.value || "").trim();
-      if(!name){ showToast("Nom requis"); return; }
+    /***********************
+     * Photo preview + pipette
+     ***********************/
+    function setPreview(dataUrl){
+      photoPreview.innerHTML = dataUrl ? `<img alt="" src="${dataUrl}">` : `<span>Ajoute une photo</span>`;
+      currentPhotoDataUrl = dataUrl || "";
+    }
 
-      const hp = normalizeHex(pHex.value) || pColor.value.toUpperCase();
-      const hs = normalizeHex(sHex.value) || sColor.value.toUpperCase();
-      const ha = normalizeHex(aHex.value) || aColor.value.toUpperCase();
+    async function readFileAsDataUrl(file){
+      if(!file) return "";
+      return new Promise(res=>{
+        const r = new FileReader();
+        r.onload = ()=>res(String(r.result||""));
+        r.onerror = ()=>res("");
+        r.readAsDataURL(file);
+      });
+    }
+
+    inPhoto.addEventListener("change", async ()=>{
+      const file = inPhoto.files?.[0];
+      const data = await readFileAsDataUrl(file);
+      setPreview(data);
+      showToast(data ? "Photo ajoutée" : "—");
+    });
+
+    // Tap preview = open modal (if photo)
+    photoPreview.addEventListener("click", ()=>{
+      if(!currentPhotoDataUrl){ showToast("Ajoute une photo"); return; }
+      openPhotoModal();
+    });
+    btnOpenPicker.addEventListener("click", ()=>{
+      if(!currentPhotoDataUrl){ showToast("Ajoute une photo"); return; }
+      openPhotoModal();
+    });
+
+    // Per-row "Pipette" buttons set target and open
+    document.querySelectorAll("[data-pip]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        pipTarget = b.dataset.pip;
+        pipTargetBtn.textContent = `Assigner : ${pipTarget.toUpperCase()}`;
+        if(!currentPhotoDataUrl){ showToast("Ajoute une photo"); return; }
+        openPhotoModal();
+      });
+    });
+
+    pipTargetBtn.addEventListener("click", ()=>{
+      // cycle P -> S -> A
+      pipTarget = pipTarget==="p" ? "s" : pipTarget==="s" ? "a" : "p";
+      pipTargetBtn.textContent = `Assigner : ${pipTarget.toUpperCase()}`;
+      showToast(`Cible : ${pipTarget.toUpperCase()}`);
+    });
+
+    function openPhotoModal(){
+      photoModal.classList.add("open");
+      photoModal.setAttribute("aria-hidden","false");
+      drawToCanvas(currentPhotoDataUrl);
+      pipTargetBtn.textContent = `Assigner : ${pipTarget.toUpperCase()}`;
+    }
+    function closePhotoModal(){
+      photoModal.classList.remove("open");
+      photoModal.setAttribute("aria-hidden","true");
+    }
+    photoBackdrop.addEventListener("click", closePhotoModal);
+    photoClose.addEventListener("click", closePhotoModal);
+
+    function drawToCanvas(dataUrl){
+      canvasCtx = pipCanvas.getContext("2d", { willReadFrequently:true });
+      canvasImg = new Image();
+      canvasImg.onload = ()=>{
+        // Fit canvas width to container
+        const maxW = canvasWrap.clientWidth;
+        const scale = maxW / canvasImg.width;
+        const w = Math.floor(canvasImg.width * scale);
+        const h = Math.floor(canvasImg.height * scale);
+        pipCanvas.width = w;
+        pipCanvas.height = h;
+        canvasCtx.drawImage(canvasImg, 0, 0, w, h);
+      };
+      canvasImg.src = dataUrl;
+    }
+
+    function pickAt(clientX, clientY){
+      if(!canvasCtx) return;
+      const rect = pipCanvas.getBoundingClientRect();
+      const x = Math.round((clientX - rect.left) * (pipCanvas.width / rect.width));
+      const y = Math.round((clientY - rect.top) * (pipCanvas.height / rect.height));
+      const p = canvasCtx.getImageData(Math.max(0,Math.min(x,pipCanvas.width-1)), Math.max(0,Math.min(y,pipCanvas.height-1)), 1, 1).data;
+      const hex = "#" + [p[0],p[1],p[2]].map(v=>v.toString(16).padStart(2,"0")).join("").toUpperCase();
+      lastPickedHex = hex;
+      pipPreview.style.background = hex;
+      pipHex.textContent = hex;
+    }
+
+    let dragging=false;
+    pipCanvas.addEventListener("pointerdown", (e)=>{ dragging=true; pickAt(e.clientX,e.clientY); });
+    pipCanvas.addEventListener("pointermove", (e)=>{ if(dragging) pickAt(e.clientX,e.clientY); });
+    window.addEventListener("pointerup", ()=> dragging=false);
+
+    pipAssign.addEventListener("click", ()=>{
+      if(!lastPickedHex){ showToast("Choisis une couleur"); return; }
+      assignHexToTarget(lastPickedHex, pipTarget);
+      showToast(`Assigné ${pipTarget.toUpperCase()}`);
+    });
+
+    function assignHexToTarget(hex, target){
+      if(target==="p"){ pHex.value=hex; pColor.value=hex; }
+      if(target==="s"){ sHex.value=hex; sColor.value=hex; }
+      if(target==="a"){ aHex.value=hex; aColor.value=hex; }
+    }
+
+    /***********************
+     * Ensure colors + add item
+     ***********************/
+    function ensureColor(hex){
+      const ex = state.colors.find(c=>c.hex===hex);
+      if(ex) return ex.id;
+      const name = proposeName(hex);
+      const c = { id: uid(), hex, name, created: todayFR(), used:0 };
+      state.colors.unshift(c);
+      return c.id;
+    }
+
+    btnAdd.addEventListener("click", ()=>{
+      const name = (inName.value||"").trim();
+      if(!name){ showToast("Nom requis"); return; }
+      const hp = normalizeHex(pHex.value), hs = normalizeHex(sHex.value), ha = normalizeHex(aHex.value);
       if(!hp || !hs || !ha){ showToast("HEX invalide"); return; }
 
-      // Ensure colors exist in library with premium naming (coherent on similarity)
       const pId = ensureColor(hp);
       const sId = ensureColor(hs);
       const aId = ensureColor(ha);
-
-      const photo = await readPhotoAsDataUrl(inPhoto.files?.[0]);
 
       state.items.unshift({
         id: uid(),
         name,
         created: todayFR(),
-        photo: photo || "",
-        colors: { p: pId, s: sId, a: aId }
+        photo: currentPhotoDataUrl || "",
+        colors: { p:pId, s:sId, a:aId }
       });
 
-      inName.value = "";
-      inPhoto.value = "";
-      showToast("Ajouté ✓");
+      inName.value="";
+      // keep photo for speed? We keep it to allow multiple picks; user can reset if needed
       render();
       setView("dressing");
+      showToast("Ajouté ✓");
     });
 
-    btnReset.addEventListener("click", () => {
+    btnReset.addEventListener("click", ()=>{
       if(!confirm("Réinitialiser l'app (données locales) ?")) return;
       localStorage.removeItem(LS_KEY);
-      state = seedState();
+      state = seed();
+      setPreview("");
       render();
-      setView("dressing");
+      setView("home");
       showToast("Reset ✓");
     });
 
-    function ensureColor(hex){
-      // If already exists exact hex -> return existing
-      const ex = state.colors.find(c => c.hex === hex);
-      if(ex) return ex.id;
-
-      // Otherwise create with premium naming
-      const name = proposeName(hex);
-      const c = { id: uid(), hex, name, created: todayFR(), used: 0 };
-      state.colors.unshift(c);
-
-      // Optional: harmonize VERY similar colors names to same family
-      harmonizeNearColors(c);
-
-      return c.id;
-    }
-
-    function harmonizeNearColors(newColor){
-      // If extremely close (deltaE < 4), enforce same base + nuance for both directions
-      const rgbN = hexToRgb(newColor.hex);
-      if(!rgbN) return;
-      const labN = rgbToLab(rgbN);
-
-      for(const c of state.colors){
-        if(c.id === newColor.id) continue;
-        const rgb = hexToRgb(c.hex);
-        if(!rgb) continue;
-        const d = deltaE76(labN, rgbToLab(rgb));
-        if(d < 4){
-          const base = baseNameOnly(c.name);
-          // Rename new color to match base + nuance
-          const nu = nuanceFromHsl(rgbToHsl(rgbN));
-          const finalName = uniqueName(nu ? `${base} ${nu}` : base, newColor.hex);
-          newColor.name = finalName;
-          break;
+    /***********************
+     * Click handlers in lists
+     ***********************/
+    itemsList.addEventListener("click", (e)=>{
+      const del = e.target.closest("[data-del-item]");
+      if(del){
+        const id = del.getAttribute("data-del-item");
+        state.items = state.items.filter(it=>it.id!==id);
+        render();
+        showToast("Supprimé");
+        return;
+      }
+      const cbtn = e.target.closest("[data-color-open]");
+      if(cbtn){
+        openColorSheet(cbtn.getAttribute("data-color-open"));
+        return;
+      }
+      const th = e.target.closest(".thumb");
+      if(th){
+        const src = th.getAttribute("data-photo");
+        if(src){
+          currentPhotoDataUrl = src;
+          openPhotoModal(); // ✅ plein écran
+        }else{
+          showToast("Pas de photo");
         }
       }
-    }
+    });
 
-    async function readPhotoAsDataUrl(file){
-      if(!file) return "";
-      return new Promise((res) => {
-        const reader = new FileReader();
-        reader.onload = () => res(String(reader.result || ""));
-        reader.onerror = () => res("");
-        reader.readAsDataURL(file);
-      });
-    }
+    colorsGrid.addEventListener("click", (e)=>{
+      const b = e.target.closest("[data-color]");
+      if(!b) return;
+      openColorSheet(b.getAttribute("data-color"));
+    });
 
+    /***********************
+     * Home "take photo" opens add view and file picker
+     ***********************/
+    document.getElementById("homeTakePhoto").addEventListener("click", ()=>{
+      setView("add");
+      setTimeout(()=>inPhoto.click(), 150);
+    });
+
+    /***********************
+     * Utils
+     ***********************/
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, s => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -1249,6 +1385,7 @@
     }
 
     // Init
+    setPreview("");
     render();
   </script>
 </body>
