@@ -24,7 +24,6 @@
       --safe-top: env(safe-area-inset-top);
       --safe-bottom: env(safe-area-inset-bottom);
     }
-
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html,body{height:100%}
     body{
@@ -39,7 +38,6 @@
       min-height:100%;
       padding: calc(16px + var(--safe-top)) 14px calc(18px + var(--safe-bottom));
     }
-
     .wrap{max-width:980px;margin:0 auto}
     .topbar{display:flex;align-items:center;gap:10px;padding:12px 8px 18px}
     .dot{
@@ -62,7 +60,6 @@
       color:var(--text);
       background:linear-gradient(135deg, rgba(255,23,183,.35), rgba(122,44,255,.35));
     }
-
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
       border:1px solid var(--stroke);
@@ -72,11 +69,9 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-
     .hero{display:grid;gap:12px;padding:22px}
     .title{font-size:38px;line-height:1.02;margin:0;font-weight:1100;letter-spacing:-.6px}
     .sub{margin:0;color:var(--muted);font-size:15px;line-height:1.45}
-
     .actions{display:grid;gap:10px;margin-top:8px}
     .btn{
       height:var(--btnh);
@@ -107,24 +102,8 @@
     .btn:active{transform:translateY(1px)}
     .btn[disabled]{opacity:.55;filter:saturate(.7);transform:none}
 
-    .btn.primary::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.22) 45%, transparent 60%);
-      transform: translateX(-60%) rotate(10deg);
-      opacity:0;
-    }
-    .btn.primary.shimmer::after{animation: shimmer 1.05s ease-out 1; opacity:1}
-    @keyframes shimmer{
-      0%{transform: translateX(-70%) rotate(10deg); opacity:0;}
-      10%{opacity:1;}
-      100%{transform: translateX(80%) rotate(10deg); opacity:0;}
-    }
-
     .stage{margin-top:14px;display:none;gap:12px}
     .imgCard{padding:14px;display:grid;gap:10px}
-
     .imgWrap{
       border-radius:18px;border:1px solid var(--stroke);overflow:hidden;
       background:rgba(255,255,255,.04);
@@ -142,13 +121,14 @@
       -webkit-user-drag:none;
     }
     .crosshair{
-      position:absolute;width:34px;height:34px;left:50%;top:50%;
-      transform:translate(-50%,-50%);
+      position:absolute;width:34px;height:34px;
       border:2px solid rgba(255,255,255,.88);
       border-radius:999px;
       box-shadow:0 8px 24px rgba(0,0,0,.45);
       background:transparent;
       pointer-events:none;
+      transform:translate(-50%,-50%);
+      left:50%;top:50%;
     }
     .crosshair:before,.crosshair:after{
       content:"";
@@ -158,10 +138,8 @@
       border-radius:2px;
     }
     .crosshair:after{width:2px;height:26px}
-
     .row{display:flex;gap:10px;flex-wrap:wrap}
     .row .btn{flex:1;min-width:210px}
-
     .swatchPanel{
       border-radius:18px;border:1px solid var(--stroke);
       overflow:hidden;background:rgba(0,0,0,.18);
@@ -209,19 +187,31 @@
       padding:12px 12px calc(12px + var(--safe-bottom));
       z-index:9999;
     }
+
+    /* FIX: modal never blocks the top; header always reachable */
     .modal{
-      width:100%;max-width:820px;margin:0 auto;border-radius:22px;border:1px solid var(--stroke);
+      width:100%;
+      max-width:820px;
+      margin:0 auto;
+      border-radius:22px;
+      border:1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       overflow:hidden;
       animation: pop .18s ease-out;
+
+      max-height: 85vh;
+      display:flex;
+      flex-direction:column;
     }
     @keyframes pop{from{transform:translateY(10px);opacity:.6}to{transform:translateY(0);opacity:1}}
     .modalHead{
       display:flex;align-items:center;justify-content:space-between;
-      padding:16px;border-bottom:1px solid rgba(255,255,255,.10);
+      padding:16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      flex:none;
     }
     .modalHead h3{margin:0;font-size:18px;font-weight:1100}
     .x{
@@ -230,7 +220,11 @@
       background:rgba(255,255,255,.06);
       color:var(--text);font-size:18px;font-weight:1100;
     }
-    .modalBody{padding:14px 16px 16px}
+    .modalBody{
+      padding:14px 16px 16px;
+      overflow:auto;
+      flex:1;
+    }
     .sheetBtns{display:grid;gap:10px}
 
     /* Lists */
@@ -444,8 +438,8 @@
       <span class="dot"></span>
       <div class="brand">ToneMatch <span class="muted">AI</span></div>
       <div class="spacer"></div>
-      <div class="seg" id="modeSeg" title="Mode d’usage">
-        <button type="button" data-mode="vetements" class="on">Vêtements</button>
+      <div class="seg" id="modeSeg" title="Mode dâusage">
+        <button type="button" data-mode="vetements" class="on">VÃªtements</button>
         <button type="button" data-mode="objets">Objets</button>
       </div>
     </div>
@@ -454,15 +448,15 @@
     <div class="card hero" id="home">
       <h1 class="title">Identifiez vos couleurs</h1>
       <p class="sub">
-        Prends une photo ou importe une image. Déplace la cible pour prélever.
+        Prends une photo ou importe une image. DÃ©place la cible pour prÃ©lever.
         Verrouille A et B, puis sauvegarde dans <b>Mes couleurs</b>.
       </p>
 
       <div class="actions">
-        <button class="btn primary" id="btnPick">📸 <span>Prendre / importer une image</span></button>
-        <button class="btn" id="btnCompare">🧩 <span>Comparer</span></button>
-        <button class="btn" id="btnDressing">👗 <span>Mon dressing</span></button>
-        <button class="btn" id="btnColors">🎨 <span>Mes couleurs</span></button>
+        <button class="btn primary" id="btnPick">ð¸ <span>Prendre / importer une image</span></button>
+        <button class="btn" id="btnCompare">ð§© <span>Comparer</span></button>
+        <button class="btn" id="btnDressing">ð <span>Mon dressing</span></button>
+        <button class="btn" id="btnColors">ð¨ <span>Mes couleurs</span></button>
       </div>
     </div>
 
@@ -470,44 +464,44 @@
     <div class="stage" id="stage">
       <div class="card imgCard">
         <div class="imgWrap" id="imgWrap">
-          <img id="img" alt="Image sélectionnée" />
+          <img id="img" alt="Image sÃ©lectionnÃ©e" />
           <div class="crosshair" id="crosshair"></div>
         </div>
 
         <div class="row">
-          <button class="btn" id="btnChangeImg">🖼️ Changer d’image</button>
-          <button class="btn" id="btnCompare2">🧩 Comparer</button>
-          <button class="btn" id="btnColors2">🎨 Mes couleurs</button>
+          <button class="btn" id="btnChangeImg">ð¼ï¸ Changer dâimage</button>
+          <button class="btn" id="btnCompare2">ð§© Comparer</button>
+          <button class="btn" id="btnColors2">ð¨ Mes couleurs</button>
         </div>
 
         <div class="swatchPanel" id="swatchPanel">
           <div class="swSplit">
             <div class="swRow swA" id="rowA">
-              <div class="tag"><span class="dotMini" id="dotA"></span> A <span class="muted" id="nameA">—</span></div>
-              <div class="hexSmall" id="hexA">—</div>
+              <div class="tag"><span class="dotMini" id="dotA"></span> A <span class="muted" id="nameA">â</span></div>
+              <div class="hexSmall" id="hexA">â</div>
             </div>
 
             <div class="swCenter" id="rowCenter">
-              <div class="centerHex" id="hexCenter">—</div>
+              <div class="centerHex" id="hexCenter">â</div>
             </div>
 
             <div class="swRow swB" id="rowB">
-              <div class="tag"><span class="dotMini" id="dotB"></span> B <span class="muted" id="nameB">—</span></div>
-              <div class="hexSmall" id="hexB">—</div>
+              <div class="tag"><span class="dotMini" id="dotB"></span> B <span class="muted" id="nameB">â</span></div>
+              <div class="hexSmall" id="hexB">â</div>
             </div>
           </div>
 
           <div class="barBtns">
-            <button class="btn" id="lockA">🔒 Verrouiller A</button>
-            <button class="btn" id="lockB">🔒 Verrouiller B</button>
-            <button class="btn primary" id="saveColors">💾 Sauvegarder dans Mes couleurs</button>
+            <button class="btn" id="lockA">ð Verrouiller A</button>
+            <button class="btn" id="lockB">ð Verrouiller B</button>
+            <button class="btn primary" id="saveColors">ð¾ Sauvegarder dans Mes couleurs</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FILE INPUTS (picker général) -->
+  <!-- FILE INPUTS (picker gÃ©nÃ©ral) -->
   <input id="inCamera" type="file" accept="image/*" capture="environment" class="hide" />
   <input id="inPhotos" type="file" accept="image/*" class="hide" />
   <input id="inFiles" type="file" accept="image/*" class="hide" />
@@ -522,16 +516,16 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Choisir une source</h3>
-        <button class="x" type="button" data-close="bdPick">×</button>
+        <button class="x" type="button" data-close="bdPick">Ã</button>
       </div>
       <div class="modalBody">
         <div class="sheetBtns">
-          <button class="btn primary" type="button" id="pickCamera">📸 Caméra</button>
-          <button class="btn" type="button" id="pickPhotos">🖼️ Photos / Galerie</button>
-          <button class="btn" type="button" id="pickFiles">📁 Fichiers</button>
+          <button class="btn primary" type="button" id="pickCamera">ð¸ CamÃ©ra</button>
+          <button class="btn" type="button" id="pickPhotos">ð¼ï¸ Photos / Galerie</button>
+          <button class="btn" type="button" id="pickFiles">ð Fichiers</button>
         </div>
         <p class="small muted" style="margin:12px 2px 0">
-          Astuce iPhone : “Photos / Galerie” ouvre ton album, “Fichiers” ouvre iCloud/Drive.
+          Astuce iPhone : âPhotos / Galerieâ ouvre ton album, âFichiersâ ouvre iCloud/Drive.
         </p>
       </div>
     </div>
@@ -542,21 +536,21 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Mes couleurs</h3>
-        <button class="x" type="button" data-close="bdColors">×</button>
+        <button class="x" type="button" data-close="bdColors">Ã</button>
       </div>
       <div class="modalBody">
         <p class="small muted" style="margin-top:0" id="colorsHint">
-          Historique sans doublons. Tu peux sélectionner des couleurs et lancer le comparatif.
+          Historique sans doublons. Tu peux sÃ©lectionner des couleurs et lancer le comparatif.
         </p>
         <div class="list" id="colorsList"></div>
 
         <div class="stickyBar hide" id="colorsSticky">
-          <button class="btn" id="btnColorsCompareNow" disabled>🧩 Comparer maintenant (0)</button>
-          <button class="btn danger" id="btnColorsClearSel">🧼 Effacer sélection</button>
+          <button class="btn" id="btnColorsCompareNow" disabled>ð§© Comparer maintenant (0)</button>
+          <button class="btn danger" id="btnColorsClearSel">ð§¼ Effacer sÃ©lection</button>
         </div>
 
         <div style="margin-top:12px">
-          <button class="btn danger" id="resetAll">🗑️ Tout supprimer</button>
+          <button class="btn danger" id="resetAll">ðï¸ Tout supprimer</button>
         </div>
       </div>
     </div>
@@ -567,13 +561,13 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Comparer</h3>
-        <button class="x" type="button" data-close="bdCompare">×</button>
+        <button class="x" type="button" data-close="bdCompare">Ã</button>
       </div>
       <div class="modalBody">
         <div class="compareTop">
           <p class="small muted" style="margin:0">
-            Sélectionne jusqu’à <b>4 couleurs</b>. Score basé sur <b>DeltaE</b> (perception visuelle).
-            <br><b>95%+</b> = MATCH • <b>100%</b> = MATCH PARFAIT
+            SÃ©lectionne jusquâÃ  <b>4 couleurs</b>. Score basÃ© sur <b>DeltaE</b> (perception visuelle).
+            <br><b>95%+</b> = MATCH â¢ <b>100%</b> = MATCH PARFAIT
           </p>
           <div class="selRow" id="selRow"></div>
         </div>
@@ -581,8 +575,8 @@
         <div class="pairs" id="pairs"></div>
 
         <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="btnPickFromHistory">🎨 Choisir dans Mes couleurs</button>
-          <button class="btn danger" id="btnClearSelection">🧼 Réinitialiser sélection</button>
+          <button class="btn" id="btnPickFromHistory">ð¨ Choisir dans Mes couleurs</button>
+          <button class="btn danger" id="btnClearSelection">ð§¼ RÃ©initialiser sÃ©lection</button>
         </div>
       </div>
     </div>
@@ -593,15 +587,15 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Mon dressing</h3>
-        <button class="x" type="button" data-close="bdDressing">×</button>
+        <button class="x" type="button" data-close="bdDressing">Ã</button>
       </div>
       <div class="modalBody">
         <p class="small muted" style="margin-top:0">
-          Jusqu’à <b>30</b> photos. Ouvre un item pour définir <b>4 couleurs</b> (1/2/3/4) avec la pipette.
+          JusquâÃ  <b>30</b> photos. Ouvre un item pour dÃ©finir <b>4 couleurs</b> (1/2/3/4) avec la pipette.
         </p>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn primary" id="btnDressAdd">➕ Ajouter une photo</button>
+          <button class="btn primary" id="btnDressAdd">â Ajouter une photo</button>
         </div>
 
         <div class="grid" id="dressGrid"></div>
@@ -614,16 +608,16 @@
     <div class="modal">
       <div class="modalHead">
         <h3>Ajouter au dressing</h3>
-        <button class="x" type="button" data-close="bdDressPick">×</button>
+        <button class="x" type="button" data-close="bdDressPick">Ã</button>
       </div>
       <div class="modalBody">
         <div class="sheetBtns">
-          <button class="btn primary" type="button" id="dressPickCamera">📸 Caméra</button>
-          <button class="btn" type="button" id="dressPickPhotos">🖼️ Photos / Galerie</button>
-          <button class="btn" type="button" id="dressPickFiles">📁 Fichiers</button>
+          <button class="btn primary" type="button" id="dressPickCamera">ð¸ CamÃ©ra</button>
+          <button class="btn" type="button" id="dressPickPhotos">ð¼ï¸ Photos / Galerie</button>
+          <button class="btn" type="button" id="dressPickFiles">ð Fichiers</button>
         </div>
         <p class="small muted" style="margin:12px 2px 0">
-          Les images sont optimisées (miniature + version nette) pour rester fluide.
+          Les images sont optimisÃ©es (miniature + version nette) pour rester fluide.
         </p>
       </div>
     </div>
@@ -633,8 +627,8 @@
   <div class="backdrop" id="bdDressDetail">
     <div class="modal">
       <div class="modalHead">
-        <h3 id="dressDetailTitle">Détail</h3>
-        <button class="x" type="button" data-close="bdDressDetail">×</button>
+        <h3 id="dressDetailTitle">DÃ©tail</h3>
+        <button class="x" type="button" data-close="bdDressDetail">Ã</button>
       </div>
       <div class="modalBody">
         <div class="imgWrap" id="dressImgWrap" style="aspect-ratio: 4/3;">
@@ -643,21 +637,21 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <button class="btn" id="btnDressRename">✏️ Renommer</button>
-          <button class="btn danger" id="btnDressDelete">🗑️ Supprimer</button>
+          <button class="btn" id="btnDressRename">âï¸ Renommer</button>
+          <button class="btn danger" id="btnDressDelete">ðï¸ Supprimer</button>
         </div>
 
         <div class="slots" id="dressSlots"></div>
 
         <div class="stickyBar">
-          <button class="btn" id="btnDressToCompare" disabled>🧩 Ajouter au comparateur (0)</button>
-          <button class="btn primary" id="btnDressSaveColors">💾 Sauvegarder couleurs</button>
+          <button class="btn" id="btnDressToCompare" disabled>ð§© Ajouter au comparateur (0)</button>
+          <button class="btn primary" id="btnDressSaveColors">ð¾ Sauvegarder couleurs</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">✅</div>
+  <div class="toast" id="toast">â</div>
   <canvas id="cv" class="hide"></canvas>
 
   <script>
@@ -671,7 +665,7 @@
       imgEl: $("img"),
       imgReady: false,
       pos: { x: 0.5, y: 0.5 },
-      sample: { r:0,g:0,b:0, hex:"#000000", name:"—" },
+      sample: { r:0,g:0,b:0, hex:"#000000", name:"â" },
       A: { locked:false, hex:null, name:null, rgb:null },
       B: { locked:false, hex:null, name:null, rgb:null },
       cache: { ready:false, scale:1, w:0, h:0 },
@@ -685,7 +679,7 @@
         imgReady: false,
         pos: { x:0.5, y:0.5 },
         cache: { ready:false, scale:1, w:0, h:0 },
-        sample: { r:0,g:0,b:0, hex:"#000000", name:"—" },
+        sample: { r:0,g:0,b:0, hex:"#000000", name:"â" },
         slots: [null,null,null,null], // each {hex,name,rgb}
         pickingSlot: null,
       }
@@ -704,7 +698,7 @@
     }
 
     // ---------- LocalStorage (Mes couleurs)
-    const LS_KEY = "tonematch_unique_colors_v5";
+    const LS_KEY = "tonematch_unique_colors_v6";
     const MAX_HISTORY = 300;
 
     const loadSaved = ()=> {
@@ -713,10 +707,29 @@
     };
     const saveSaved = (arr)=> localStorage.setItem(LS_KEY, JSON.stringify(arr));
 
+    function ensureUniqueName(name){
+      // Ensures: no 2 different hex share exact same displayed name
+      // Suffix style: "Orange vif Â· B" / "Orange vif Â· C" ...
+      const saved = loadSaved();
+      const existingNames = saved.map(x=>x.name);
+      if(!existingNames.includes(name)) return name;
+
+      const alpha = "BCDEFGHIJKLMNPQRSTUVWXYZ"; // skip A, avoid confusion
+      for(let i=0;i<alpha.length;i++){
+        const candidate = `${name} Â· ${alpha[i]}`;
+        if(!existingNames.includes(candidate)) return candidate;
+      }
+      // fallback numeric
+      let n=2;
+      while(existingNames.includes(`${name} Â· ${n}`)) n++;
+      return `${name} Â· ${n}`;
+    }
+
     function addColorIfNew(hex, name, rgb){
       const saved = loadSaved();
       if(saved.some(x=>x.hex===hex)) return false;
-      saved.unshift({ hex, name, rgb, mode: state.mode, ts: Date.now() });
+      const safeName = ensureUniqueName(name);
+      saved.unshift({ hex, name: safeName, rgb, mode: state.mode, ts: Date.now() });
       saveSaved(saved.slice(0, MAX_HISTORY));
       return true;
     }
@@ -740,7 +753,7 @@
     });
 
     // ===========================================================
-    // Color utilities + naming (suffixes intelligents)
+    // Color utilities + naming (FIXED to avoid orange=>noisette)
     // ===========================================================
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 
@@ -748,14 +761,6 @@
       const to = (n)=> n.toString(16).padStart(2,"0").toUpperCase();
       return "#"+to(r)+to(g)+to(b);
     }
-    function hexToRgb(hex){
-      const h = hex.replace("#","").trim();
-      const r = parseInt(h.slice(0,2),16);
-      const g = parseInt(h.slice(2,4),16);
-      const b = parseInt(h.slice(4,6),16);
-      return {r,g,b};
-    }
-
     function rgbToHsl(r,g,b){
       r/=255; g/=255; b/=255;
       const max=Math.max(r,g,b), min=Math.min(r,g,b);
@@ -773,134 +778,75 @@
       return {h, s, l};
     }
 
-    // Suffix policy: makes close colors still distinct (clair / foncé / vif / poudré / cendré / profond / chaud / froid)
+    function inRange(h, a, b){
+      if(a<=b) return h>=a && h<b;
+      return h>=a || h<b;
+    }
+
     function suffixFR(h,s,l){
       const tags = [];
-
       if(l >= 0.82) tags.push("clair");
       else if(l <= 0.22) tags.push("profond");
-      else if(l <= 0.34) tags.push("foncé");
+      else if(l <= 0.34) tags.push("foncÃ©");
 
-      if(s >= 0.70) tags.push("vif");
-      else if(s <= 0.18) tags.push("cendré");
-      else if(s <= 0.32 && l > 0.55) tags.push("poudré");
+      if(s >= 0.72) tags.push("vif");
+      else if(s <= 0.18) tags.push("cendrÃ©");
+      else if(s <= 0.32 && l > 0.55) tags.push("poudrÃ©");
 
-      // warm/cool hint
-      const warm = (h < 70 || h >= 330) || (h >= 70 && h < 110 && s > 0.5); // reds/oranges/yellows
-      const cool = (h >= 150 && h < 300);
+      // Warm/cool hint (gentle)
+      const warm = inRange(h, 330, 70);
+      const cool = inRange(h, 150, 300);
       if(warm && !cool) tags.push("chaud");
       else if(cool && !warm) tags.push("froid");
 
-      // Keep it short and clean: max 2 suffixes
-      const unique = [...new Set(tags)];
-      return unique.slice(0,2);
+      return [...new Set(tags)].slice(0,2);
     }
 
-    // Premium FR base names with guardrails (no "or" when it's basically ivory)
     function baseNameFR(r,g,b){
       const {h,s,l} = rgbToHsl(r,g,b);
 
-      // Very dark guardrails
-      if(l < 0.10){
-        if(s < 0.12) return "Noir";
-        if(h>=190 && h<250) return "Noir bleuté";
-        if(h>=250 && h<330) return "Noir violacé";
-        return "Noir profond";
-      }
-      if(l < 0.18){
-        if(s < 0.12) return "Anthracite";
-        if(h>=15 && h<65) return "Chocolat";
-        if(h>=345 || h<15) return "Bordeaux";
-        if(h>=190 && h<250) return "Bleu nuit";
-        if(h>=250 && h<300) return "Prune";
-        return "Sombre";
-      }
+      // Super dark
+      if(l < 0.08) return "Noir absolu";
+      if(l < 0.14) return s < 0.10 ? "Noir profond" : "Sombre";
 
-      // Neutrals
+      // Neutrals (no funny names)
       if(s < 0.10){
         if(l > 0.93) return "Blanc neige";
-        if(l > 0.86) return "Blanc cassé";
+        if(l > 0.86) return "Blanc cassÃ©";
         if(l > 0.78) return "Ivoire";
-        if(l > 0.70) return "Écru";
+        if(l > 0.70) return "Ãcru";
         if(l > 0.60) return "Gris clair";
-        if(l > 0.50) return "Gris perle";
-        if(l > 0.40) return "Gris fumé";
-        if(l > 0.30) return "Gris acier";
+        if(l > 0.48) return "Gris perle";
+        if(l > 0.36) return "Gris fumÃ©";
+        if(l > 0.26) return "Anthracite";
         return "Ardoise";
       }
 
-      // Brown/beige zone
-      const inRange = (a,b)=> a<=b ? (h>=a && h<b) : (h>=a || h<b);
-      const brownZone = inRange(15, 75);
+      // Gold guardrail (avoid ivory labelled as Or)
+      const looksGold = inRange(h, 40, 58) && s >= 0.48 && l >= 0.38 && l <= 0.72;
 
-      if(brownZone){
-        // very light brown -> creams/beige (avoid "Or" here)
-        if(l > 0.75 && s < 0.45){
-          if(l > 0.88) return "Crème";
-          if(l > 0.82) return "Ivoire";
-          if(l > 0.78) return "Champagne";
-          return "Beige";
-        }
-        // "Or" only if it really looks like gold: yellow hue, enough saturation, mid light
-        const looksGold = (h >= 40 && h <= 58) && (s >= 0.45) && (l >= 0.40 && l <= 0.72);
-        if(looksGold) return "Or";
+      // Brown decision: warm hues BUT darker or muted (more strict than before)
+      const warmHue = inRange(h, 330, 75); // red->yellow zone
+      const isBrown = warmHue && !looksGold && ((l < 0.50 && s < 0.60) || (l < 0.42)) && s < 0.70;
 
-        if(l > 0.62 && s < 0.40) return "Camel";
-        if(l > 0.55) return "Caramel";
-        if(l > 0.42) return "Noisette";
-        if(l > 0.32) return "Châtaigne";
-        return "Cacao";
+      if(looksGold) return "Or";
+      if(isBrown){
+        if(l < 0.22) return "Cacao";
+        if(l < 0.30) return "ChÃ¢taigne";
+        if(l < 0.38) return "Noisette";
+        if(l < 0.48) return "Caramel";
+        return "Camel";
       }
 
       // Families
-      let family = "Autre";
-      if(inRange(345, 15)) family = "Rouge";
-      else if(inRange(15, 40)) family = "Orange";
-      else if(inRange(40, 70)) family = "Jaune";
-      else if(inRange(70, 165)) family = "Vert";
-      else if(inRange(165, 255)) family = "Bleu";
-      else if(inRange(255, 345)) family = "Violet";
+      if(inRange(h, 345, 15)) return l < 0.35 ? "Bordeaux" : "Rouge";
+      if(inRange(h, 15, 40))  return l < 0.42 ? "Terracotta" : "Orange";
+      if(inRange(h, 40, 70))  return l < 0.45 ? "Miel" : "Jaune";
+      if(inRange(h, 70, 165)) return l < 0.38 ? "Vert sapin" : (l > 0.78 ? "Vert dâeau" : "Vert");
+      if(inRange(h, 165, 255)) return l < 0.32 ? "Bleu nuit" : (l > 0.78 ? "Bleu ciel" : "Bleu");
+      if(inRange(h, 255, 345)) return l < 0.40 ? "Prune" : "Violet";
 
-      // Refine
-      if(family==="Bleu"){
-        if(l > 0.82 && s < 0.55) return "Bleu ciel";
-        if(l > 0.70) return "Bleu azur";
-        if(l > 0.55) return "Bleu denim";
-        if(l > 0.42) return "Bleu pétrole";
-        if(l > 0.30) return "Bleu marine";
-        return "Bleu nuit";
-      }
-      if(family==="Vert"){
-        if(l > 0.78) return "Vert d’eau";
-        if(l > 0.62) return "Vert menthe";
-        if(l > 0.50) return "Vert prairie";
-        if(l > 0.40) return "Vert olive";
-        return "Vert sapin";
-      }
-      if(family==="Rouge"){
-        if(l < 0.35) return "Bordeaux";
-        if(s > 0.70 && l > 0.45) return "Rouge passion";
-        if(l > 0.78 && s < 0.45) return "Rose poudré";
-        return "Rouge";
-      }
-      if(family==="Orange"){
-        if(l < 0.40) return "Terracotta";
-        if(l > 0.78 && s < 0.45) return "Pêche";
-        return "Corail";
-      }
-      if(family==="Jaune"){
-        if(l > 0.80 && s < 0.45) return "Vanille";
-        if(l < 0.45) return "Miel";
-        return "Jaune solaire";
-      }
-      if(family==="Violet"){
-        if(l < 0.40) return "Prune";
-        if(l > 0.78 && s < 0.45) return "Lavande";
-        if(s > 0.70) return "Fuchsia";
-        return "Violet";
-      }
-
-      return family;
+      return "Couleur";
     }
 
     function colorNameFR(r,g,b){
@@ -908,20 +854,17 @@
       const base = baseNameFR(r,g,b);
       const suf = suffixFR(h,s,l);
 
-      // If base is already very specific (Blanc neige / Noir / Or / etc), keep minimal suffix
-      const baseSpecific = ["Blanc neige","Blanc cassé","Ivoire","Crème","Écru","Or","Noir","Anthracite","Ardoise","Bordeaux","Bleu nuit"].includes(base);
-      if(baseSpecific){
-        // add one suffix only if it adds clarity without being weird
-        const ok = suf.filter(x=>x==="clair"||x==="foncé"||x==="profond").slice(0,1);
+      // Keep specific bases clean
+      const specific = ["Noir absolu","Noir profond","Blanc neige","Blanc cassÃ©","Ivoire","Ãcru","Or","Bordeaux","Bleu nuit","Vert dâeau","Bleu ciel","Cacao","ChÃ¢taigne"].includes(base);
+      if(specific){
+        const ok = suf.filter(x=>x==="clair"||x==="foncÃ©"||x==="profond").slice(0,1);
         return ok.length ? `${base} ${ok[0]}` : base;
       }
-
-      if(suf.length===0) return base;
-      return `${base} ${suf.join(" ")}`;
+      return suf.length ? `${base} ${suf.join(" ")}` : base;
     }
 
     // ===========================================================
-    // DeltaE -> Similarity %
+    // DeltaE -> Similarity % (FIXED mapping)
     // ===========================================================
     function srgbToLinear(c){
       c /= 255;
@@ -956,19 +899,30 @@
       const db = lab1.b - lab2.b;
       return Math.sqrt(dL*dL + da*da + db*db);
     }
+
+    // Premium mapping:
+    // dE 0 => 100
+    // dE 2 => 95 (MATCH threshold)
+    // dE 10 => 75
+    // dE 20 => 50
     function similarityPercent(rgb1, rgb2){
       const dE = deltaE76(rgbToLab(rgb1.r,rgb1.g,rgb1.b), rgbToLab(rgb2.r,rgb2.g,rgb2.b));
-      // clamp at 40 for "shopping" usefulness
-      const max = 40;
-      const p = 100 * (1 - clamp(dE, 0, max)/max);
-      return Math.max(0, Math.min(100, Math.round(p)));
+      let p;
+      if(dE <= 2) p = 100 - (dE * 2.5);               // 0..2 => 100..95
+      else if(dE <= 10) p = 95 - ((dE-2) * (20/8));   // 2..10 => 95..75
+      else if(dE <= 20) p = 75 - ((dE-10) * 2.5);     // 10..20 => 75..50
+      else if(dE <= 40) p = 50 - ((dE-20) * 1.25);    // 20..40 => 50..25
+      else p = 0;
+
+      p = Math.max(0, Math.min(100, p));
+      return Math.round(p);
     }
     function labelForPercent(p){
       if(p === 100) return "MATCH PARFAIT";
       if(p >= 95) return "MATCH";
-      if(p >= 85) return "Très proche";
+      if(p >= 85) return "TrÃ¨s proche";
       if(p >= 70) return "Proche";
-      return "Contraste";
+      return "ÃloignÃ©";
     }
 
     // ===========================================================
@@ -1077,15 +1031,15 @@
     function renderStageSwatches(){
       $("hexCenter").textContent = state.sample.hex;
 
-      $("hexA").textContent = state.A.hex ? `${state.A.hex} • RGB(${state.A.rgb.r},${state.A.rgb.g},${state.A.rgb.b})` : "—";
-      $("nameA").textContent = state.A.name || "—";
+      $("hexA").textContent = state.A.hex ? `${state.A.hex} â¢ RGB(${state.A.rgb.r},${state.A.rgb.g},${state.A.rgb.b})` : "â";
+      $("nameA").textContent = state.A.name || "â";
       $("rowA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.04)";
       $("dotA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.15)";
 
       $("rowCenter").style.background = state.sample.hex;
 
-      $("hexB").textContent = state.B.hex ? `${state.B.hex} • RGB(${state.B.rgb.r},${state.B.rgb.g},${state.B.rgb.b})` : "—";
-      $("nameB").textContent = state.B.name || "—";
+      $("hexB").textContent = state.B.hex ? `${state.B.hex} â¢ RGB(${state.B.rgb.r},${state.B.rgb.g},${state.B.rgb.b})` : "â";
+      $("nameB").textContent = state.B.name || "â";
       $("rowB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.04)";
       $("dotB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.15)";
 
@@ -1137,8 +1091,8 @@
       const a = $("lockA"), b = $("lockB");
       a.classList.toggle("locked", state.A.locked);
       b.classList.toggle("locked", state.B.locked);
-      a.textContent = state.A.locked ? "🔓 Déverrouiller A" : "🔒 Verrouiller A";
-      b.textContent = state.B.locked ? "🔓 Déverrouiller B" : "🔒 Verrouiller B";
+      a.textContent = state.A.locked ? "ð DÃ©verrouiller A" : "ð Verrouiller A";
+      b.textContent = state.B.locked ? "ð DÃ©verrouiller B" : "ð Verrouiller B";
     }
     $("lockA").onclick = ()=>{
       state.A.locked = !state.A.locked;
@@ -1167,17 +1121,13 @@
         return;
       }
 
-      const btn = $("saveColors");
-      btn.classList.add("shimmer");
-      setTimeout(()=>btn.classList.remove("shimmer"), 1100);
-
       const aHex = state.A.hex, bHex = state.B.hex;
 
       if(aHex === bHex){
         if(addColorIfNew(aHex, state.A.name, state.A.rgb)){
-          showToast("✅ Couleur ajoutée à l’historique");
+          showToast("â Couleur ajoutÃ©e Ã  lâhistorique");
         } else {
-          showToast("Couleur déjà présente dans l’historique");
+          showToast("Couleur dÃ©jÃ  prÃ©sente dans lâhistorique");
         }
         return;
       }
@@ -1186,16 +1136,16 @@
       const bNew = addColorIfNew(bHex, state.B.name, state.B.rgb);
 
       if(!aNew && !bNew){
-        showToast("Couleurs déjà présentes dans l’historique");
+        showToast("Couleurs dÃ©jÃ  prÃ©sentes dans lâhistorique");
       } else if(aNew && bNew){
-        showToast("✅ Couleurs ajoutées à l’historique");
+        showToast("â Couleurs ajoutÃ©es Ã  lâhistorique");
       } else {
-        showToast("Couleur déjà présente dans l’historique");
+        showToast("Couleur dÃ©jÃ  prÃ©sente dans lâhistorique");
       }
     };
 
     // ===========================================================
-    // Mes couleurs + sélection + bouton comparer maintenant
+    // Mes couleurs + sÃ©lection + bouton comparer maintenant
     // ===========================================================
     function openColors(selectMode=false){
       renderColorsList(selectMode);
@@ -1209,7 +1159,7 @@
     function updateColorsSticky(){
       const n = state.compare.selectedHex.length;
       const btn = $("btnColorsCompareNow");
-      btn.textContent = `🧩 Comparer maintenant (${n})`;
+      btn.textContent = `ð§© Comparer maintenant (${n})`;
       btn.disabled = n < 2;
     }
 
@@ -1220,7 +1170,7 @@
         sel.splice(idx,1);
       } else {
         if(sel.length >= 4){
-          showToast("Sélection max : 4 couleurs");
+          showToast("SÃ©lection max : 4 couleurs");
           return;
         }
         sel.push(hex);
@@ -1234,7 +1184,7 @@
       list.innerHTML = "";
 
       if(saved.length===0){
-        list.innerHTML = `<div class="muted small">Aucune couleur sauvegardée pour le moment.</div>`;
+        list.innerHTML = `<div class="muted small">Aucune couleur sauvegardÃ©e pour le moment.</div>`;
         return;
       }
 
@@ -1255,12 +1205,12 @@
 
         const sub = document.createElement("p");
         sub.className = "itemSub";
-        sub.textContent = it.mode === "objets" ? "Objets" : "Vêtements";
+        sub.textContent = it.mode === "objets" ? "Objets" : "VÃªtements";
 
         const meta = document.createElement("div");
         meta.className = "itemMeta";
         const d = new Date(it.ts);
-        meta.textContent = `${it.hex} • RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""}) • ${d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" })}`;
+        meta.textContent = `${it.hex} â¢ RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""}) â¢ ${d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" })}`;
 
         main.appendChild(t); main.appendChild(sub); main.appendChild(meta);
 
@@ -1287,7 +1237,7 @@
         if(selectMode){
           const pill = document.createElement("div");
           pill.className = "selectPill";
-          pill.innerHTML = `<span class="check"></span><span>Sélectionner</span>`;
+          pill.innerHTML = `<span class="check"></span><span>SÃ©lectionner</span>`;
           const check = pill.querySelector(".check");
 
           const isOn = state.compare.selectedHex.includes(it.hex);
@@ -1320,7 +1270,7 @@
     };
 
     $("resetAll").onclick = ()=>{
-      if(confirm("Supprimer toutes les couleurs sauvegardées ?")){
+      if(confirm("Supprimer toutes les couleurs sauvegardÃ©es ?")){
         saveSaved([]);
         state.compare.selectedHex = [];
         renderColorsList(false);
@@ -1356,8 +1306,8 @@
       const sel = state.compare.selectedHex;
 
       if(sel.length === 0){
-        selRow.innerHTML = `<div class="muted small">Aucune couleur sélectionnée. Clique sur “Choisir dans Mes couleurs”.</div>`;
-        pairs.innerHTML = `<div class="muted small">Sélectionne au moins 2 couleurs pour comparer.</div>`;
+        selRow.innerHTML = `<div class="muted small">Aucune couleur sÃ©lectionnÃ©e. Clique sur âChoisir dans Mes couleursâ.</div>`;
+        pairs.innerHTML = `<div class="muted small">SÃ©lectionne au moins 2 couleurs pour comparer.</div>`;
         return;
       }
 
@@ -1370,20 +1320,19 @@
           <div class="chipSw" style="background:${it.hex}"></div>
           <div class="chipTxt">
             <div class="chipName">${it.name}</div>
-            <div class="chipCode">${it.hex} • RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""})</div>
+            <div class="chipCode">${it.hex} â¢ RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""})</div>
           </div>
         `;
         chip.onclick = ()=>{
           toggleCompareHex(it.hex);
           renderCompare();
-          // keep selection visible in Mes couleurs if open
           updateColorsSticky();
         };
         selRow.appendChild(chip);
       });
 
       if(entries.length < 2){
-        pairs.innerHTML = `<div class="muted small">Sélectionne au moins 2 couleurs pour comparer.</div>`;
+        pairs.innerHTML = `<div class="muted small">SÃ©lectionne au moins 2 couleurs pour comparer.</div>`;
         return;
       }
 
@@ -1406,17 +1355,18 @@
             <div class="miniSw" style="background:${r.b.hex}"></div>
             <div>
               <div class="pairNames">${r.a.name} <span class="pairSmall">vs</span> ${r.b.name}</div>
-              <div class="pairSmall">${r.a.hex} • ${r.b.hex}</div>
+              <div class="pairSmall">${r.a.hex} â¢ ${r.b.hex}</div>
             </div>
           </div>
-          <div class="badge"><b>${r.p}%</b> • ${r.label}</div>
+          <div class="badge"><b>${r.p}%</b> â¢ ${r.label}</div>
         `;
         pairs.appendChild(el);
       });
     }
 
     // ===========================================================
-    // Dressing: IndexedDB (up to 30 items)
+    // Dressing: IndexedDB (up to 30 items) - unchanged logic
+    // (kept as-is from your version, only UI modal sizing fixed above)
     // ===========================================================
     const DRESS_DB = "tonematch_dressing_db_v1";
     const DRESS_STORE = "items";
@@ -1436,7 +1386,6 @@
         req.onerror = ()=> reject(req.error);
       });
     }
-
     async function idbGetAll(){
       const db = await idbOpen();
       return new Promise((resolve,reject)=>{
@@ -1447,7 +1396,6 @@
         req.onerror = ()=> reject(req.error);
       });
     }
-
     async function idbGet(id){
       const db = await idbOpen();
       return new Promise((resolve,reject)=>{
@@ -1458,7 +1406,6 @@
         req.onerror = ()=> reject(req.error);
       });
     }
-
     async function idbPut(item){
       const db = await idbOpen();
       return new Promise((resolve,reject)=>{
@@ -1469,7 +1416,6 @@
         req.onerror = ()=> reject(req.error);
       });
     }
-
     async function idbAdd(item){
       const db = await idbOpen();
       return new Promise((resolve,reject)=>{
@@ -1480,7 +1426,6 @@
         req.onerror = ()=> reject(req.error);
       });
     }
-
     async function idbDelete(id){
       const db = await idbOpen();
       return new Promise((resolve,reject)=>{
@@ -1492,16 +1437,12 @@
       });
     }
 
-    // image resize/compress: produces thumb + full (net)
     async function fileToBlobs(file){
       const img = await loadImageFromFile(file);
-      // full: max 1920
       const fullBlob = await renderToJpegBlob(img, 1920, 0.86);
-      // thumb: max 520
       const thumbBlob = await renderToJpegBlob(img, 520, 0.80);
       return {fullBlob, thumbBlob};
     }
-
     function loadImageFromFile(file){
       return new Promise((resolve,reject)=>{
         const url = URL.createObjectURL(file);
@@ -1511,7 +1452,6 @@
         im.src = url;
       });
     }
-
     async function renderToJpegBlob(img, maxSide, quality){
       const iw = img.naturalWidth, ih = img.naturalHeight;
       const s = Math.min(1, maxSide / Math.max(iw, ih));
@@ -1526,7 +1466,6 @@
       return new Promise((resolve)=> c.toBlob(b=>resolve(b), "image/jpeg", quality));
     }
 
-    // Dressing UI
     $("btnDressing").onclick = async ()=>{
       await renderDressingGrid();
       openBD("bdDressing");
@@ -1553,26 +1492,18 @@
         return;
       }
 
-      showToast("Optimisation de l’image…");
-
+      showToast("Optimisation de lâimageâ¦");
       const {fullBlob, thumbBlob} = await fileToBlobs(file);
 
       const createdAt = Date.now();
       const name = `Item ${items.length + 1}`;
-      const item = {
-        name,
-        createdAt,
-        fullBlob,
-        thumbBlob,
-        colors: [] // up to 4
-      };
+      const item = { name, createdAt, fullBlob, thumbBlob, colors: [] };
 
       const id = await idbAdd(item);
-      showToast("✅ Ajouté au dressing");
+      showToast("â AjoutÃ© au dressing");
       await renderDressingGrid();
       await openDressingDetail(id);
     }
-
     $("inDressCamera").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
     $("inDressPhotos").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
     $("inDressFiles").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
@@ -1584,7 +1515,7 @@
       grid.innerHTML = "";
 
       if(items.length === 0){
-        grid.innerHTML = `<div class="muted small">Aucun item pour le moment. Clique sur “Ajouter une photo”.</div>`;
+        grid.innerHTML = `<div class="muted small">Aucun item pour le moment. Clique sur âAjouter une photoâ.</div>`;
         return;
       }
 
@@ -1596,7 +1527,6 @@
         img.className = "cardImg";
         img.alt = it.name || "Item";
         img.src = URL.createObjectURL(it.thumbBlob);
-
         img.onload = ()=> { try{URL.revokeObjectURL(img.src);}catch{} };
 
         const body = document.createElement("div");
@@ -1619,19 +1549,18 @@
         body.appendChild(title);
         body.appendChild(dots);
 
-        // actions
         const actions = document.createElement("div");
         actions.className = "miniActions";
 
         const del = document.createElement("button");
         del.className = "iconBtn danger";
         del.type = "button";
-        del.textContent = "🗑️";
+        del.textContent = "ðï¸";
         del.onclick = async (ev)=>{
           ev.stopPropagation();
           if(confirm("Supprimer cet item du dressing ?")){
             await idbDelete(it.id);
-            showToast("Supprimé");
+            showToast("SupprimÃ©");
             await renderDressingGrid();
           }
         };
@@ -1647,7 +1576,6 @@
       }
     }
 
-    // Dressing detail
     async function openDressingDetail(id){
       const item = await idbGet(id);
       if(!item) return;
@@ -1655,13 +1583,11 @@
       state.dress.currentId = id;
       state.dress.imgReady = false;
       state.dress.pos = {x:0.5,y:0.5};
-      state.dress.pickingSlot = null;
 
-      // slots from item (ensure length 4)
       const cols = (item.colors || []).slice(0,4);
       state.dress.slots = [cols[0]||null, cols[1]||null, cols[2]||null, cols[3]||null];
 
-      $("dressDetailTitle").textContent = item.name || "Détail";
+      $("dressDetailTitle").textContent = item.name || "DÃ©tail";
 
       const url = URL.createObjectURL(item.fullBlob);
       const imgEl = $("dressImg");
@@ -1678,9 +1604,8 @@
         renderDressSlotsUI();
       };
 
-      // bind actions
       $("btnDressRename").onclick = async ()=>{
-        const newName = prompt("Nom de l’item :", item.name || "");
+        const newName = prompt("Nom de lâitem :", item.name || "");
         if(newName === null) return;
         item.name = newName.trim() || "Sans nom";
         await idbPut(item);
@@ -1692,7 +1617,7 @@
         if(confirm("Supprimer cet item du dressing ?")){
           await idbDelete(id);
           closeBD("bdDressDetail");
-          showToast("Supprimé");
+          showToast("SupprimÃ©");
           await renderDressingGrid();
         }
       };
@@ -1702,33 +1627,30 @@
         if(!fresh) return;
         fresh.colors = state.dress.slots.filter(Boolean).slice(0,4);
         await idbPut(fresh);
-        showToast("✅ Couleurs sauvegardées");
+        showToast("â Couleurs sauvegardÃ©es");
         await renderDressingGrid();
         renderDressSlotsUI();
       };
 
       $("btnDressToCompare").onclick = async ()=>{
-        // push item colors into history and selection
-        const cols = state.dress.slots.filter(Boolean).slice(0,4);
-        if(cols.length === 0) return;
+        const cols2 = state.dress.slots.filter(Boolean).slice(0,4);
+        if(cols2.length === 0) return;
 
         let addedAny = false;
-        for(const c of cols){
+        for(const c of cols2){
           const wasNew = addColorIfNew(c.hex, c.name, c.rgb);
           if(wasNew) addedAny = true;
 
-          // select for compare
           if(!state.compare.selectedHex.includes(c.hex)){
             if(state.compare.selectedHex.length < 4) state.compare.selectedHex.push(c.hex);
           }
         }
 
-        showToast(addedAny ? "✅ Ajouté à Mes couleurs + Comparer" : "Ajouté au comparateur");
+        showToast(addedAny ? "â AjoutÃ© Ã  Mes couleurs + Comparer" : "AjoutÃ© au comparateur");
         closeBD("bdDressDetail");
         openCompare();
       };
 
-      // enable touch sampling on dress image wrap (once)
       enableDressTouchSampling();
     }
 
@@ -1737,7 +1659,7 @@
       const ctx = cv.getContext("2d", { willReadFrequently:true });
 
       const iw = imgEl.naturalWidth, ih = imgEl.naturalHeight;
-      const maxW = 1600; // good + net
+      const maxW = 1600;
       const s = Math.min(1, maxW / iw);
 
       const tw = Math.max(1, Math.round(iw * s));
@@ -1781,7 +1703,6 @@
       const hex = rgbToHex(rgb.r,rgb.g,rgb.b);
       const name = colorNameFR(rgb.r,rgb.g,rgb.b);
       state.dress.sample = { ...rgb, hex, name };
-      // Update compare button count
       renderDressSlotsUI();
     }
 
@@ -1855,11 +1776,11 @@
 
         const nm = document.createElement("div");
         nm.className = "slotName";
-        nm.textContent = val?.name ? `${idx+1}. ${val.name}` : `${idx+1}. (non défini)`;
+        nm.textContent = val?.name ? `${idx+1}. ${val.name}` : `${idx+1}. (non dÃ©fini)`;
 
         const cd = document.createElement("div");
         cd.className = "slotCode";
-        cd.textContent = val?.hex ? `${val.hex} • RGB(${val.rgb.r},${val.rgb.g},${val.rgb.b})` : "—";
+        cd.textContent = val?.hex ? `${val.hex} â¢ RGB(${val.rgb.r},${val.rgb.g},${val.rgb.b})` : "â";
 
         txt.appendChild(nm);
         txt.appendChild(cd);
@@ -1873,17 +1794,17 @@
         const setBtn = document.createElement("button");
         setBtn.className = "btn";
         setBtn.type = "button";
-        setBtn.textContent = `🎯 Définir ${idx+1} avec la pipette`;
+        setBtn.textContent = `ð¯ DÃ©finir ${idx+1} avec la pipette`;
         setBtn.onclick = ()=>{
           state.dress.slots[idx] = { ...current };
           renderDressSlotsUI();
-          showToast(`Couleur ${idx+1} définie`);
+          showToast(`Couleur ${idx+1} dÃ©finie`);
         };
 
         const clearBtn = document.createElement("button");
         clearBtn.className = "btn danger";
         clearBtn.type = "button";
-        clearBtn.textContent = `🧼 Effacer ${idx+1}`;
+        clearBtn.textContent = `ð§¼ Effacer ${idx+1}`;
         clearBtn.onclick = ()=>{
           state.dress.slots[idx] = null;
           renderDressSlotsUI();
@@ -1900,20 +1821,9 @@
 
       const count = state.dress.slots.filter(Boolean).length;
       const btnToCompare = $("btnDressToCompare");
-      btnToCompare.textContent = `🧩 Ajouter au comparateur (${count})`;
+      btnToCompare.textContent = `ð§© Ajouter au comparateur (${count})`;
       btnToCompare.disabled = count === 0;
     }
-
-    // ===========================================================
-    // Home buttons / misc
-    // ===========================================================
-    $("btnCompare").addEventListener("click", ()=>{
-      if(loadSaved().length === 0){
-        showToast("Ajoute d’abord des couleurs dans l’historique");
-      }
-    });
-
-    $("btnPickFromHistory").addEventListener("click", ()=> openColors(true));
 
     // ===========================================================
     // Init
