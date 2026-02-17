@@ -722,14 +722,42 @@
       $("hexCenter").style.color = centerLum > 0.62 ? "rgba(0,0,0,.78)" : "rgba(255,255,255,.92)";
     }
 
-    // Sample updates: on scroll/resize, and on touch-move (we keep fixed center, but sampling updates frequently)
-    window.addEventListener("resize", ()=> state.imgReady && sampleNow(), {passive:true});
-    $("imgWrap").addEventListener("touchmove", (e)=> {
-      // Keeping center fixed is most stable. Still refresh sample for responsiveness.
-      if(state.imgReady) sampleNow();
-    }, {passive:true});
-    $("imgWrap").addEventListener("touchstart", ()=> state.imgReady && sampleNow(), {passive:true});
-    $("imgWrap").addEventListener("click", ()=> state.imgReady && sampleNow());
+    // Sample updates: on scroll/resize, and on touch-move (we keep fixed center, but sampling updates function enableTouchSampling() {
+  const wrap = $("imgWrap");
+  let dragging = false;
+
+  wrap.addEventListener("touchstart", (e) => {
+    if (!state.imgReady) return;
+    dragging = true;
+    handleTouch(e);
+  }, { passive: false });
+
+  wrap.addEventListener("touchmove", (e) => {
+    if (!dragging || !state.imgReady) return;
+    handleTouch(e);
+  }, { passive: false });
+
+  wrap.addEventListener("touchend", () => {
+    dragging = false;
+  });
+
+  wrap.addEventListener("click", (e) => {
+    if (!state.imgReady) return;
+    handleTouch(e);
+  });
+
+  function handleTouch(e) {
+    e.preventDefault();
+
+    const rect = wrap.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
+    sampleAtPosition(x, y);
+  }
+}
 
     function updateLocksUI(){
       const a = $("lockA"), b = $("lockB");
@@ -899,6 +927,7 @@
 
     // Initial UI
     updateLocksUI();
+    enableTouchSampling();
   </script>
 </body>
 </html>
