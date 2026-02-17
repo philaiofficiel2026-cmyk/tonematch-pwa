@@ -546,6 +546,7 @@
         <div class="list" id="colorsList"></div>
 
         <div class="stickyBar hide" id="colorsSticky">
+          <button class="btn" id="btnColorsBack">â Retour</button>
           <button class="btn" id="btnColorsCompareNow" disabled>Comparer maintenant (0)</button>
           <button class="btn danger" id="btnColorsClearSel">Effacer s&#233;lection</button>
         </div>
@@ -1264,6 +1265,8 @@
       renderCompare();
     };
 
+    $("btnColorsBack").onclick = ()=>{ closeBD("bdColors"); };
+
     $("resetAll").onclick = ()=>{
       if(confirm("Supprimer toutes les couleurs sauvegard\u00E9es ?")){
         saveSaved([]);
@@ -1521,8 +1524,18 @@
         const img = document.createElement("img");
         img.className = "cardImg";
         img.alt = it.name || "Item";
-        img.src = URL.createObjectURL(it.thumbBlob);
-        img.onload = ()=> { try{URL.revokeObjectURL(img.src);}catch{} };
+        const urlThumb = URL.createObjectURL(it.thumbBlob);
+        img.src = urlThumb;
+        img.onload = ()=> { try{URL.revokeObjectURL(urlThumb);}catch{} };
+        img.onerror = ()=>{
+          // Fallback (sometimes iOS loses the thumb blob): try the full image
+          try{URL.revokeObjectURL(urlThumb);}catch{}
+          if(it.fullBlob){
+            const urlFull = URL.createObjectURL(it.fullBlob);
+            img.src = urlFull;
+            img.onload = ()=> { try{URL.revokeObjectURL(urlFull);}catch{} };
+          }
+        };
 
         const body = document.createElement("div");
         body.className = "cardBody";
