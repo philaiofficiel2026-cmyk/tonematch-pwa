@@ -2,1906 +2,532 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0711" />
-  <title>ToneMatch AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dressing Couleurs</title>
+
   <style>
     :root{
-      --bg0:#05030a;
-      --bg1:#0b0711;
-      --stroke:rgba(255,255,255,.14);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.62);
-      --muted2:rgba(255,255,255,.45);
-      --shadow: 0 18px 70px rgba(0,0,0,.55);
-      --r:22px;
-      --pad:18px;
-      --btnh:54px;
-      --pink:#ff17b7;
-      --violet:#7a2cff;
-      --danger:#ff4b4b;
-      --ok:#2ee59d;
-      --safe-top: env(safe-area-inset-top);
-      --safe-bottom: env(safe-area-inset-bottom);
+      /* Fond premium (blanc cassé chaud) */
+      --bg: #F7F6F3;
+
+      /* Texte */
+      --text: #111111;
+      --muted: rgba(17,17,17,.60);
+
+      /* Surfaces / séparateurs */
+      --hairline: rgba(17,17,17,.10);
+
+      /* Rayons */
+      --r-card: 20px;
+      --r-sheet: 26px;
+
+      /* Ombres (ultra douces) */
+      --shadow-card: 0 4px 14px rgba(0,0,0,.07);
+      --shadow-sheet: 0 18px 60px rgba(0,0,0,.18);
+
+      /* Glass (visible mais élégant) */
+      --glass-bg: rgba(247,246,243,.86);
+      --glass-border: rgba(255,255,255,.35);
+
+      /* Layout */
+      --gap: 16px;
+      --maxw: 920px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+      /* Typo */
+      --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "SF Pro Display", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{height:100%}
+
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg: #111213;
+        --text: #F2F2F2;
+        --muted: rgba(242,242,242,.62);
+        --hairline: rgba(242,242,242,.12);
+
+        --shadow-card: 0 6px 18px rgba(0,0,0,.42);
+        --shadow-sheet: 0 22px 70px rgba(0,0,0,.60);
+
+        /* Glass dark (un peu plus marqué) */
+        --glass-bg: rgba(20,20,20,.84);
+        --glass-border: rgba(255,255,255,.10);
+      }
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
     body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1100px 650px at 25% 15%, rgba(255,23,183,.22), transparent 55%),
-        radial-gradient(950px 650px at 75% 30%, rgba(122,44,255,.22), transparent 55%),
-        radial-gradient(900px 650px at 50% 80%, rgba(255,255,255,.05), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
-      min-height:100%;
-      padding: calc(16px + var(--safe-top)) 14px calc(18px + var(--safe-bottom));
-    }
-    .wrap{max-width:980px;margin:0 auto}
-    .topbar{display:flex;align-items:center;gap:10px;padding:12px 8px 18px}
-    .dot{
-      width:12px;height:12px;border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.2) 22%, transparent 35%),
-                  linear-gradient(135deg, var(--pink), var(--violet));
-      box-shadow:0 0 24px rgba(255,23,183,.45);
-    }
-    .brand{font-weight:1000;letter-spacing:.2px;font-size:18px}
-    .spacer{flex:1}
-    .seg{
-      display:inline-flex;border:1px solid var(--stroke);
-      border-radius:999px;overflow:hidden;background:rgba(255,255,255,.04);
-    }
-    .seg button{
-      height:34px;padding:0 12px;border:0;background:transparent;color:var(--muted);
-      font-weight:1000;font-size:13px;
-    }
-    .seg button.on{
-      color:var(--text);
-      background:linear-gradient(135deg, rgba(255,23,183,.35), rgba(122,44,255,.35));
-    }
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: var(--pad);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .hero{display:grid;gap:12px;padding:22px}
-    .title{font-size:38px;line-height:1.02;margin:0;font-weight:1100;letter-spacing:-.6px}
-    .sub{margin:0;color:var(--muted);font-size:15px;line-height:1.45}
-    .actions{display:grid;gap:10px;margin-top:8px}
-    .btn{
-      height:var(--btnh);
-      width:100%;
-      border:0;
-      border-radius: 16px;
-      font-weight:1100;
-      font-size:16px;
-      color:white;
-      background: rgba(255,255,255,.08);
-      border:1px solid var(--stroke);
-      display:flex;align-items:center;justify-content:center;
-      gap:10px;
-      user-select:none;
-      position:relative;
-      overflow:hidden;
-    }
-    .btn.primary{
-      background: linear-gradient(90deg, var(--pink), var(--violet));
-      border:0;
-      box-shadow: 0 14px 45px rgba(255,23,183,.22);
-    }
-    .btn.danger{
-      background: rgba(255,75,75,.18);
-      border:1px solid rgba(255,75,75,.35);
-      color:#ffd6d6;
-    }
-    .btn:active{transform:translateY(1px)}
-    .btn[disabled]{opacity:.55;filter:saturate(.7);transform:none}
-
-    .stage{margin-top:14px;display:none;gap:12px}
-    .imgCard{padding:14px;display:grid;gap:10px}
-    .imgWrap{
-      border-radius:18px;border:1px solid var(--stroke);overflow:hidden;
-      background:rgba(255,255,255,.04);
-      position:relative;
-      aspect-ratio: 4 / 3;
-      display:flex;align-items:center;justify-content:center;
-      touch-action:none;
-    }
-    .imgWrap img{
-      width:100%;height:100%;
-      object-fit:cover;
-      display:block;
-      pointer-events:none;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-    .crosshair{
-      position:absolute;width:34px;height:34px;
-      border:2px solid rgba(255,255,255,.88);
-      border-radius:999px;
-      box-shadow:0 8px 24px rgba(0,0,0,.45);
-      background:transparent;
-      pointer-events:none;
-      transform:translate(-50%,-50%);
-      left:50%;top:50%;
-    }
-    .crosshair:before,.crosshair:after{
-      content:"";
-      position:absolute;left:50%;top:50%;
-      width:26px;height:2px;background:rgba(255,255,255,.88);
-      transform:translate(-50%,-50%);
-      border-radius:2px;
-    }
-    .crosshair:after{width:2px;height:26px}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .row .btn{flex:1;min-width:210px}
-    .swatchPanel{
-      border-radius:18px;border:1px solid var(--stroke);
-      overflow:hidden;background:rgba(0,0,0,.18);
-    }
-    .swRow{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:10px 12px;
-      font-weight:1100;
-    }
-    .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:1100}
-    .dotMini{width:12px;height:12px;border-radius:4px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.15)}
-    .hexSmall{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight:950;color:rgba(255,255,255,.92);font-size:12px;
-      text-align:right;
-      max-width: 55%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-    .centerHex{
-      padding:18px 12px;text-align:center;font-size:40px;font-weight:1100;letter-spacing:1px;
-      text-shadow:0 18px 50px rgba(0,0,0,.55);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    }
-    .swSplit{display:grid;grid-template-rows:auto auto auto}
-    .swA{background:rgba(255,255,255,.04)}
-    .swCenter{background:rgba(0,0,0,.10)}
-    .swB{background:rgba(255,255,255,.04)}
-    .barBtns{
-      display:flex;gap:10px;padding:12px;border-top:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.10);flex-wrap:wrap;
-    }
-    .barBtns .btn{min-width:220px}
-    .btn.locked{
-      background:rgba(46,229,157,.14)!important;
-      border:1px solid rgba(46,229,157,.30)!important;
-      color:#dcfff3!important;
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Modal */
-    .backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,.55);
-      display:none;align-items:flex-end;
-      padding:12px 12px calc(12px + var(--safe-bottom));
-      z-index:9999;
-    }
-
-    /* FIX: modal never blocks the top; header always reachable */
-    .modal{
-      width:100%;
-      max-width:820px;
-      margin:0 auto;
-      border-radius:22px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      overflow:hidden;
-      animation: pop .18s ease-out;
-
-      max-height: 85vh;
-      display:flex;
-      flex-direction:column;
-    }
-    @keyframes pop{from{transform:translateY(10px);opacity:.6}to{transform:translateY(0);opacity:1}}
-    .modalHead{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      flex:none;
-    }
-    .modalHead h3{margin:0;font-size:18px;font-weight:1100}
-    .x{
-      width:40px;height:40px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--text);font-size:18px;font-weight:1100;
-    }
-    .modalBody{
-      padding:14px 16px 16px;
-      overflow:auto;
-      flex:1;
-    }
-    .sheetBtns{display:grid;gap:10px}
-
-    /* Lists */
-    .list{display:grid;gap:12px;max-height:60vh;overflow:auto;padding-right:6px}
-    .item{
-      border-radius:18px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.18);
-      overflow:hidden;display:flex;min-height:112px;position:relative;
-    }
-    .itemSw{width:120px;min-width:120px;background:#000;position:relative}
-    .itemMain{flex:1;padding:12px;display:flex;flex-direction:column;gap:6px;justify-content:center}
-    .itemTitle{font-weight:1100;font-size:18px;line-height:1.1;margin:0}
-    .itemSub{margin:0;color:var(--muted);font-weight:950;font-size:13px}
-    .itemMeta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted2);font-weight:950;font-size:12px}
-    .itemRight{
-      display:flex;align-items:center;justify-content:center;padding:12px;width:120px;min-width:120px;
-      border-left:1px solid rgba(255,255,255,.10);background:rgba(255,75,75,.10);
-    }
-    .itemRight button{
-      height:40px;width:100%;border-radius:14px;border:1px solid rgba(255,75,75,.30);
-      background:rgba(255,75,75,.18);color:#ffd6d6;font-weight:1100;
-    }
-
-    /* Selection pill */
-    .selectPill{
-      position:absolute;top:10px;left:10px;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.28);
-      font-weight:1100;font-size:12px;
-      display:flex;align-items:center;gap:8px;
+    /* Header minimal */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px 16px;
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--hairline);
     }
-    .check{
-      width:14px;height:14px;border-radius:4px;
-      border:1px solid rgba(255,255,255,.35);
-      background:rgba(255,255,255,.10);
-      display:inline-block;
+    .topbar-inner{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .check.on{background:rgba(46,229,157,.35);border-color: rgba(46,229,157,.7);box-shadow:0 0 0 3px rgba(46,229,157,.12)}
-
-    /* Sticky bottom bar (inside modal) */
-    .stickyBar{
-      position:sticky;
-      bottom:0;
-      margin: 14px -16px -16px;
-      padding: 12px 16px calc(12px + var(--safe-bottom));
-      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.40) 32%, rgba(0,0,0,.50));
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;gap:10px;flex-wrap:wrap;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .title{
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: .2px;
+      margin: 0;
     }
-    .stickyBar .btn{min-width:220px;flex:1}
-
-    /* Compare */
-    .compareTop{display:grid;gap:10px;margin-bottom:12px}
-    .selRow{display:flex;gap:10px;flex-wrap:wrap}
-    .chip{
-      display:flex;align-items:center;gap:10px;
-      padding:10px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      min-width: 220px;flex:1;
-      cursor:pointer;
-    }
-    .chipSw{width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:#000;flex:none}
-    .chipTxt{display:flex;flex-direction:column;gap:4px}
-    .chipName{font-weight:1100}
-    .chipCode{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight:950;color:rgba(255,255,255,.88);font-size:12px
-    }
-    .pairs{display:grid;gap:10px}
-    .pair{
-      padding:12px;border-radius:18px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.18);
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-    }
-    .pairL{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .miniSw{width:24px;height:24px;border-radius:8px;border:1px solid rgba(255,255,255,.20)}
-    .pairNames{font-weight:1100}
-    .pairSmall{color:var(--muted);font-weight:950;font-size:12px}
-    .badge{
-      padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.20);
-      font-weight:1100;white-space:nowrap;
-      text-align:right;
+    .hint{
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+      white-space: nowrap;
     }
 
-    /* Dressing grid */
+    /* Grille */
+    .wrap{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 16px 16px calc(20px + var(--safe-bottom));
+    }
+
     .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-      max-height: 62vh;
-      overflow:auto;
-      padding-right:6px;
-    }
-    @media(min-width:740px){ .grid{grid-template-columns: repeat(3, minmax(0, 1fr));} }
-
-    .cardItem{
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.18);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-height: 220px;
-      cursor:pointer;
-      position:relative;
-    }
-    .cardImg{
-      width:100%;
-      aspect-ratio: 4/3;
-      background:#000;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      object-fit:cover;
-      display:block;
-    }
-    .cardBody{padding:10px 10px 12px;display:grid;gap:8px}
-    .cardTitle{font-weight:1100;font-size:14px;margin:0;line-height:1.2;color:rgba(255,255,255,.92)}
-    .swDots{display:flex;gap:8px;flex-wrap:wrap}
-    .swDot{
-      width:16px;height:16px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.08);
-    }
-    .miniActions{
-      position:absolute;top:10px;right:10px;
-      display:flex;gap:8px;
-      pointer-events:auto;
-    }
-    .iconBtn{
-      width:36px;height:36px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.28);
-      color:rgba(255,255,255,.92);
-      font-weight:1100;
-      display:flex;align-items:center;justify-content:center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .iconBtn.danger{
-      border-color: rgba(255,75,75,.28);
-      background: rgba(255,75,75,.14);
-      color: #ffd6d6;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 colonnes premium */
+      gap: var(--gap);
     }
 
-    /* Dressing detail slots */
-    .slots{display:grid;gap:10px;margin-top:10px}
-    .slotRow{
-      display:flex;gap:10px;flex-wrap:wrap;
-      padding:10px;border-radius:18px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.18);
-      align-items:center;justify-content:space-between;
+    /* Carte */
+    .card{
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease;
     }
-    .slotLeft{display:flex;align-items:center;gap:10px;min-width: 220px;flex:1}
-    .slotSw{
-      width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.06);
-      flex:none;
-    }
-    .slotTxt{display:flex;flex-direction:column;gap:4px}
-    .slotName{font-weight:1100}
-    .slotCode{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight:950;color:rgba(255,255,255,.88);font-size:12px
-    }
-    .slotBtns{display:flex;gap:10px;flex-wrap:wrap}
-    .slotBtns .btn{min-width: 210px;flex:1}
+    .card:active{ transform: scale(.97); }
 
-    /* helpers */
-    .muted{color:var(--muted)}
-    .small{font-size:13px}
-    .hide{display:none!important}
+    .swatch{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    @media (prefers-color-scheme: dark){
+      .swatch{ border-color: rgba(255,255,255,.06); }
+    }
 
-    /* Toast */
+    /* Nom + hex */
+    .meta{
+      padding: 10px 2px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .name{
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+    .hex{
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Backdrop */
+    .backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+      z-index: 40;
+    }
+    @media (prefers-color-scheme: dark){
+      .backdrop{ background: rgba(0,0,0,.45); }
+    }
+    .backdrop.open{
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Bottom sheet glass */
+    .sheet{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+
+      transform: translateY(110%);
+      transition: transform .28s cubic-bezier(.2,.9,.2,1);
+      padding: 10px 12px calc(12px + var(--safe-bottom));
+    }
+    .sheet.open{
+      transform: translateY(0);
+    }
+
+    .sheet-inner{
+      max-width: var(--maxw);
+      margin: 0 auto;
+
+      border-radius: var(--r-sheet);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-sheet);
+      overflow: hidden;
+    }
+
+    .sheet-grab{
+      width: 44px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(127,127,127,.35);
+      margin: 10px auto 0;
+    }
+
+    .sheet-head{
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sheet-swatch{
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.14);
+      border: 1px solid rgba(0,0,0,.04);
+      flex: 0 0 auto;
+    }
+    @media (prefers-color-scheme: dark){
+      .sheet-swatch{ border-color: rgba(255,255,255,.08); box-shadow: 0 14px 34px rgba(0,0,0,.60); }
+    }
+
+    .sheet-titles{
+      min-width: 0;
+      flex: 1;
+    }
+    .sheet-name{
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+    .sheet-hex{
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sheet-body{
+      padding: 0 16px 14px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .stats{
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 12px 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding-top: 6px;
+    }
+
+    .btn{
+      border: 1px solid var(--hairline);
+      background: rgba(255,255,255,.38);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: .2px;
+      cursor: pointer;
+      transition: transform .12s ease, background .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{ transform: scale(.98); }
+    @media (prefers-color-scheme: dark){
+      .btn{ background: rgba(255,255,255,.06); }
+    }
+
+    .btn-danger{
+      border-color: rgba(255, 59, 48, .28);
+      color: rgb(255, 59, 48);
+      background: rgba(255, 59, 48, .08);
+    }
+
+    .btn-full{
+      grid-column: 1 / -1;
+    }
+
+    /* Petit toast */
     .toast{
-      position:fixed;left:50%;
+      position: fixed;
+      left: 50%;
       bottom: calc(18px + var(--safe-bottom));
-      transform: translateX(-50%) translateY(22px);
-      opacity:0;
-      background: rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: rgba(255,255,255,.92);
-      padding:12px 14px;
-      border-radius: 16px;
-      box-shadow: 0 16px 60px rgba(0,0,0,.55);
-      font-weight:1100;
-      z-index:99999;
-      pointer-events:none;
-      min-width: 240px;
-      text-align:center;
+      transform: translateX(-50%) translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 60;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.75);
+      color: white;
+      font-size: 13px;
+      letter-spacing: .2px;
+      transition: opacity .18s ease, transform .18s ease;
     }
-    .toast.show{animation: toastIn 1.35s ease-out 1;}
-    @keyframes toastIn{
-      0%{opacity:0; transform: translateX(-50%) translateY(22px);}
-      12%{opacity:1; transform: translateX(-50%) translateY(0px);}
-      78%{opacity:1; transform: translateX(-50%) translateY(0px);}
-      100%{opacity:0; transform: translateX(-50%) translateY(18px);}
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    @media (prefers-color-scheme: dark){
+      .toast{ background: rgba(255,255,255,.12); color: var(--text); border: 1px solid rgba(255,255,255,.14); }
+    }
+
+    /* Accessibilité */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* Responsive: sur très large, on garde 2 colonnes (premium) */
+    @media (min-width: 1100px){
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* Sur petit mobile, on garde 2 colonnes mais gap réduit un peu */
+    @media (max-width: 360px){
+      :root{ --gap: 12px; }
+      .name{ font-size: 17px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <span class="dot"></span>
-      <div class="brand">ToneMatch <span class="muted">AI</span></div>
-      <div class="spacer"></div>
-      <div class="seg" id="modeSeg" title="Mode d&#8217;usage">
-        <button type="button" data-mode="vetements" class="on">V&#234;tements</button>
-        <button type="button" data-mode="objets">Objets</button>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1 class="title">Dressing couleurs</h1>
+      <p class="hint">Tap pour détails</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" id="grid" aria-label="Liste des couleurs">
+      <!-- Cartes injectées en JS -->
+    </section>
+  </main>
+
+  <!-- Backdrop + Sheet -->
+  <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
+  <aside class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détails couleur">
+    <div class="sheet-inner">
+      <div class="sheet-grab" aria-hidden="true"></div>
+
+      <div class="sheet-head">
+        <div class="sheet-swatch" id="sheetSwatch"></div>
+        <div class="sheet-titles">
+          <p class="sheet-name" id="sheetName">—</p>
+          <p class="sheet-hex" id="sheetHex">—</p>
+        </div>
+        <button class="btn" id="closeBtn" type="button" aria-label="Fermer">Fermer</button>
+      </div>
+
+      <div class="sheet-body">
+        <div class="stats" id="sheetStats">
+          <!-- ex: 12 objets · Créée 17 fév 2026 -->
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="copyHexBtn" type="button">Copier le HEX</button>
+          <button class="btn" id="compareBtn" type="button">Comparer</button>
+          <button class="btn btn-danger btn-full" id="deleteBtn" type="button">Supprimer</button>
+        </div>
+        <p class="sr-only" id="a11yLive" aria-live="polite"></p>
       </div>
     </div>
+  </aside>
 
-    <!-- HOME -->
-    <div class="card hero" id="home">
-      <h1 class="title">Identifiez vos couleurs</h1>
-      <p class="sub">
-        Prends une photo ou importe une image. D&#233;place la cible pour pr&#233;lever.
-        Verrouille A et B, puis sauvegarde dans <b>Mes couleurs</b>.
-      </p>
-
-      <div class="actions">
-        <button class="btn primary" id="btnPick"><span>Prendre / importer une image</span></button>
-        <button class="btn" id="btnCompare"><span>Comparer</span></button>
-        <button class="btn" id="btnDressing"><span>Mon dressing</span></button>
-        <button class="btn" id="btnColors"><span>Mes couleurs</span></button>
-      </div>
-    </div>
-
-    <!-- STAGE -->
-    <div class="stage" id="stage">
-      <div class="card imgCard">
-        <div class="imgWrap" id="imgWrap">
-          <img id="img" alt="Image s&#233;lectionn&#233;e" />
-          <div class="crosshair" id="crosshair"></div>
-        </div>
-
-        <div class="row">
-          <button class="btn" id="btnChangeImg">Changer d&#8217;image</button>
-          <button class="btn" id="btnCompare2">Comparer</button>
-          <button class="btn" id="btnColors2">Mes couleurs</button>
-        </div>
-
-        <div class="swatchPanel" id="swatchPanel">
-          <div class="swSplit">
-            <div class="swRow swA" id="rowA">
-              <div class="tag"><span class="dotMini" id="dotA"></span> A <span class="muted" id="nameA">&#8212;</span></div>
-              <div class="hexSmall" id="hexA">&#8212;</div>
-            </div>
-
-            <div class="swCenter" id="rowCenter">
-              <div class="centerHex" id="hexCenter">&#8212;</div>
-            </div>
-
-            <div class="swRow swB" id="rowB">
-              <div class="tag"><span class="dotMini" id="dotB"></span> B <span class="muted" id="nameB">&#8212;</span></div>
-              <div class="hexSmall" id="hexB">&#8212;</div>
-            </div>
-          </div>
-
-          <div class="barBtns">
-            <button class="btn" id="lockA">Verrouiller A</button>
-            <button class="btn" id="lockB">Verrouiller B</button>
-            <button class="btn primary" id="saveColors">Sauvegarder dans Mes couleurs</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FILE INPUTS (picker g&#233;n&#233;ral) -->
-  <input id="inCamera" type="file" accept="image/*" capture="environment" class="hide" />
-  <input id="inPhotos" type="file" accept="image/*" class="hide" />
-  <input id="inFiles" type="file" accept="image/*" class="hide" />
-
-  <!-- FILE INPUTS (dressing add) -->
-  <input id="inDressCamera" type="file" accept="image/*" capture="environment" class="hide" />
-  <input id="inDressPhotos" type="file" accept="image/*" class="hide" />
-  <input id="inDressFiles" type="file" accept="image/*" class="hide" />
-
-  <!-- MODAL: Choisir source (stage) -->
-  <div class="backdrop" id="bdPick">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>Choisir une source</h3>
-        <button class="x" type="button" data-close="bdPick">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <div class="sheetBtns">
-          <button class="btn primary" type="button" id="pickCamera">&#128248; Cam&#233;ra</button>
-          <button class="btn" type="button" id="pickPhotos">Photos / Galerie</button>
-          <button class="btn" type="button" id="pickFiles">&#128193; Fichiers</button>
-        </div>
-        <p class="small muted" style="margin:12px 2px 0">
-          Astuce iPhone : &#8220;Photos / Galerie&#8221; ouvre ton album, &#8220;Fichiers&#8221; ouvre iCloud/Drive.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Mes couleurs -->
-  <div class="backdrop" id="bdColors">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>Mes couleurs</h3>
-        <button class="x" type="button" data-close="bdColors">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <p class="small muted" style="margin-top:0" id="colorsHint">
-          Historique sans doublons. Tu peux s&#233;lectionner des couleurs et lancer le comparatif.
-        </p>
-        <div class="list" id="colorsList"></div>
-
-        <div class="stickyBar hide" id="colorsSticky">
-          <button class="btn" id="btnColorsBack">â Retour</button>
-          <button class="btn" id="btnColorsCompareNow" disabled>Comparer maintenant (0)</button>
-          <button class="btn danger" id="btnColorsClearSel">Effacer s&#233;lection</button>
-        </div>
-
-        <div style="margin-top:12px">
-          <button class="btn danger" id="resetAll">Tout supprimer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Comparer -->
-  <div class="backdrop" id="bdCompare">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>Comparer</h3>
-        <button class="x" type="button" data-close="bdCompare">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <div class="compareTop">
-          <p class="small muted" style="margin:0">
-            S&#233;lectionne jusqu&#8217;&#224; <b>4 couleurs</b>. Score bas&#233; sur <b>DeltaE</b> (perception visuelle).
-            <br><b>95%+</b> = MATCH &#8226; <b>100%</b> = MATCH PARFAIT
-          </p>
-          <div class="selRow" id="selRow"></div>
-        </div>
-
-        <div class="pairs" id="pairs"></div>
-
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="btnPickFromHistory">Choisir dans Mes couleurs</button>
-          <button class="btn danger" id="btnClearSelection">R&#233;initialiser s&#233;lection</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Dressing -->
-  <div class="backdrop" id="bdDressing">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>Mon dressing</h3>
-        <button class="x" type="button" data-close="bdDressing">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <p class="small muted" style="margin-top:0">
-          Jusqu&#8217;&#224; <b>30</b> photos. Ouvre un item pour d&#233;finir <b>4 couleurs</b> (1/2/3/4) avec la pipette.
-        </p>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn primary" id="btnDressAdd">Ajouter une photo</button>
-        </div>
-
-        <div class="grid" id="dressGrid"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Dressing add source -->
-  <div class="backdrop" id="bdDressPick">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>Ajouter au dressing</h3>
-        <button class="x" type="button" data-close="bdDressPick">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <div class="sheetBtns">
-          <button class="btn primary" type="button" id="dressPickCamera">&#128248; Cam&#233;ra</button>
-          <button class="btn" type="button" id="dressPickPhotos">Photos / Galerie</button>
-          <button class="btn" type="button" id="dressPickFiles">&#128193; Fichiers</button>
-        </div>
-        <p class="small muted" style="margin:12px 2px 0">
-          Les images sont optimis&#233;es (miniature + version nette) pour rester fluide.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Dressing detail -->
-  <div class="backdrop" id="bdDressDetail">
-    <div class="modal">
-      <div class="modalHead">
-        <h3 id="dressDetailTitle">D&#233;tail</h3>
-        <button class="x" type="button" data-close="bdDressDetail">&#215;</button>
-      </div>
-      <div class="modalBody">
-        <div class="imgWrap" id="dressImgWrap" style="aspect-ratio: 4/3;">
-          <img id="dressImg" alt="Photo dressing" />
-          <div class="crosshair" id="dressCrosshair"></div>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <button class="btn" id="btnDressRename">Renommer</button>
-          <button class="btn danger" id="btnDressDelete">Supprimer</button>
-        </div>
-
-        <div class="slots" id="dressSlots"></div>
-
-        <div class="stickyBar">
-          <button class="btn" id="btnDressToCompare" disabled>Ajouter au comparateur (0)</button>
-          <button class="btn primary" id="btnDressSaveColors">Sauvegarder couleurs</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast">&#9989;</div>
-  <canvas id="cv" class="hide"></canvas>
+  <div class="toast" id="toast">Copié ✓</div>
 
   <script>
-    const $ = (id)=>document.getElementById(id);
+    /**
+     * Données exemple (remplace par tes vraies couleurs)
+     * Format premium: nom court + hex + stats
+     */
+    const COLORS = [
+      { id: "c1", name: "Azur",         hex: "#009AF8", items: 12, created: "17 fév 2026" },
+      { id: "c2", name: "Azur profond", hex: "#008BEC", items: 9,  created: "17 fév 2026" },
+      { id: "c3", name: "Perle",        hex: "#E0E5E8", items: 21, created: "16 fév 2026" },
+      { id: "c4", name: "Camel",        hex: "#AD8967", items: 7,  created: "14 fév 2026" },
+      { id: "c5", name: "Ardoise",      hex: "#2E3438", items: 4,  created: "12 fév 2026" },
+      { id: "c6", name: "Brume",        hex: "#D8D9D4", items: 15, created: "10 fév 2026" }
+    ];
 
-    // ---------- Global state
-    const state = {
-      mode: "vetements",
-      stageFile: null,
+    // --- UI refs
+    const grid = document.getElementById("grid");
+    const sheet = document.getElementById("sheet");
+    const backdrop = document.getElementById("backdrop");
+    const closeBtn = document.getElementById("closeBtn");
 
-      // Stage (import image)
-      imgEl: $("img"),
-      imgReady: false,
-      pos: { x: 0.5, y: 0.5 },
-      sample: { r:0,g:0,b:0, hex:"#000000", name:"\u2014" },
-      A: { locked:false, hex:null, name:null, rgb:null },
-      B: { locked:false, hex:null, name:null, rgb:null },
-      cache: { ready:false, scale:1, w:0, h:0 },
+    const sheetSwatch = document.getElementById("sheetSwatch");
+    const sheetName = document.getElementById("sheetName");
+    const sheetHex = document.getElementById("sheetHex");
+    const sheetStats = document.getElementById("sheetStats");
 
-      // Compare
-      compare: { selectedHex: [] },
+    const copyHexBtn = document.getElementById("copyHexBtn");
+    const compareBtn = document.getElementById("compareBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
 
-      // Dressing detail
-      dress: {
-        currentId: null,
-        imgReady: false,
-        pos: { x:0.5, y:0.5 },
-        cache: { ready:false, scale:1, w:0, h:0 },
-        sample: { r:0,g:0,b:0, hex:"#000000", name:"\u2014" },
-        slots: [null,null,null,null], // each {hex,name,rgb}
-        pickingSlot: null,
-      }
-    };
+    const toast = document.getElementById("toast");
+    const a11yLive = document.getElementById("a11yLive");
 
-    // ---------- Toast
+    let current = null; // couleur sélectionnée
+
+    // --- Render grid
+    function renderGrid(){
+      grid.innerHTML = COLORS.map(c => `
+        <button class="card" type="button" data-id="${c.id}" aria-label="Ouvrir ${escapeHtml(c.name)}">
+          <div class="swatch" style="background:${c.hex}" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">${escapeHtml(c.name)}</div>
+            <div class="hex">${escapeHtml(c.hex)}</div>
+          </div>
+        </button>
+      `).join("");
+    }
+
+    // --- Open / close sheet
+    function openSheet(color){
+      current = color;
+
+      sheetSwatch.style.background = color.hex;
+      sheetName.textContent = color.name;
+      sheetHex.textContent = color.hex;
+
+      sheetStats.textContent = `${color.items} objets · Créée ${color.created}`;
+
+      backdrop.classList.add("open");
+      sheet.classList.add("open");
+      sheet.setAttribute("aria-hidden", "false");
+      backdrop.setAttribute("aria-hidden", "false");
+
+      // focus pour accessibilité
+      closeBtn.focus({ preventScroll: true });
+    }
+
+    function closeSheet(){
+      sheet.classList.remove("open");
+      backdrop.classList.remove("open");
+      sheet.setAttribute("aria-hidden", "true");
+      backdrop.setAttribute("aria-hidden", "true");
+      current = null;
+    }
+
+    // --- Helpers
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[s]));
+    }
+
     let toastTimer = null;
-    function showToast(text){
-      const t = $("toast");
-      t.textContent = text;
-      t.classList.remove("show");
-      void t.offsetWidth;
-      t.classList.add("show");
+    function showToast(msg="Copié ✓"){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      a11yLive.textContent = msg;
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=>t.classList.remove("show"), 1600);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1100);
     }
 
-    // ---------- LocalStorage (Mes couleurs)
-    const LS_KEY = "tonematch_unique_colors_v6";
-    const MAX_HISTORY = 300;
-
-    const loadSaved = ()=> {
-      try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
-      catch { return []; }
-    };
-    const saveSaved = (arr)=> localStorage.setItem(LS_KEY, JSON.stringify(arr));
-
-    function ensureUniqueName(baseName, hex){
-      // Objectif: pas de doublons de NOM pour des HEX differents.
-      // Si un nom existe deja, on ajoute un suffixe premium (I, II, III...).
-      const saved = loadSaved();
-      const sameBase = saved.filter(x => (x.baseName || x.name) === baseName && x.hex !== hex);
-      if(sameBase.length === 0) return baseName;
-
-      const romans = ["I","II","III","IV","V","VI","VII","VIII","IX","X"];
-      const n = sameBase.length + 1;
-      const suf = romans[n-1] || String(n);
-      return `${baseName} ${suf}`;
-    }
-
-    function addColorIfNew(hex, baseName, rgb){
-      const saved = loadSaved();
-      if(saved.some(x=>x.hex===hex)) return false;
-
-      const name = ensureUniqueName(baseName, hex);
-      saved.unshift({ hex, name, baseName, rgb, mode: state.mode, ts: Date.now() });
-      saveSaved(saved.slice(0, MAX_HISTORY));
-      return true;
-    }
-
-    // ---------- Modal helpers
-    function openBD(id){ $(id).style.display="flex"; }
-    function closeBD(id){ $(id).style.display="none"; }
-
-    document.addEventListener("click",(e)=>{
-      const btn = e.target.closest("[data-close]");
-      if(btn) closeBD(btn.getAttribute("data-close"));
-      if(e.target.classList.contains("backdrop")) e.target.style.display="none";
+    // --- Events
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".card");
+      if(!btn) return;
+      const id = btn.getAttribute("data-id");
+      const color = COLORS.find(x => x.id === id);
+      if(color) openSheet(color);
     });
 
-    // ---------- Mode selector
-    $("modeSeg").addEventListener("click",(e)=>{
-      const b = e.target.closest("button[data-mode]");
-      if(!b) return;
-      state.mode = b.dataset.mode;
-      [...$("modeSeg").querySelectorAll("button")].forEach(x=>x.classList.toggle("on", x===b));
+    backdrop.addEventListener("click", closeSheet);
+    closeBtn.addEventListener("click", closeSheet);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && sheet.classList.contains("open")) closeSheet();
     });
 
-    // ===========================================================
-    // Color utilities + naming (FIXED to avoid orange=>noisette)
-    // ===========================================================
-    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-
-    function rgbToHex(r,g,b){
-      const to = (n)=> n.toString(16).padStart(2,"0").toUpperCase();
-      return "#"+to(r)+to(g)+to(b);
-    }
-    function rgbToHsl(r,g,b){
-      r/=255; g/=255; b/=255;
-      const max=Math.max(r,g,b), min=Math.min(r,g,b);
-      let h=0,s=0,l=(max+min)/2;
-      const d=max-min;
-      if(d!==0){
-        s = d/(1-Math.abs(2*l-1));
-        switch(max){
-          case r: h=((g-b)/d)%6; break;
-          case g: h=((b-r)/d)+2; break;
-          case b: h=((r-g)/d)+4; break;
-        }
-        h*=60; if(h<0) h+=360;
-      }
-      return {h, s, l};
-    }
-
-    function inRange(h, a, b){
-      if(a<=b) return h>=a && h<b;
-      return h>=a || h<b;
-    }
-
-    function suffixFR(h,s,l){
-      const tags = [];
-      if(l >= 0.82) tags.push("clair");
-      else if(l <= 0.22) tags.push("profond");
-      else if(l <= 0.34) tags.push("fonc\u00E9");
-
-      if(s >= 0.72) tags.push("vif");
-      else if(s <= 0.18) tags.push("cendr\u00E9");
-      else if(s <= 0.32 && l > 0.55) tags.push("poudr\u00E9");
-
-      // Warm/cool hint (gentle)
-      const warm = inRange(h, 330, 70);
-      const cool = inRange(h, 150, 300);
-      if(warm && !cool) tags.push("chaud");
-      else if(cool && !warm) tags.push("froid");
-
-      return [...new Set(tags)].slice(0,2);
-    }
-
-    function baseNameFR(r,g,b){
-      const {h,s,l} = rgbToHsl(r,g,b);
-
-      // Super dark
-      if(l < 0.08) return "Noir absolu";
-      if(l < 0.14) return s < 0.10 ? "Noir profond" : "Sombre";
-
-      // Neutrals (no funny names)
-      if(s < 0.10){
-        if(l > 0.93) return "Blanc neige";
-        if(l > 0.86) return "Blanc cass\u00E9";
-        if(l > 0.78) return "Ivoire";
-        if(l > 0.70) return "\u00C9cru";
-        if(l > 0.60) return "Gris clair";
-        if(l > 0.48) return "Gris perle";
-        if(l > 0.36) return "Gris fum\u00E9";
-        if(l > 0.26) return "Anthracite";
-        return "Ardoise";
-      }
-
-      // Gold guardrail (avoid ivory labelled as Or)
-      const looksGold = inRange(h, 40, 58) && s >= 0.48 && l >= 0.38 && l <= 0.72;
-
-      // Brown decision: warm hues BUT darker or muted (more strict than before)
-      const warmHue = inRange(h, 330, 75); // red->yellow zone
-      const isBrown = warmHue && !looksGold && ((l < 0.50 && s < 0.60) || (l < 0.42)) && s < 0.70;
-
-      if(looksGold) return "Or";
-      if(isBrown){
-        if(l < 0.22) return "Cacao";
-        if(l < 0.30) return "Ch\u00E2taigne";
-        if(l < 0.38) return "Noisette";
-        if(l < 0.48) return "Caramel";
-        return "Camel";
-      }
-
-      // Families
-      if(inRange(h, 345, 15)) return l < 0.35 ? "Bordeaux" : "Rouge";
-      if(inRange(h, 15, 40))  return l < 0.42 ? "Terracotta" : "Orange";
-      if(inRange(h, 40, 70))  return l < 0.45 ? "Miel" : "Jaune";
-      if(inRange(h, 70, 165)) return l < 0.38 ? "Vert sapin" : (l > 0.78 ? "Vert d\u2019eau" : "Vert");
-      if(inRange(h, 165, 255)) return l < 0.32 ? "Bleu nuit" : (l > 0.78 ? "Bleu ciel" : "Bleu");
-      if(inRange(h, 255, 345)) return l < 0.40 ? "Prune" : "Violet";
-
-      return "Couleur";
-    }
-
-    function colorNameFR(r,g,b){
-      const {h,s,l} = rgbToHsl(r,g,b);
-      const base = baseNameFR(r,g,b);
-      const suf = suffixFR(h,s,l);
-
-      // Keep specific bases clean
-      const specific = ["Noir absolu","Noir profond","Blanc neige","Blanc cass\u00E9","Ivoire","\u00C9cru","Or","Bordeaux","Bleu nuit","Vert d\u2019eau","Bleu ciel","Cacao","Ch\u00E2taigne"].includes(base);
-      if(specific){
-        const ok = suf.filter(x=>x==="clair"||x==="fonc\u00E9"||x==="profond").slice(0,1);
-        return ok.length ? `${base} ${ok[0]}` : base;
-      }
-      return suf.length ? `${base} ${suf.join(" ")}` : base;
-    }
-
-    // ===========================================================
-    // DeltaE -> Similarity % (FIXED mapping)
-    // ===========================================================
-    function srgbToLinear(c){
-      c /= 255;
-      return (c <= 0.04045) ? (c/12.92) : Math.pow((c+0.055)/1.055, 2.4);
-    }
-    function rgbToXyz(r,g,b){
-      const R = srgbToLinear(r);
-      const G = srgbToLinear(g);
-      const B = srgbToLinear(b);
-      const X = R*0.4124564 + G*0.3575761 + B*0.1804375;
-      const Y = R*0.2126729 + G*0.7151522 + B*0.0721750;
-      const Z = R*0.0193339 + G*0.1191920 + B*0.9503041;
-      return {X, Y, Z};
-    }
-    function xyzToLab(X,Y,Z){
-      const Xn = 0.95047, Yn = 1.00000, Zn = 1.08883;
-      let x = X/Xn, y = Y/Yn, z = Z/Zn;
-      const f = (t)=> (t > 0.008856) ? Math.cbrt(t) : (7.787*t + 16/116);
-      const fx = f(x), fy = f(y), fz = f(z);
-      const L = 116*fy - 16;
-      const a = 500*(fx - fy);
-      const b = 200*(fy - fz);
-      return {L,a,b};
-    }
-    function rgbToLab(r,g,b){
-      const {X,Y,Z} = rgbToXyz(r,g,b);
-      return xyzToLab(X,Y,Z);
-    }
-    function deltaE76(lab1, lab2){
-      const dL = lab1.L - lab2.L;
-      const da = lab1.a - lab2.a;
-      const db = lab1.b - lab2.b;
-      return Math.sqrt(dL*dL + da*da + db*db);
-    }
-
-    // Premium mapping:
-    // dE 0 => 100
-    // dE 2 => 95 (MATCH threshold)
-    // dE 10 => 75
-    // dE 20 => 50
-    function similarityPercent(rgb1, rgb2){
-      const dE = deltaE76(rgbToLab(rgb1.r,rgb1.g,rgb1.b), rgbToLab(rgb2.r,rgb2.g,rgb2.b));
-      // Mapping premium & lisible :
-      //  - 100% = identique
-      //  - 95%+ = Match (DeltaE <= 5)
-      //  - Pour le shopping: on reste simple et intuitif => Similarite = 100 - DeltaE (clamp)
-      const p = 100 - dE;
-      return Math.max(0, Math.min(100, Math.round(p)));
-    }
-    function labelForPercent(p){
-      if(p === 100) return "MATCH PARFAIT";
-      if(p >= 95) return "MATCH";
-      if(p >= 90) return "Tres proche";
-      if(p >= 80) return "Proche";
-      if(p >= 65) return "Assez proche";
-      return "Contraste";
-    }
-
-    // ===========================================================
-    // Stage: pick image + sampling
-    // ===========================================================
-    function openPicker(){ openBD("bdPick"); }
-    $("btnPick").onclick = openPicker;
-    $("btnChangeImg").onclick = openPicker;
-
-    $("pickCamera").onclick = ()=>{ closeBD("bdPick"); $("inCamera").value=""; $("inCamera").click(); };
-    $("pickPhotos").onclick = ()=>{ closeBD("bdPick"); $("inPhotos").value=""; $("inPhotos").click(); };
-    $("pickFiles").onclick  = ()=>{ closeBD("bdPick"); $("inFiles").value="";  $("inFiles").click();  };
-
-    async function onFilePicked(file){
-      if(!file) return;
-      state.stageFile = file;
-      const url = URL.createObjectURL(file);
-      state.imgEl.src = url;
-
-      $("home").style.display = "none";
-      $("stage").style.display = "grid";
-
-      state.imgEl.onload = ()=>{
-        state.imgReady = true;
-        state.A.locked=false; state.B.locked=false;
-        state.A.hex=null; state.B.hex=null;
-        updateLocksUI();
-        buildStageCanvasCache();
-        setCrosshairStage(state.pos.x, state.pos.y);
-        sampleStageNow();
-      };
-    }
-
-    $("inCamera").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
-    $("inPhotos").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
-    $("inFiles").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
-
-    function buildStageCanvasCache(){
-      const img = state.imgEl;
-      const cv = $("cv");
-      const ctx = cv.getContext("2d", { willReadFrequently:true });
-
-      const iw = img.naturalWidth, ih = img.naturalHeight;
-      const maxW = 1400;
-      const s = Math.min(1, maxW / iw);
-
-      const tw = Math.max(1, Math.round(iw * s));
-      const th = Math.max(1, Math.round(ih * s));
-      cv.width = tw; cv.height = th;
-      ctx.clearRect(0,0,tw,th);
-      ctx.drawImage(img, 0,0, tw,th);
-
-      state.cache = { ready:true, scale:s, w:tw, h:th };
-    }
-
-    function getDisplayedImageRect(wrap, imgEl){
-      const W = wrap.clientWidth, H = wrap.clientHeight;
-      const iw = imgEl.naturalWidth, ih = imgEl.naturalHeight;
-      const scale = Math.max(W/iw, H/ih);
-      const dw = iw*scale, dh = ih*scale;
-      const dx = (W - dw)/2;
-      const dy = (H - dh)/2;
-      return {W,H,iw,ih,scale,dx,dy};
-    }
-
-    function sampleStageAtNormalized(nx, ny){
-      if(!state.imgReady || !state.cache.ready) return null;
-      const wrap = $("imgWrap");
-      const rect = getDisplayedImageRect(wrap, state.imgEl);
-
-      const cx = rect.W * nx;
-      const cy = rect.H * ny;
-
-      const sx = (cx - rect.dx) / rect.scale;
-      const sy = (cy - rect.dy) / rect.scale;
-
-      const x = Math.round(clamp(sx, 0, rect.iw-1));
-      const y = Math.round(clamp(sy, 0, rect.ih-1));
-
-      const cv = $("cv");
-      const ctx = cv.getContext("2d", { willReadFrequently:true });
-
-      const rx = Math.round(x * state.cache.scale);
-      const ry = Math.round(y * state.cache.scale);
-      const data = ctx.getImageData(rx, ry, 1, 1).data;
-
-      return { r:data[0], g:data[1], b:data[2] };
-    }
-
-    function sampleStageNow(){
-      const rgb = sampleStageAtNormalized(state.pos.x, state.pos.y);
-      if(!rgb) return;
-
-      const hex = rgbToHex(rgb.r,rgb.g,rgb.b);
-      const name = colorNameFR(rgb.r,rgb.g,rgb.b);
-      state.sample = { ...rgb, hex, name };
-
-      if(!state.A.locked){
-        state.A.hex = hex; state.A.rgb = rgb; state.A.name = name;
-      }
-      if(!state.B.locked){
-        state.B.hex = hex; state.B.rgb = rgb; state.B.name = name;
-      }
-      renderStageSwatches();
-    }
-
-    function renderStageSwatches(){
-      $("hexCenter").textContent = state.sample.hex;
-
-      $("hexA").textContent = state.A.hex ? `${state.A.hex} \u2022 RGB(${state.A.rgb.r},${state.A.rgb.g},${state.A.rgb.b})` : "\u2014";
-      $("nameA").textContent = state.A.name || "\u2014";
-      $("rowA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.04)";
-      $("dotA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.15)";
-
-      $("rowCenter").style.background = state.sample.hex;
-
-      $("hexB").textContent = state.B.hex ? `${state.B.hex} \u2022 RGB(${state.B.rgb.r},${state.B.rgb.g},${state.B.rgb.b})` : "\u2014";
-      $("nameB").textContent = state.B.name || "\u2014";
-      $("rowB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.04)";
-      $("dotB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.15)";
-
-      const lum = (c)=> (0.2126*c.r + 0.7152*c.g + 0.0722*c.b)/255;
-      $("hexCenter").style.color = lum(state.sample) > 0.62 ? "rgba(0,0,0,.78)" : "rgba(255,255,255,.92)";
-    }
-
-    function setCrosshairStage(nx, ny){
-      state.pos.x = clamp(nx, 0, 1);
-      state.pos.y = clamp(ny, 0, 1);
-      const wrap = $("imgWrap");
-      $("crosshair").style.left = (wrap.clientWidth * state.pos.x) + "px";
-      $("crosshair").style.top  = (wrap.clientHeight * state.pos.y) + "px";
-    }
-
-    function enableStageTouchSampling(){
-      const wrap = $("imgWrap");
-      function fromClientXY(clientX, clientY){
-        const rect = wrap.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-        setCrosshairStage(x / rect.width, y / rect.height);
-        sampleStageNow();
-      }
-
-      wrap.addEventListener("pointerdown", (e)=>{
-        if(!state.imgReady) return;
-        wrap.setPointerCapture(e.pointerId);
-        fromClientXY(e.clientX, e.clientY);
-      });
-      wrap.addEventListener("pointermove", (e)=>{
-        if(!state.imgReady) return;
-        if(e.buttons === 0) return;
-        fromClientXY(e.clientX, e.clientY);
-      });
-      wrap.addEventListener("click", (e)=>{
-        if(!state.imgReady) return;
-        fromClientXY(e.clientX, e.clientY);
-      });
-      window.addEventListener("resize", ()=>{
-        if(!state.imgReady) return;
-        setCrosshairStage(state.pos.x, state.pos.y);
-        sampleStageNow();
-      }, {passive:true});
-    }
-
-    // Locks
-    function updateLocksUI(){
-      const a = $("lockA"), b = $("lockB");
-      a.classList.toggle("locked", state.A.locked);
-      b.classList.toggle("locked", state.B.locked);
-      a.textContent = state.A.locked ? " D\u00E9verrouiller A" : " Verrouiller A";
-      b.textContent = state.B.locked ? " D\u00E9verrouiller B" : " Verrouiller B";
-    }
-    $("lockA").onclick = ()=>{
-      state.A.locked = !state.A.locked;
-      if(!state.A.locked){
-        state.A.hex = state.sample.hex;
-        state.A.rgb = {r:state.sample.r,g:state.sample.g,b:state.sample.b};
-        state.A.name = state.sample.name;
-      }
-      updateLocksUI();
-      renderStageSwatches();
-    };
-    $("lockB").onclick = ()=>{
-      state.B.locked = !state.B.locked;
-      if(!state.B.locked){
-        state.B.hex = state.sample.hex;
-        state.B.rgb = {r:state.sample.r,g:state.sample.g,b:state.sample.b};
-        state.B.name = state.sample.name;
-      }
-      updateLocksUI();
-      renderStageSwatches();
-    };
-
-    $("saveColors").onclick = ()=>{
-      if(!state.A.hex || !state.B.hex){
-        alert("Verrouille A et B avant de sauvegarder.");
-        return;
-      }
-
-      const aHex = state.A.hex, bHex = state.B.hex;
-
-      if(aHex === bHex){
-        if(addColorIfNew(aHex, state.A.name, state.A.rgb)){
-          showToast("\u2705 Couleur ajout\u00E9e \u00E0 l\u2019historique");
-        } else {
-          showToast("Couleur d\u00E9j\u00E0 pr\u00E9sente dans l\u2019historique");
-        }
-        return;
-      }
-
-      const aNew = addColorIfNew(aHex, state.A.name, state.A.rgb);
-      const bNew = addColorIfNew(bHex, state.B.name, state.B.rgb);
-
-      if(!aNew && !bNew){
-        showToast("Couleurs d\u00E9j\u00E0 pr\u00E9sentes dans l\u2019historique");
-      } else if(aNew && bNew){
-        showToast("\u2705 Couleurs ajout\u00E9es \u00E0 l\u2019historique");
-      } else {
-        showToast("Couleur d\u00E9j\u00E0 pr\u00E9sente dans l\u2019historique");
-      }
-    };
-
-    // ===========================================================
-    // Mes couleurs + s\u00E9lection + bouton comparer maintenant
-    // ===========================================================
-    function openColors(selectMode=false){
-      renderColorsList(selectMode);
-      $("colorsSticky").classList.toggle("hide", !selectMode);
-      updateColorsSticky();
-      openBD("bdColors");
-    }
-    $("btnColors").onclick = ()=>openColors(false);
-    $("btnColors2").onclick = ()=>openColors(false);
-
-    function updateColorsSticky(){
-      const n = state.compare.selectedHex.length;
-      const btn = $("btnColorsCompareNow");
-      btn.textContent = ` Comparer maintenant (${n})`;
-      btn.disabled = n < 2;
-    }
-
-    function toggleCompareHex(hex){
-      const sel = state.compare.selectedHex;
-      const idx = sel.indexOf(hex);
-      if(idx >= 0){
-        sel.splice(idx,1);
-      } else {
-        if(sel.length >= 4){
-          showToast("S\u00E9lection max : 4 couleurs");
-          return;
-        }
-        sel.push(hex);
-      }
-      updateColorsSticky();
-    }
-
-    function renderColorsList(selectMode){
-      const list = $("colorsList");
-      const saved = loadSaved();
-      list.innerHTML = "";
-
-      if(saved.length===0){
-        list.innerHTML = `<div class="muted small">Aucune couleur sauvegard\u00E9e pour le moment.</div>`;
-        return;
-      }
-
-      saved.forEach((it, idx)=>{
-        const el = document.createElement("div");
-        el.className = "item";
-
-        const sw = document.createElement("div");
-        sw.className = "itemSw";
-        sw.style.background = it.hex;
-
-        const main = document.createElement("div");
-        main.className = "itemMain";
-
-        const t = document.createElement("p");
-        t.className = "itemTitle";
-        t.textContent = it.name;
-
-        const sub = document.createElement("p");
-        sub.className = "itemSub";
-        sub.textContent = it.mode === "objets" ? "Objets" : "V\u00EAtements";
-
-        const meta = document.createElement("div");
-        meta.className = "itemMeta";
-        const d = new Date(it.ts);
-        meta.textContent = `${it.hex} \u2022 RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""}) \u2022 ${d.toLocaleDateString("fr-FR", { day:"2-digit", month:"short", year:"numeric" })}`;
-
-        main.appendChild(t); main.appendChild(sub); main.appendChild(meta);
-
-        const right = document.createElement("div");
-        right.className = "itemRight";
-        const del = document.createElement("button");
-        del.type="button";
-        del.textContent="Supprimer";
-        del.onclick = ()=>{
-          const arr = loadSaved();
-          arr.splice(idx,1);
-          saveSaved(arr);
-          state.compare.selectedHex = state.compare.selectedHex.filter(h=>h!==it.hex);
-          renderColorsList(selectMode);
-          updateColorsSticky();
-          renderCompare();
-        };
-        right.appendChild(del);
-
-        el.appendChild(sw);
-        el.appendChild(main);
-        el.appendChild(right);
-
-        if(selectMode){
-          const pill = document.createElement("div");
-          pill.className = "selectPill";
-          pill.innerHTML = `<span class="check"></span><span>S\u00E9lectionner</span>`;
-          const check = pill.querySelector(".check");
-
-          const isOn = state.compare.selectedHex.includes(it.hex);
-          if(isOn) check.classList.add("on");
-
-          el.style.cursor = "pointer";
-          el.onclick = ()=>{
-            toggleCompareHex(it.hex);
-            renderColorsList(true);
-            renderCompare();
-          };
-
-          el.appendChild(pill);
-        }
-
-        list.appendChild(el);
-      });
-    }
-
-    $("btnColorsCompareNow").onclick = ()=>{
-      if(state.compare.selectedHex.length < 2) return;
-      closeBD("bdColors");
-      openCompare();
-    };
-    $("btnColorsClearSel").onclick = ()=>{
-      state.compare.selectedHex = [];
-      renderColorsList(true);
-      updateColorsSticky();
-      renderCompare();
-    };
-
-    $("btnColorsBack").onclick = ()=>{ closeBD("bdColors"); };
-
-    $("resetAll").onclick = ()=>{
-      if(confirm("Supprimer toutes les couleurs sauvegard\u00E9es ?")){
-        saveSaved([]);
-        state.compare.selectedHex = [];
-        renderColorsList(false);
-        updateColorsSticky();
-        renderCompare();
-      }
-    };
-
-    // ===========================================================
-    // Comparer
-    // ===========================================================
-    function getSavedByHex(hex){ return loadSaved().find(x=>x.hex===hex); }
-
-    function openCompare(){
-      renderCompare();
-      openBD("bdCompare");
-    }
-    $("btnCompare").onclick = openCompare;
-    $("btnCompare2").onclick = openCompare;
-
-    $("btnPickFromHistory").onclick = ()=> openColors(true);
-    $("btnClearSelection").onclick = ()=>{
-      state.compare.selectedHex = [];
-      renderCompare();
-    };
-
-    function renderCompare(){
-      const selRow = $("selRow");
-      const pairs = $("pairs");
-      selRow.innerHTML = "";
-      pairs.innerHTML = "";
-
-      const sel = state.compare.selectedHex;
-
-      if(sel.length === 0){
-        selRow.innerHTML = `<div class="muted small">Aucune couleur s\u00E9lectionn\u00E9e. Clique sur \u201CChoisir dans Mes couleurs\u201D.</div>`;
-        pairs.innerHTML = `<div class="muted small">S\u00E9lectionne au moins 2 couleurs pour comparer.</div>`;
-        return;
-      }
-
-      const entries = sel.map(h=>getSavedByHex(h)).filter(Boolean);
-
-      entries.forEach((it)=>{
-        const chip = document.createElement("div");
-        chip.className = "chip";
-        chip.innerHTML = `
-          <div class="chipSw" style="background:${it.hex}"></div>
-          <div class="chipTxt">
-            <div class="chipName">${it.name}</div>
-            <div class="chipCode">${it.hex} \u2022 RGB(${it.rgb?.r ?? ""},${it.rgb?.g ?? ""},${it.rgb?.b ?? ""})</div>
-          </div>
-        `;
-        chip.onclick = ()=>{
-          toggleCompareHex(it.hex);
-          renderCompare();
-          updateColorsSticky();
-        };
-        selRow.appendChild(chip);
-      });
-
-      if(entries.length < 2){
-        pairs.innerHTML = `<div class="muted small">S\u00E9lectionne au moins 2 couleurs pour comparer.</div>`;
-        return;
-      }
-
-      const results = [];
-      for(let i=0;i<entries.length;i++){
-        for(let j=i+1;j<entries.length;j++){
-          const a = entries[i], b = entries[j];
-          const p = similarityPercent(a.rgb, b.rgb);
-          results.push({a,b,p,label:labelForPercent(p)});
-        }
-      }
-      results.sort((x,y)=>y.p - x.p);
-
-      results.forEach((r)=>{
-        const el = document.createElement("div");
-        el.className = "pair";
-        el.innerHTML = `
-          <div class="pairL">
-            <div class="miniSw" style="background:${r.a.hex}"></div>
-            <div class="miniSw" style="background:${r.b.hex}"></div>
-            <div>
-              <div class="pairNames">${r.a.name} <span class="pairSmall">vs</span> ${r.b.name}</div>
-              <div class="pairSmall">${r.a.hex} \u2022 ${r.b.hex}</div>
-            </div>
-          </div>
-          <div class="badge"><b>${r.p}%</b> \u2022 Similarite \u2022 ${r.label}</div>
-        `;
-        pairs.appendChild(el);
-      });
-    }
-
-    // ===========================================================
-    // Dressing: IndexedDB (up to 30 items) - unchanged logic
-    // (kept as-is from your version, only UI modal sizing fixed above)
-    // ===========================================================
-    const DRESS_DB = "tonematch_dressing_db_v1";
-    const DRESS_STORE = "items";
-    const DRESS_MAX = 30;
-
-    function idbOpen(){
-      return new Promise((resolve,reject)=>{
-        const req = indexedDB.open(DRESS_DB, 1);
-        req.onupgradeneeded = ()=>{
-          const db = req.result;
-          if(!db.objectStoreNames.contains(DRESS_STORE)){
-            const store = db.createObjectStore(DRESS_STORE, { keyPath:"id", autoIncrement:true });
-            store.createIndex("createdAt", "createdAt");
-          }
-        };
-        req.onsuccess = ()=> resolve(req.result);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-    async function idbGetAll(){
-      const db = await idbOpen();
-      return new Promise((resolve,reject)=>{
-        const tx = db.transaction(DRESS_STORE, "readonly");
-        const store = tx.objectStore(DRESS_STORE);
-        const req = store.getAll();
-        req.onsuccess = ()=> resolve(req.result || []);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-    async function idbGet(id){
-      const db = await idbOpen();
-      return new Promise((resolve,reject)=>{
-        const tx = db.transaction(DRESS_STORE, "readonly");
-        const store = tx.objectStore(DRESS_STORE);
-        const req = store.get(id);
-        req.onsuccess = ()=> resolve(req.result || null);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-    async function idbPut(item){
-      const db = await idbOpen();
-      return new Promise((resolve,reject)=>{
-        const tx = db.transaction(DRESS_STORE, "readwrite");
-        const store = tx.objectStore(DRESS_STORE);
-        const req = store.put(item);
-        req.onsuccess = ()=> resolve(req.result);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-    async function idbAdd(item){
-      const db = await idbOpen();
-      return new Promise((resolve,reject)=>{
-        const tx = db.transaction(DRESS_STORE, "readwrite");
-        const store = tx.objectStore(DRESS_STORE);
-        const req = store.add(item);
-        req.onsuccess = ()=> resolve(req.result);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-    async function idbDelete(id){
-      const db = await idbOpen();
-      return new Promise((resolve,reject)=>{
-        const tx = db.transaction(DRESS_STORE, "readwrite");
-        const store = tx.objectStore(DRESS_STORE);
-        const req = store.delete(id);
-        req.onsuccess = ()=> resolve(true);
-        req.onerror = ()=> reject(req.error);
-      });
-    }
-
-    async function fileToBlobs(file){
-      const img = await loadImageFromFile(file);
-      const fullBlob = await renderToJpegBlob(img, 1920, 0.86);
-      const thumbBlob = await renderToJpegBlob(img, 520, 0.80);
-      return {fullBlob, thumbBlob};
-    }
-    function loadImageFromFile(file){
-      return new Promise((resolve,reject)=>{
-        const url = URL.createObjectURL(file);
-        const im = new Image();
-        im.onload = ()=> { URL.revokeObjectURL(url); resolve(im); };
-        im.onerror = reject;
-        im.src = url;
-      });
-    }
-    async function renderToJpegBlob(img, maxSide, quality){
-      const iw = img.naturalWidth, ih = img.naturalHeight;
-      const s = Math.min(1, maxSide / Math.max(iw, ih));
-      const w = Math.max(1, Math.round(iw*s));
-      const h = Math.max(1, Math.round(ih*s));
-      const c = document.createElement("canvas");
-      c.width = w; c.height = h;
-      const ctx = c.getContext("2d");
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "high";
-      ctx.drawImage(img, 0,0, w,h);
-      return new Promise((resolve)=> c.toBlob(b=>resolve(b), "image/jpeg", quality));
-    }
-
-    $("btnDressing").onclick = async ()=>{
-      await renderDressingGrid();
-      openBD("bdDressing");
-    };
-
-    $("btnDressAdd").onclick = async ()=>{
-      const items = await idbGetAll();
-      if(items.length >= DRESS_MAX){
-        showToast(`Limite atteinte : ${DRESS_MAX} items`);
-        return;
-      }
-      openBD("bdDressPick");
-    };
-
-    $("dressPickCamera").onclick = ()=>{ closeBD("bdDressPick"); $("inDressCamera").value=""; $("inDressCamera").click(); };
-    $("dressPickPhotos").onclick = ()=>{ closeBD("bdDressPick"); $("inDressPhotos").value=""; $("inDressPhotos").click(); };
-    $("dressPickFiles").onclick  = ()=>{ closeBD("bdDressPick"); $("inDressFiles").value="";  $("inDressFiles").click();  };
-
-    async function onDressFilePicked(file){
-      if(!file) return;
-      state.stageFile = file;
-      const items = await idbGetAll();
-      if(items.length >= DRESS_MAX){
-        showToast(`Limite atteinte : ${DRESS_MAX} items`);
-        return;
-      }
-
-      showToast("Optimisation de l\u2019image\u2026");
-      const {fullBlob, thumbBlob} = await fileToBlobs(file);
-
-      const createdAt = Date.now();
-      const name = `Item ${items.length + 1}`;
-      const item = { name, createdAt, fullBlob, thumbBlob, colors: [] };
-
-      const id = await idbAdd(item);
-      showToast("\u2705 Ajout\u00E9 au dressing");
-      await renderDressingGrid();
-      await openDressingDetail(id);
-    }
-    $("inDressCamera").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
-    $("inDressPhotos").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
-    $("inDressFiles").addEventListener("change",(e)=> onDressFilePicked(e.target.files?.[0]));
-
-    async function renderDressingGrid(){
-      const grid = $("dressGrid");
-      const items = await idbGetAll();
-      items.sort((a,b)=> b.createdAt - a.createdAt);
-      grid.innerHTML = "";
-
-      if(items.length === 0){
-        grid.innerHTML = `<div class="muted small">Aucun item pour le moment. Clique sur \u201CAjouter une photo\u201D.</div>`;
-        return;
-      }
-
-      for(const it of items){
-        const card = document.createElement("div");
-        card.className = "cardItem";
-
-        const img = document.createElement("img");
-        img.className = "cardImg";
-        img.alt = it.name || "Item";
-        const urlThumb = URL.createObjectURL(it.thumbBlob);
-        img.src = urlThumb;
-        img.onload = ()=> { try{URL.revokeObjectURL(urlThumb);}catch{} };
-        img.onerror = ()=>{
-          // Fallback (sometimes iOS loses the thumb blob): try the full image
-          try{URL.revokeObjectURL(urlThumb);}catch{}
-          if(it.fullBlob){
-            const urlFull = URL.createObjectURL(it.fullBlob);
-            img.src = urlFull;
-            img.onload = ()=> { try{URL.revokeObjectURL(urlFull);}catch{} };
-          }
-        };
-
-        const body = document.createElement("div");
-        body.className = "cardBody";
-
-        const title = document.createElement("p");
-        title.className = "cardTitle";
-        title.textContent = it.name || "Sans nom";
-
-        const dots = document.createElement("div");
-        dots.className = "swDots";
-        const cols = (it.colors || []).slice(0,4);
-        for(let i=0;i<4;i++){
-          const d = document.createElement("div");
-          d.className = "swDot";
-          d.style.background = cols[i]?.hex || "rgba(255,255,255,.08)";
-          dots.appendChild(d);
-        }
-
-        body.appendChild(title);
-        body.appendChild(dots);
-
-        const actions = document.createElement("div");
-        actions.className = "miniActions";
-
-        const del = document.createElement("button");
-        del.className = "iconBtn danger";
-        del.type = "button";
-        del.textContent = "";
-        del.onclick = async (ev)=>{
-          ev.stopPropagation();
-          if(confirm("Supprimer cet item du dressing ?")){
-            await idbDelete(it.id);
-            showToast("Supprim\u00E9");
-            await renderDressingGrid();
-          }
-        };
-
-        actions.appendChild(del);
-
-        card.appendChild(img);
-        card.appendChild(actions);
-        card.appendChild(body);
-
-        card.onclick = ()=> openDressingDetail(it.id);
-        grid.appendChild(card);
-      }
-    }
-
-    async function openDressingDetail(id){
-      const item = await idbGet(id);
-      if(!item) return;
-
-      state.dress.currentId = id;
-      state.dress.imgReady = false;
-      state.dress.pos = {x:0.5,y:0.5};
-
-      const cols = (item.colors || []).slice(0,4);
-      state.dress.slots = [cols[0]||null, cols[1]||null, cols[2]||null, cols[3]||null];
-
-      $("dressDetailTitle").textContent = item.name || "D\u00E9tail";
-
-      const url = URL.createObjectURL(item.fullBlob);
-      const imgEl = $("dressImg");
-      imgEl.src = url;
-
-      openBD("bdDressDetail");
-
-      imgEl.onload = ()=>{
-        try{URL.revokeObjectURL(url);}catch{}
-        state.dress.imgReady = true;
-        buildDressCanvasCache(imgEl);
-        setCrosshairDress(state.dress.pos.x, state.dress.pos.y);
-        sampleDressNow();
-        renderDressSlotsUI();
-      };
-
-      $("btnDressRename").onclick = async ()=>{
-        const newName = prompt("Nom de l\u2019item :", item.name || "");
-        if(newName === null) return;
-        item.name = newName.trim() || "Sans nom";
-        await idbPut(item);
-        $("dressDetailTitle").textContent = item.name;
-        await renderDressingGrid();
-      };
-
-      $("btnDressDelete").onclick = async ()=>{
-        if(confirm("Supprimer cet item du dressing ?")){
-          await idbDelete(id);
-          closeBD("bdDressDetail");
-          showToast("Supprim\u00E9");
-          await renderDressingGrid();
-        }
-      };
-
-      $("btnDressSaveColors").onclick = async ()=>{
-        await persistDressColors(false);
-        renderDressSlotsUI();
-      };
-
-      $("btnDressToCompare").onclick = async ()=>{
-        const cols2 = state.dress.slots.filter(Boolean).slice(0,4);
-        if(cols2.length === 0) return;
-
-        let addedAny = false;
-        for(const c of cols2){
-          const wasNew = addColorIfNew(c.hex, c.name, c.rgb);
-          if(wasNew) addedAny = true;
-
-          if(!state.compare.selectedHex.includes(c.hex)){
-            if(state.compare.selectedHex.length < 4) state.compare.selectedHex.push(c.hex);
-          }
-        }
-
-        showToast(addedAny ? "\u2705 Ajout\u00E9 \u00E0 Mes couleurs + Comparer" : "Ajout\u00E9 au comparateur");
-        closeBD("bdDressDetail");
-        openCompare();
-      };
-
-      enableDressTouchSampling();
-    }
-
-    function buildDressCanvasCache(imgEl){
-      const cv = $("cv");
-      const ctx = cv.getContext("2d", { willReadFrequently:true });
-
-      const iw = imgEl.naturalWidth, ih = imgEl.naturalHeight;
-      const maxW = 1600;
-      const s = Math.min(1, maxW / iw);
-
-      const tw = Math.max(1, Math.round(iw * s));
-      const th = Math.max(1, Math.round(ih * s));
-      cv.width = tw; cv.height = th;
-      ctx.clearRect(0,0,tw,th);
-      ctx.drawImage(imgEl, 0,0, tw,th);
-
-      state.dress.cache = { ready:true, scale:s, w:tw, h:th };
-    }
-
-    function sampleDressAtNormalized(nx, ny){
-      if(!state.dress.imgReady || !state.dress.cache.ready) return null;
-
-      const wrap = $("dressImgWrap");
-      const imgEl = $("dressImg");
-      const rect = getDisplayedImageRect(wrap, imgEl);
-
-      const cx = rect.W * nx;
-      const cy = rect.H * ny;
-
-      const sx = (cx - rect.dx) / rect.scale;
-      const sy = (cy - rect.dy) / rect.scale;
-
-      const x = Math.round(clamp(sx, 0, rect.iw-1));
-      const y = Math.round(clamp(sy, 0, rect.ih-1));
-
-      const cv = $("cv");
-      const ctx = cv.getContext("2d", { willReadFrequently:true });
-
-      const rx = Math.round(x * state.dress.cache.scale);
-      const ry = Math.round(y * state.dress.cache.scale);
-      const data = ctx.getImageData(rx, ry, 1, 1).data;
-
-      return { r:data[0], g:data[1], b:data[2] };
-    }
-
-    function sampleDressNow(){
-      const rgb = sampleDressAtNormalized(state.dress.pos.x, state.dress.pos.y);
-      if(!rgb) return;
-      const hex = rgbToHex(rgb.r,rgb.g,rgb.b);
-      const name = colorNameFR(rgb.r,rgb.g,rgb.b);
-      state.dress.sample = { ...rgb, hex, name };
-      renderDressSlotsUI();
-    }
-
-    function setCrosshairDress(nx, ny){
-      state.dress.pos.x = clamp(nx, 0, 1);
-      state.dress.pos.y = clamp(ny, 0, 1);
-      const wrap = $("dressImgWrap");
-      $("dressCrosshair").style.left = (wrap.clientWidth * state.dress.pos.x) + "px";
-      $("dressCrosshair").style.top  = (wrap.clientHeight * state.dress.pos.y) + "px";
-    }
-
-    let dressTouchBound = false;
-    function enableDressTouchSampling(){
-      if(dressTouchBound) return;
-      dressTouchBound = true;
-
-      const wrap = $("dressImgWrap");
-      function fromClientXY(clientX, clientY){
-        const rect = wrap.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-        setCrosshairDress(x / rect.width, y / rect.height);
-        sampleDressNow();
-      }
-
-      wrap.addEventListener("pointerdown", (e)=>{
-        if(!state.dress.imgReady) return;
-        wrap.setPointerCapture(e.pointerId);
-        fromClientXY(e.clientX, e.clientY);
-      });
-      wrap.addEventListener("pointermove", (e)=>{
-        if(!state.dress.imgReady) return;
-        if(e.buttons === 0) return;
-        fromClientXY(e.clientX, e.clientY);
-      });
-      wrap.addEventListener("click", (e)=>{
-        if(!state.dress.imgReady) return;
-        fromClientXY(e.clientX, e.clientY);
-      });
-
-      window.addEventListener("resize", ()=>{
-        if(!state.dress.imgReady) return;
-        setCrosshairDress(state.dress.pos.x, state.dress.pos.y);
-        sampleDressNow();
-      }, {passive:true});
-    }
-
-    
-    async function persistDressColors(silent=true){
-      const id = state.dress.currentId;
-      if(!id) return;
-      const item = await idbGet(id);
-      if(!item) return;
-      item.colors = state.dress.slots.filter(Boolean).slice(0,4);
-      await idbPut(item);
-      await renderDressingGrid();
-      if(!silent) showToast("Couleurs sauvegardees");
-    }
-
-function renderDressSlotsUI(){
-      const slots = $("dressSlots");
-      slots.innerHTML = "";
-
-      const sample = state.dress.sample;
-      const current = { hex: sample.hex, name: sample.name, rgb: {r:sample.r,g:sample.g,b:sample.b} };
-
-      for(let i=0;i<4;i++){
-        const idx = i;
-        const val = state.dress.slots[idx];
-
-        const row = document.createElement("div");
-        row.className = "slotRow";
-
-        const left = document.createElement("div");
-        left.className = "slotLeft";
-
-        const sw = document.createElement("div");
-        sw.className = "slotSw";
-        sw.style.background = (val?.hex) ? val.hex : "rgba(255,255,255,.06)";
-
-        const txt = document.createElement("div");
-        txt.className = "slotTxt";
-
-        const nm = document.createElement("div");
-        nm.className = "slotName";
-        nm.textContent = val?.name ? `${idx+1}. ${val.name}` : `${idx+1}. (non d\u00E9fini)`;
-
-        const cd = document.createElement("div");
-        cd.className = "slotCode";
-        cd.textContent = val?.hex ? `${val.hex} \u2022 RGB(${val.rgb.r},${val.rgb.g},${val.rgb.b})` : "\u2014";
-
-        txt.appendChild(nm);
-        txt.appendChild(cd);
-
-        left.appendChild(sw);
-        left.appendChild(txt);
-
-        const btns = document.createElement("div");
-        btns.className = "slotBtns";
-
-        const setBtn = document.createElement("button");
-        setBtn.className = "btn";
-        setBtn.type = "button";
-        setBtn.textContent = ` D\u00E9finir ${idx+1} avec la pipette`;
-        setBtn.onclick = async ()=>{
-          state.dress.slots[idx] = { ...current };
-          renderDressSlotsUI();
-          await persistDressColors(true);
-          showToast(`Couleur ${idx+1} definie`);
-        };
-
-        const clearBtn = document.createElement("button");
-        clearBtn.className = "btn danger";
-        clearBtn.type = "button";
-        clearBtn.textContent = ` Effacer ${idx+1}`;
-        clearBtn.onclick = async ()=>{
-          state.dress.slots[idx] = null;
-          renderDressSlotsUI();
-          await persistDressColors(true);
-        };
-
-        btns.appendChild(setBtn);
-        btns.appendChild(clearBtn);
-
-        row.appendChild(left);
-        row.appendChild(btns);
-
-        slots.appendChild(row);
-      }
-
-      const count = state.dress.slots.filter(Boolean).length;
-      const btnToCompare = $("btnDressToCompare");
-      btnToCompare.textContent = ` Ajouter au comparateur (${count})`;
-      btnToCompare.disabled = count === 0;
-    }
-
-    // ===========================================================
-    // Init
-    // ===========================================================
-    updateLocksUI();
-    enableStageTouchSampling();
-    // Quick actions
-    $("btnGoDressingFromCompare").onclick = async ()=>{
-      await renderDressingGrid();
-      closeBD("bdCompare");
-      openBD("bdDressing");
-    };
-    $("btnAddPhotoFromCompare").onclick = async ()=>{
-      closeBD("bdCompare");
-      await renderDressingGrid();
-      openBD("bdDressing");
-      // open picker directly
-      $("btnDressAdd").click();
-    };
-
-    // Add current stage image to dressing (premium shortcut)
-    $("btnAddToDressing").onclick = async ()=>{
-      if(!state.stageFile){
-        showToast("Prends dâabord une photo / image");
-        return;
-      }
+    copyHexBtn.addEventListener("click", async () => {
+      if(!current) return;
       try{
-        const items = await idbGetAll();
-        if(items.length >= DRESS_MAX){
-          showToast(`Limite atteinte : ${DRESS_MAX} items`);
-          return;
-        }
-        // Reuse the same pipeline as dressing add
-        await onDressFilePicked(state.stageFile);
-      } catch(e){
-        console.warn(e);
-        showToast("Impossible dâajouter au dressing");
+        await navigator.clipboard.writeText(current.hex);
+        showToast("HEX copié ✓");
+      }catch(err){
+        // fallback simple
+        prompt("Copie le HEX :", current.hex);
       }
-    };
+    });
 
+    compareBtn.addEventListener("click", () => {
+      if(!current) return;
+      // Placeholder V1 : tu brancheras ta logique de comparaison plus tard
+      showToast("Comparer (V2)");
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      if(!current) return;
+      const idx = COLORS.findIndex(x => x.id === current.id);
+      if(idx >= 0){
+        COLORS.splice(idx, 1);
+        renderGrid();
+        closeSheet();
+        showToast("Supprimé");
+      }
+    });
+
+    // Init
+    renderGrid();
   </script>
 </body>
 </html>
-
-<!-- EOF -->
-
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
-<!-- filler -->
