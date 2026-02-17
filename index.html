@@ -56,13 +56,6 @@
     }
     .brand{font-weight:800;letter-spacing:.2px;font-size:18px}
     .spacer{flex:1}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 12px;border:1px solid var(--stroke);
-      border-radius:999px;background:rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:13px;
-    }
     .seg{
       display:inline-flex;border:1px solid var(--stroke);
       border-radius:999px;overflow:hidden;
@@ -119,7 +112,6 @@
       color:#ffd6d6;
     }
     .btn:active{transform:translateY(1px)}
-    .btn small{opacity:.85;font-weight:800}
 
     .stage{
       margin-top:14px;
@@ -139,23 +131,26 @@
       position:relative;
       aspect-ratio: 4 / 3;
       display:flex;align-items:center;justify-content:center;
+      touch-action:none; /* IMPORTANT: allow custom drag on iOS */
+      user-select:none;
     }
     .imgWrap img{
       width:100%;height:100%;
       object-fit:cover;
       display:block;
+      pointer-events:none; /* drag events go to wrap */
     }
     .imgWrap .overlayHint{
       position:absolute;inset:0;
       pointer-events:none;
     }
-    /* Crosshair = point précis. (On retire le rond “grisé” : juste une cible fine) */
+    /* Crosshair: movable + precise */
     .crosshair{
       position:absolute;
       width:34px;height:34px;
       left:50%;top:50%;
       transform:translate(-50%,-50%);
-      border:2px solid rgba(255,255,255,.85);
+      border:2px solid rgba(255,255,255,.90);
       border-radius:999px;
       box-shadow:0 8px 24px rgba(0,0,0,.45);
       background:transparent;
@@ -163,17 +158,13 @@
     .crosshair:before,.crosshair:after{
       content:"";
       position:absolute;left:50%;top:50%;
-      width:26px;height:2px;background:rgba(255,255,255,.85);
+      width:26px;height:2px;background:rgba(255,255,255,.90);
       transform:translate(-50%,-50%);
       border-radius:2px;
     }
-    .crosshair:after{
-      width:2px;height:26px;
-    }
+    .crosshair:after{width:2px;height:26px;}
 
-    .row{
-      display:flex;gap:10px;flex-wrap:wrap;
-    }
+    .row{display:flex;gap:10px;flex-wrap:wrap;}
     .row .btn{flex:1;min-width:210px}
 
     .swatchPanel{
@@ -203,10 +194,7 @@
       text-shadow:0 18px 50px rgba(0,0,0,.55);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
-    .swSplit{
-      display:grid;
-      grid-template-rows: auto auto auto;
-    }
+    .swSplit{display:grid;grid-template-rows:auto auto auto;}
     .swA{background:rgba(255,255,255,.04)}
     .swCenter{background:rgba(0,0,0,.10)}
     .swB{background:rgba(255,255,255,.04)}
@@ -218,12 +206,6 @@
       flex-wrap:wrap;
     }
     .barBtns .btn{min-width:220px}
-    .btn.lockA{
-      background:rgba(255,255,255,.07);
-    }
-    .btn.lockB{
-      background:rgba(255,255,255,.07);
-    }
     .btn.locked{
       background:rgba(46,229,157,.14);
       border:1px solid rgba(46,229,157,.30);
@@ -266,7 +248,6 @@
     }
     .modalBody{padding:14px 16px 16px}
     .sheetBtns{display:grid;gap:10px}
-    .sheetBtns .btn{min-width:unset}
 
     /* Mes couleurs list */
     .list{
@@ -313,7 +294,6 @@
       font-weight:1000;
     }
 
-    /* helper */
     .muted{color:var(--muted)}
     .small{font-size:13px}
     .hide{display:none!important}
@@ -336,15 +316,14 @@
     <!-- HOME -->
     <div class="card hero" id="home">
       <h1 class="title">Identifiez vos couleurs</h1>
-      <p class="sub">Prenez une photo ou importez une image. Glissez la cible pour prélever. Verrouillez A et B, puis sauvegardez dans <b>Mes couleurs</b>.</p>
+      <p class="sub">
+        Prenez une photo ou importez une image. Déplacez la cible pour prélever.
+        Verrouillez A et B, puis sauvegardez dans <b>Mes couleurs</b>.
+      </p>
 
       <div class="actions">
-        <button class="btn primary" id="btnPick">
-          📸 <span>Prendre / importer une image</span>
-        </button>
-        <button class="btn" id="btnColors">
-          🎨 <span>Mes couleurs</span>
-        </button>
+        <button class="btn primary" id="btnPick">📸 <span>Prendre / importer une image</span></button>
+        <button class="btn" id="btnColors">🎨 <span>Mes couleurs</span></button>
       </div>
     </div>
 
@@ -381,8 +360,8 @@
           </div>
 
           <div class="barBtns">
-            <button class="btn lockA" id="lockA">🔒 Verrouiller A</button>
-            <button class="btn lockB" id="lockB">🔒 Verrouiller B</button>
+            <button class="btn" id="lockA">🔒 Verrouiller A</button>
+            <button class="btn" id="lockB">🔒 Verrouiller B</button>
             <button class="btn primary" id="saveColors">💾 Sauvegarder dans Mes couleurs</button>
           </div>
         </div>
@@ -390,7 +369,7 @@
     </div>
   </div>
 
-  <!-- FILE INPUTS (3 choix) -->
+  <!-- FILE INPUTS -->
   <input id="inCamera" type="file" accept="image/*" capture="environment" class="hide" />
   <input id="inPhotos" type="file" accept="image/*" class="hide" />
   <input id="inFiles" type="file" accept="image/*" class="hide" />
@@ -437,37 +416,31 @@
   <canvas id="cv" class="hide"></canvas>
 
   <script>
-    /**********************
-     * ToneMatch AI - Single file
-     * Fixes:
-     * - "Changer d'image" ouvre à nouveau le choix caméra/galerie/fichiers sans quitter l'écran
-     * - Pipette = la couleur affichée au centre = la couleur réellement verrouillée (A/B) (plus de “grisage” incohérent)
-     * - Supprime "Qualité" et "Nom fun" (inutile)
-     * - Mes couleurs: pas de bouton Copier, pas de “teinte unique”, déduplication (A=B => 1 seule couleur)
-     **********************/
-
     const $ = (id)=>document.getElementById(id);
 
     const state = {
       mode: "vetements",
       imgEl: $("img"),
       imgReady: false,
-      // target center in normalized coords (0..1). We keep it simple: center always.
-      // (You can extend later to drag, but stable + bug-free now)
+      // crosshair position inside wrap (0..1)
+      target: { nx: 0.5, ny: 0.5 },
+      // sampled pixel
       sample: { r:0,g:0,b:0, hex:"#000000", name:"—" },
       A: { locked:false, hex:null, name:null, rgb:null },
       B: { locked:false, hex:null, name:null, rgb:null },
+      // cached canvas for fast sampling
+      draw: { scale: 1, w:0, h:0 },
     };
 
-    // ---- LocalStorage
-    const LS_KEY = "tonematch_mes_couleurs_v2";
+    // LocalStorage
+    const LS_KEY = "tonematch_mes_couleurs_v3";
     const loadSaved = ()=> {
       try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
       catch { return []; }
     };
     const saveSaved = (arr)=> localStorage.setItem(LS_KEY, JSON.stringify(arr));
 
-    // ---- Modal helpers
+    // Modal helpers
     function openBD(id){ $(id).style.display="flex"; }
     function closeBD(id){ $(id).style.display="none"; }
     document.addEventListener("click",(e)=>{
@@ -476,7 +449,7 @@
       if(e.target.classList.contains("backdrop")) e.target.style.display="none";
     });
 
-    // ---- Mode selector
+    // Mode selector
     $("modeSeg").addEventListener("click",(e)=>{
       const b = e.target.closest("button[data-mode]");
       if(!b) return;
@@ -484,11 +457,8 @@
       [...$("modeSeg").querySelectorAll("button")].forEach(x=>x.classList.toggle("on", x===b));
     });
 
-    // ---- Pick source modal
-    function openPicker(){
-      openBD("bdPick");
-    }
-
+    // Picker modal
+    function openPicker(){ openBD("bdPick"); }
     $("btnPick").onclick = openPicker;
     $("btnChangeImg").onclick = openPicker;
 
@@ -496,50 +466,49 @@
     $("pickPhotos").onclick = ()=>{ closeBD("bdPick"); $("inPhotos").click(); };
     $("pickFiles").onclick  = ()=>{ closeBD("bdPick"); $("inFiles").click(); };
 
-    // ---- Inputs
-    function fileToImage(file){
-      return new Promise((resolve,reject)=>{
-        const url = URL.createObjectURL(file);
-        const im = new Image();
-        im.onload=()=>resolve({url, im});
-        im.onerror=reject;
-        im.src=url;
-      });
-    }
-
-    async function onFilePicked(file){
+    // Inputs
+    async function onFilePicked(file, inputEl){
       if(!file) return;
-      const {url} = await fileToImage(file);
+
+      // reset input so picking same image twice still triggers change
+      if(inputEl) inputEl.value = "";
+
+      const url = URL.createObjectURL(file);
       state.imgEl.src = url;
 
-      // show stage
       $("home").style.display = "none";
       $("stage").style.display = "grid";
 
-      // wait render
       state.imgEl.onload = ()=>{
         state.imgReady = true;
-        // reset locks on new image (optional)
+
+        // reset locks on new image
         state.A.locked = false; state.B.locked=false;
         state.A.hex = null; state.B.hex=null;
         updateLocksUI();
+
+        // default target center
+        setTarget(0.5, 0.5, true);
+
+        // build cached canvas for sampling
+        buildSamplingCanvas();
+
+        // sample now
         sampleNow();
       };
     }
 
-    $("inCamera").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
-    $("inPhotos").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
-    $("inFiles").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0]));
+    $("inCamera").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0], e.target));
+    $("inPhotos").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0], e.target));
+    $("inFiles").addEventListener("change",(e)=> onFilePicked(e.target.files?.[0], e.target));
 
-    // ---- Sampling: ALWAYS true pixel under crosshair (center)
+    // ---- Sampling helpers (object-fit: cover mapping)
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 
     function getDisplayedImageRect(img){
-      // img is object-fit:cover inside its container
       const wrap = $("imgWrap");
       const W = wrap.clientWidth, H = wrap.clientHeight;
       const iw = img.naturalWidth, ih = img.naturalHeight;
-      // cover scale
       const scale = Math.max(W/iw, H/ih);
       const dw = iw*scale, dh = ih*scale;
       const dx = (W - dw)/2;
@@ -547,43 +516,51 @@
       return {W,H,iw,ih,scale,dw,dh,dx,dy};
     }
 
-    function sampleAtCenter(){
+    function buildSamplingCanvas(){
+      const img = state.imgEl;
+      const rect = getDisplayedImageRect(img);
+      const cv = $("cv");
+      const ctx = cv.getContext("2d", { willReadFrequently:true });
+
+      // downscale for speed (still accurate enough)
+      const maxW = 1400;
+      const s = Math.min(1, maxW / rect.iw);
+      const tw = Math.max(1, Math.round(rect.iw * s));
+      const th = Math.max(1, Math.round(rect.ih * s));
+
+      cv.width = tw; cv.height = th;
+      ctx.clearRect(0,0,tw,th);
+      ctx.drawImage(img, 0,0, tw,th);
+
+      state.draw.scale = s;
+      state.draw.w = tw;
+      state.draw.h = th;
+    }
+
+    function sampleAtNormalized(nx, ny){
       const img = state.imgEl;
       if(!state.imgReady) return null;
 
       const rect = getDisplayedImageRect(img);
+      const cx = rect.W * nx;
+      const cy = rect.H * ny;
 
-      // center point in container coordinates
-      const cx = rect.W/2;
-      const cy = rect.H/2;
-
-      // map to source image coordinates
+      // map to natural image coords
       const sx = (cx - rect.dx) / rect.scale;
       const sy = (cy - rect.dy) / rect.scale;
 
       const x = Math.round(clamp(sx, 0, rect.iw-1));
       const y = Math.round(clamp(sy, 0, rect.ih-1));
 
-      // draw full source once? keep simple: draw to canvas at natural size if not huge
       const cv = $("cv");
       const ctx = cv.getContext("2d", { willReadFrequently:true });
 
-      // To avoid heavy memory on very large images, draw scaled down but keep accurate mapping.
-      // We'll draw max 1200px wide.
-      const maxW = 1200;
-      const scale = Math.min(1, maxW / rect.iw);
-      const tw = Math.max(1, Math.round(rect.iw * scale));
-      const th = Math.max(1, Math.round(rect.ih * scale));
-      cv.width = tw; cv.height = th;
-      ctx.clearRect(0,0,tw,th);
-      ctx.drawImage(img, 0,0, tw,th);
-
-      const rx = Math.round(x * scale);
-      const ry = Math.round(y * scale);
+      const s = state.draw.scale || 1;
+      const rx = Math.round(clamp(x * s, 0, cv.width-1));
+      const ry = Math.round(clamp(y * s, 0, cv.height-1));
 
       const data = ctx.getImageData(rx, ry, 1, 1).data;
-      const r=data[0], g=data[1], b=data[2];
-      return {r,g,b};
+      return {r:data[0], g:data[1], b:data[2]};
     }
 
     function rgbToHex(r,g,b){
@@ -608,15 +585,12 @@
       return {h, s, l};
     }
 
-    // French friendly naming (no “teinte unique”)
+    // Friendly FR naming (no “teinte unique”)
     function colorNameFR(hex, r,g,b){
       const {h,s,l} = rgbToHsl(r,g,b);
-
-      // Neutral detection
-      const sat = s;
-      const light = l;
-
+      const sat = s, light = l;
       const nearGray = sat < 0.10;
+
       if(nearGray){
         if(light > 0.93) return "Blanc neige";
         if(light > 0.86) return "Blanc cassé";
@@ -628,19 +602,8 @@
         return "Noir absolu";
       }
 
-      // Pastel / muted / vivid qualifiers
-      let q = "";
-      if(light > 0.82 && sat < 0.35) q = "pastel";
-      else if(sat < 0.28) q = "poudré";
-      else if(sat > 0.70) q = "vif";
-      else q = "chic";
-
-      // Hue buckets
       const hue = h;
-      function inRange(a,b){ // wrap
-        if(a<=b) return hue>=a && hue<b;
-        return hue>=a || hue<b;
-      }
+      const inRange = (a,b)=> (a<=b) ? (hue>=a && hue<b) : (hue>=a || hue<b);
 
       let base = "Couleur";
       if(inRange(345, 15)) base = "Rouge";
@@ -653,40 +616,60 @@
       else if(inRange(255, 290)) base = "Violet";
       else if(inRange(290, 345)) base = "Fuchsia";
 
-      // More specific classics
-      if(base==="Orange" && light>0.7) return "Pêche dorée";
-      if(base==="Jaune" && light>0.78) return "Jaune solaire";
-      if(base==="Vert" && light<0.35) return "Vert sapin";
-      if(base==="Bleu" && light<0.32) return "Bleu nuit";
-      if(base==="Rouge" && light<0.35) return "Bordeaux";
-      if(base==="Orange" && sat>0.65 && light<0.55) return "Orange épicé";
-      if(base==="Rouge" && sat>0.65) return "Rouge passion";
-      if(base==="Bleu" && sat>0.55 && light>0.45) return "Bleu royal";
-      if(base==="Violet" && light<0.45) return "Prune";
-
-      // Beige-ish detection
-      // beige = orange/yellow low sat, high light
+      // Beige-like
       if((inRange(20,65)) && sat < 0.35 && light > 0.65){
         if(light>0.82) return "Crème";
         if(light>0.72) return "Beige sable";
         return "Caramel doux";
       }
 
-      // generic format
+      // Classics
+      if(base==="Rouge" && sat>0.65) return "Rouge passion";
+      if(base==="Rouge" && light<0.35) return "Bordeaux";
+      if(base==="Orange" && sat>0.65 && light<0.55) return "Orange épicé";
+      if(base==="Jaune" && light>0.78) return "Jaune solaire";
+      if(base==="Vert" && light<0.35) return "Vert sapin";
+      if(base==="Bleu" && light<0.32) return "Bleu nuit";
+      if(base==="Bleu" && sat>0.55 && light>0.45) return "Bleu royal";
+      if(base==="Violet" && light<0.45) return "Prune";
+
+      // Qualifier
+      let q = "";
+      if(light > 0.82 && sat < 0.35) q = "pastel";
+      else if(sat < 0.28) q = "poudré";
+      else if(sat > 0.70) q = "vif";
+      else q = "chic";
+
       if(q==="pastel") return base + " pastel";
       if(q==="poudré") return base + " poudré";
       if(q==="vif") return base + " vif";
       return base + " chic";
     }
 
+    function setTarget(nx, ny, immediate){
+      state.target.nx = clamp(nx, 0, 1);
+      state.target.ny = clamp(ny, 0, 1);
+
+      const wrap = $("imgWrap");
+      const x = wrap.clientWidth  * state.target.nx;
+      const y = wrap.clientHeight * state.target.ny;
+
+      const ch = $("crosshair");
+      ch.style.left = x + "px";
+      ch.style.top  = y + "px";
+
+      if(immediate) sampleNow();
+    }
+
     function sampleNow(){
-      const rgb = sampleAtCenter();
+      const rgb = sampleAtNormalized(state.target.nx, state.target.ny);
       if(!rgb) return;
+
       const hex = rgbToHex(rgb.r,rgb.g,rgb.b);
       const name = colorNameFR(hex, rgb.r,rgb.g,rgb.b);
+
       state.sample = { ...rgb, hex, name };
 
-      // If not locked, update display targets
       if(!state.A.locked){
         state.A.hex = hex; state.A.rgb = rgb; state.A.name = name;
       }
@@ -698,66 +681,66 @@
     }
 
     function renderSwatches(){
-      // IMPORTANT: center preview MUST be EXACT same sampled hex.
+      // Center EXACT sampled color
       $("hexCenter").textContent = state.sample.hex;
-
-      // A
-      $("hexA").textContent = state.A.hex ? state.A.hex : "—";
-      $("nameA").textContent = state.A.name ? state.A.name : "—";
-      $("rowA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.04)";
-      $("dotA").style.background = state.A.hex ? state.A.hex : "rgba(255,255,255,.15)";
-
-      // Center background uses sampled color too (so no contrast bug)
       $("rowCenter").style.background = state.sample.hex;
 
-      // B
-      $("hexB").textContent = state.B.hex ? state.B.hex : "—";
-      $("nameB").textContent = state.B.name ? state.B.name : "—";
-      $("rowB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.04)";
-      $("dotB").style.background = state.B.hex ? state.B.hex : "rgba(255,255,255,.15)";
+      // A
+      $("hexA").textContent = state.A.hex || "—";
+      $("nameA").textContent = state.A.name || "—";
+      $("rowA").style.background = state.A.hex || "rgba(255,255,255,.04)";
+      $("dotA").style.background = state.A.hex || "rgba(255,255,255,.15)";
 
-      // Improve readability (text color auto depending on luminance)
+      // B
+      $("hexB").textContent = state.B.hex || "—";
+      $("nameB").textContent = state.B.name || "—";
+      $("rowB").style.background = state.B.hex || "rgba(255,255,255,.04)";
+      $("dotB").style.background = state.B.hex || "rgba(255,255,255,.15)";
+
+      // readable text on center
       const lum = (rgb)=> (0.2126*rgb.r + 0.7152*rgb.g + 0.0722*rgb.b)/255;
-      const centerLum = lum(state.sample);
-      $("hexCenter").style.color = centerLum > 0.62 ? "rgba(0,0,0,.78)" : "rgba(255,255,255,.92)";
+      $("hexCenter").style.color = (lum(state.sample) > 0.62)
+        ? "rgba(0,0,0,.78)"
+        : "rgba(255,255,255,.92)";
     }
 
-    // Sample updates: on scroll/resize, and on touch-move (we keep fixed center, but sampling updates function enableTouchSampling() {
-  const wrap = $("imgWrap");
-  let dragging = false;
+    // Drag / click sampling on image
+    function enableTouchSampling(){
+      const wrap = $("imgWrap");
+      let dragging = false;
 
-  wrap.addEventListener("touchstart", (e) => {
-    if (!state.imgReady) return;
-    dragging = true;
-    handleTouch(e);
-  }, { passive: false });
+      const toLocal = (clientX, clientY)=>{
+        const r = wrap.getBoundingClientRect();
+        const x = clamp(clientX - r.left, 0, r.width);
+        const y = clamp(clientY - r.top,  0, r.height);
+        return { nx: (r.width ? x/r.width : 0.5), ny: (r.height ? y/r.height : 0.5) };
+      };
 
-  wrap.addEventListener("touchmove", (e) => {
-    if (!dragging || !state.imgReady) return;
-    handleTouch(e);
-  }, { passive: false });
+      // Pointer events work on iOS Safari too (modern)
+      wrap.addEventListener("pointerdown", (e)=>{
+        if(!state.imgReady) return;
+        dragging = true;
+        wrap.setPointerCapture?.(e.pointerId);
+        const p = toLocal(e.clientX, e.clientY);
+        setTarget(p.nx, p.ny, true);
+      });
 
-  wrap.addEventListener("touchend", () => {
-    dragging = false;
-  });
+      wrap.addEventListener("pointermove", (e)=>{
+        if(!dragging || !state.imgReady) return;
+        const p = toLocal(e.clientX, e.clientY);
+        setTarget(p.nx, p.ny, true);
+      });
 
-  wrap.addEventListener("click", (e) => {
-    if (!state.imgReady) return;
-    handleTouch(e);
-  });
+      wrap.addEventListener("pointerup", ()=>{
+        dragging = false;
+      });
 
-  function handleTouch(e) {
-    e.preventDefault();
-
-    const rect = wrap.getBoundingClientRect();
-    const touch = e.touches ? e.touches[0] : e;
-
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-
-    sampleAtPosition(x, y);
-  }
-}
+      // Also refresh on resize (keeps target correct)
+      window.addEventListener("resize", ()=>{
+        if(!state.imgReady) return;
+        setTarget(state.target.nx, state.target.ny, true);
+      }, {passive:true});
+    }
 
     function updateLocksUI(){
       const a = $("lockA"), b = $("lockB");
@@ -770,7 +753,6 @@
     $("lockA").onclick = ()=>{
       state.A.locked = !state.A.locked;
       if(!state.A.locked){
-        // when unlocking, immediately follow live sample
         state.A.hex = state.sample.hex;
         state.A.rgb = {r:state.sample.r,g:state.sample.g,b:state.sample.b};
         state.A.name = state.sample.name;
@@ -790,7 +772,7 @@
       renderSwatches();
     };
 
-    // ---- Mes couleurs modal
+    // Mes couleurs modal
     function openColors(){
       renderColorsList();
       openBD("bdColors");
@@ -799,9 +781,8 @@
     $("btnColors2").onclick = openColors;
 
     function keyForEntry(entry){
-      // dedupe key
-      if(entry.type==="single") return "S:"+entry.a.hex;
-      return "P:"+entry.a.hex+"|"+entry.b.hex;
+      if(entry.type==="single") return "S:"+entry.a.hex+"|"+entry.mode;
+      return "P:"+entry.a.hex+"|"+entry.b.hex+"|"+entry.mode;
     }
 
     function renderColorsList(){
@@ -827,7 +808,7 @@
 
         const half2 = document.createElement("div");
         half2.className = "half";
-        half2.style.background = it.type==="pair" ? it.b.hex : it.a.hex;
+        half2.style.background = (it.type==="pair") ? it.b.hex : it.a.hex;
 
         sw.appendChild(half1);
         sw.appendChild(half2);
@@ -837,17 +818,13 @@
 
         const t = document.createElement("p");
         t.className = "itemTitle";
-
-        // No hex shown in UI by default (more “fun”), but still stored.
-        if(it.type==="single"){
-          t.textContent = it.a.name;
-        } else {
-          t.textContent = `${it.a.name} + ${it.b.name}`;
-        }
+        t.textContent = (it.type==="single")
+          ? it.a.name
+          : `${it.a.name} + ${it.b.name}`;
 
         const sub = document.createElement("p");
         sub.className = "itemSub";
-        sub.textContent = it.mode === "objets" ? "Objets" : "Vêtements";
+        sub.textContent = (it.mode === "objets") ? "Objets" : "Vêtements";
 
         const meta = document.createElement("div");
         meta.className = "itemMeta";
@@ -860,6 +837,7 @@
 
         const right = document.createElement("div");
         right.className = "itemRight";
+
         const del = document.createElement("button");
         del.type="button";
         del.textContent="Supprimer";
@@ -869,6 +847,7 @@
           saveSaved(arr);
           renderColorsList();
         };
+
         right.appendChild(del);
 
         el.appendChild(sw);
@@ -886,10 +865,8 @@
       }
     };
 
-    // ---- Save
+    // Save
     $("saveColors").onclick = ()=>{
-      // Must have at least A locked OR B locked to save something meaningful
-      // Best: require both locked
       if(!state.A.hex || !state.B.hex){
         alert("Verrouille A et B avant de sauvegarder.");
         return;
@@ -897,35 +874,32 @@
 
       const same = (state.A.hex === state.B.hex);
 
-      const entry = same
-        ? {
-            type:"single",
-            mode: state.mode,
-            ts: Date.now(),
-            a:{ hex: state.A.hex, name: state.A.name }
-          }
-        : {
-            type:"pair",
-            mode: state.mode,
-            ts: Date.now(),
-            a:{ hex: state.A.hex, name: state.A.name },
-            b:{ hex: state.B.hex, name: state.B.name },
-          };
+      const entry = same ? {
+        type:"single",
+        mode: state.mode,
+        ts: Date.now(),
+        a:{ hex: state.A.hex, name: state.A.name }
+      } : {
+        type:"pair",
+        mode: state.mode,
+        ts: Date.now(),
+        a:{ hex: state.A.hex, name: state.A.name },
+        b:{ hex: state.B.hex, name: state.B.name },
+      };
 
-      // Deduplicate
       const saved = loadSaved();
       const k = keyForEntry(entry);
-      const exists = saved.some(x=> keyForEntry(x)===k && x.mode===entry.mode);
+      const exists = saved.some(x=> keyForEntry(x)===k);
+
       if(!exists){
         saved.unshift(entry);
-        // keep list not too huge
         saveSaved(saved.slice(0, 120));
       }
 
       openColors();
     };
 
-    // Initial UI
+    // Init
     updateLocksUI();
     enableTouchSampling();
   </script>
