@@ -3,50 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0B0B12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Dressing — Premium</title>
 
   <style>
     :root{
-      --bg:#F7F6F3;
-      --text:#111;
-      --muted:rgba(17,17,17,.62);
-      --hair:rgba(17,17,17,.10);
+      --bg0:#070711;
+      --bg1:#0B0B12;
+      --text:#F3F4FF;
+      --muted:rgba(243,244,255,.68);
+      --hair:rgba(243,244,255,.12);
 
-      --card:rgba(255,255,255,.55);
-      --card2:rgba(255,255,255,.42);
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.06);
+      --glass:rgba(15,15,26,.72);
+      --glassBorder:rgba(255,255,255,.12);
+
+      --shadow1:0 10px 30px rgba(0,0,0,.40);
+      --shadow2:0 26px 90px rgba(0,0,0,.65);
 
       --r12:12px; --r16:16px; --r20:20px; --r26:26px;
 
-      --shadow1:0 6px 18px rgba(0,0,0,.08);
-      --shadow2:0 18px 70px rgba(0,0,0,.18);
-
-      --glass:rgba(247,246,243,.86);
-      --glassBorder:rgba(255,255,255,.35);
-
-      --danger:rgb(255,59,48);
-
-      --maxw:980px;
+      --maxw:1020px;
       --safeB:env(safe-area-inset-bottom,0px);
       --safeT:env(safe-area-inset-top,0px);
 
       --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "SF Pro Display", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#111213;
-        --text:#F2F2F2;
-        --muted:rgba(242,242,242,.62);
-        --hair:rgba(242,242,242,.12);
 
-        --card:rgba(255,255,255,.06);
-        --card2:rgba(255,255,255,.05);
-
-        --shadow1:0 10px 26px rgba(0,0,0,.44);
-        --shadow2:0 24px 86px rgba(0,0,0,.62);
-
-        --glass:rgba(20,20,20,.84);
-        --glassBorder:rgba(255,255,255,.10);
-      }
+      /* Accents (Instagram-ish) */
+      --a1:#6D5BFF;
+      --a2:#00D1FF;
+      --a3:#FF2BD6;
+      --a4:#FFB000;
+      --good:#21FF9A;
+      --danger:#FF3B30;
     }
 
     *{box-sizing:border-box}
@@ -54,47 +46,69 @@
     body{
       margin:0;
       font-family:var(--font);
-      background:var(--bg);
       color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(109,91,255,.55), transparent 60%),
+        radial-gradient(1000px 700px at 90% 15%, rgba(0,209,255,.50), transparent 60%),
+        radial-gradient(900px 650px at 70% 95%, rgba(255,43,214,.35), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
+
+    /* Subtle animated grain */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.24;
+      pointer-events:none;
+    }
+
+    a,button,input,select{font-family:inherit}
 
     /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:20;
-      padding: calc(10px + var(--safeT)) 16px 10px;
+      padding: calc(12px + var(--safeT)) 16px 10px;
       border-bottom:1px solid var(--hair);
-      background: color-mix(in oklab, var(--bg) 88%, transparent);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(10,10,18,.68);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
     .topbar-inner{
       max-width:var(--maxw); margin:0 auto;
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
     }
-    .title{margin:0; font-size:18px; font-weight:780; letter-spacing:.2px; line-height:1.1;}
-    .subtitle{margin:2px 0 0; font-size:13px; color:var(--muted); letter-spacing:.1px;}
+    .title{margin:0; font-size:18px; font-weight:900; letter-spacing:.2px; line-height:1.1;}
+    .subtitle{margin:3px 0 0; font-size:13px; color:var(--muted); letter-spacing:.15px;}
     .chip{
-      border:1px solid var(--hair);
-      background:var(--card2);
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(109,91,255,.18), rgba(255,43,214,.12));
       border-radius:999px;
-      padding:8px 10px;
+      padding:9px 11px;
       font-size:13px;
-      color:var(--muted);
+      color:rgba(243,244,255,.86);
       display:flex; align-items:center; gap:8px;
       user-select:none;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    .dot{width:8px;height:8px;border-radius:999px;background:rgba(127,127,127,.35);}
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0) 55%), linear-gradient(135deg, var(--a2), var(--a3));
+      box-shadow: 0 0 0 4px rgba(0,209,255,.10), 0 0 22px rgba(255,43,214,.35);
+    }
 
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:16px 16px calc(86px + var(--safeB));}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:16px 16px calc(92px + var(--safeB));}
 
     .view{display:none}
     .view.active{display:block}
 
     .panel{
-      border:1px solid var(--hair);
-      background:var(--card);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border-radius:var(--r20);
       box-shadow:var(--shadow1);
       overflow:hidden;
@@ -103,31 +117,36 @@
       padding:14px 14px 10px;
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .panel-h h2{margin:0; font-size:14px; font-weight:800; letter-spacing:.2px;}
+    .panel-h h2{margin:0; font-size:14px; font-weight:900; letter-spacing:.25px;}
     .panel-h .small{font-size:13px; color:var(--muted);}
-    .panel-b{padding:12px 14px 14px; border-top:1px solid var(--hair);}
+    .panel-b{padding:12px 14px 14px; border-top:1px solid rgba(255,255,255,.10);}
 
     .btn{
       appearance:none;
-      border:1px solid var(--hair);
-      background:rgba(255,255,255,.42);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
       color:var(--text);
       border-radius:14px;
       padding:12px 12px;
       font-size:14px;
-      font-weight:720;
+      font-weight:850;
       letter-spacing:.2px;
       cursor:pointer;
       -webkit-tap-highlight-color:transparent;
-      transition:transform .12s ease, background .18s ease;
+      transition:transform .12s ease, filter .18s ease, background .18s ease;
     }
+    .btn:hover{filter:brightness(1.08)}
     .btn:active{transform:scale(.985)}
-    @media (prefers-color-scheme: dark){ .btn{background:rgba(255,255,255,.06);} }
     .btn-ghost{background:transparent}
+    .btn-primary{
+      border-color: rgba(0,209,255,.22);
+      background: linear-gradient(135deg, rgba(109,91,255,.55), rgba(0,209,255,.38), rgba(255,43,214,.28));
+      box-shadow: 0 18px 50px rgba(0,0,0,.40);
+    }
     .btn-danger{
       border-color: rgba(255,59,48,.28);
-      color: var(--danger);
-      background: rgba(255,59,48,.08);
+      color: #FFD7D4;
+      background: rgba(255,59,48,.16);
     }
 
     .note{margin:10px 0 0; font-size:13px; color:var(--muted); line-height:1.35;}
@@ -136,29 +155,30 @@
     .tabbar{
       position:fixed; left:0; right:0; bottom:0; z-index:30;
       padding:10px 12px calc(10px + var(--safeB));
-      background: color-mix(in oklab, var(--bg) 88%, transparent);
-      border-top:1px solid var(--hair);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10,10,18,.72);
+      border-top:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
     .tabs{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
     .tab{
-      border:1px solid var(--hair);
-      background:var(--card2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
       border-radius:16px;
       padding:10px 10px;
       font-size:13px;
-      font-weight:800;
-      color:var(--muted);
+      font-weight:900;
+      color:rgba(243,244,255,.70);
       cursor:pointer;
       -webkit-tap-highlight-color:transparent;
-      display:flex; align-items:center; justify-content:center;
+      display:flex; align-items:center; justify-content:center; gap:8px;
       user-select:none;
     }
     .tab.active{
       color:var(--text);
-      background:var(--card);
-      box-shadow:0 10px 26px rgba(0,0,0,.10);
+      background: linear-gradient(135deg, rgba(109,91,255,.28), rgba(0,209,255,.18), rgba(255,43,214,.14));
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+      border-color: rgba(255,255,255,.18);
     }
 
     /* Home tiles */
@@ -168,52 +188,83 @@
       gap:14px;
     }
     .tile{
-      border:1px solid var(--hair);
-      background:var(--card2);
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border-radius:var(--r20);
       padding:16px;
-      min-height:120px;
+      min-height:130px;
       box-shadow: var(--shadow1);
       display:flex;
       flex-direction:column;
       justify-content:space-between;
       cursor:pointer;
       -webkit-tap-highlight-color:transparent;
-      transition:transform .12s ease;
+      transition:transform .12s ease, filter .18s ease;
+      position:relative;
+      overflow:hidden;
     }
+    .tile::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(500px 180px at 20% 10%, rgba(0,209,255,.25), transparent 55%),
+                  radial-gradient(420px 200px at 80% 90%, rgba(255,43,214,.20), transparent 58%);
+      pointer-events:none;
+    }
+    .tile:hover{filter:brightness(1.06)}
     .tile:active{transform:scale(.985)}
-    .tile h3{margin:0; font-size:16px; font-weight:850; letter-spacing:.2px;}
+    .tile h3{margin:0; font-size:16px; font-weight:950; letter-spacing:.2px;}
     .tile p{margin:6px 0 0; font-size:13px; color:var(--muted); line-height:1.35;}
-    .tile .tag{margin-top:10px; font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;}
+    .tile .tag{margin-top:10px; font-size:12px; color:rgba(243,244,255,.72); letter-spacing:.10em; text-transform:uppercase;}
+    .tagBadge{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding:8px 10px;
+      border-radius:999px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.35);
+    }
+    .spark{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--a2), var(--a3));
+      box-shadow: 0 0 0 4px rgba(109,91,255,.14), 0 0 24px rgba(0,209,255,.22);
+    }
 
     /* Dressing items */
     .items{display:flex; flex-direction:column; gap:12px;}
     .item{
-      border:1px solid var(--hair);
+      border:1px solid rgba(255,255,255,.12);
       border-radius:var(--r20);
-      background:var(--card2);
+      background: rgba(255,255,255,.06);
       padding:12px;
       display:flex;
       gap:12px;
       align-items:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
     }
     .thumb{
-      width:92px; height:92px; /* ✅ plus grand */
+      width:92px; height:92px;
       border-radius:22px;
-      background:rgba(127,127,127,.18);
+      background: rgba(255,255,255,.06);
       overflow:hidden;
       flex:0 0 auto;
-      border:1px solid rgba(0,0,0,.06);
+      border:1px solid rgba(255,255,255,.12);
       cursor:pointer;
+      position:relative;
+    }
+    .thumb::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(120px 60px at 30% 25%, rgba(0,209,255,.18), transparent 60%),
+                  radial-gradient(130px 70px at 80% 80%, rgba(255,43,214,.14), transparent 62%);
+      pointer-events:none;
     }
     .thumb img{width:100%;height:100%;object-fit:cover; display:block;}
-    @media (prefers-color-scheme: dark){ .thumb{border-color:rgba(255,255,255,.10);} }
 
     .item-main{flex:1; min-width:0;}
     .item-name{
       margin:0;
       font-size:16px;
-      font-weight:850;
+      font-weight:950;
       letter-spacing:.2px;
       line-height:1.15;
       white-space:nowrap;
@@ -230,69 +281,105 @@
       align-items:center;
     }
 
-    /* ✅ Pills are clickable buttons now */
     .pills{display:flex; gap:8px; align-items:center;}
     .pillbtn{
-      border:1px solid var(--hair);
-      background: rgba(255,255,255,.28);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
       border-radius:999px;
-      padding:6px 8px;
+      padding:7px 9px;
       font-size:12px;
-      font-weight:750;
-      color:var(--muted);
-      letter-spacing:.1px;
+      font-weight:950;
+      color:rgba(243,244,255,.78);
+      letter-spacing:.12px;
       display:flex;
       align-items:center;
-      gap:6px;
+      gap:7px;
       cursor:pointer;
       -webkit-tap-highlight-color:transparent;
+      transition: transform .12s ease, filter .18s ease;
     }
+    .pillbtn:disabled{
+      opacity:.42;
+      cursor:not-allowed;
+    }
+    .pillbtn:hover{filter:brightness(1.08)}
     .pillbtn:active{transform:scale(.99)}
-    @media (prefers-color-scheme: dark){ .pillbtn{background:rgba(255,255,255,.06);} }
-
-    .sw{width:12px;height:12px;border-radius:6px;border:1px solid rgba(0,0,0,.06);}
-    @media (prefers-color-scheme: dark){ .sw{border-color:rgba(255,255,255,.12);} }
+    .sw{
+      width:12px;height:12px;border-radius:7px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 20px rgba(0,0,0,.35);
+    }
 
     /* Add view */
     .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px;}
-    label{font-size:13px; color:var(--muted); letter-spacing:.1px;}
+    label{font-size:13px; color:var(--muted); letter-spacing:.12px;}
     input[type="text"]{
       width:100%;
       border-radius:14px;
-      border:1px solid var(--hair);
-      background:rgba(255,255,255,.50);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
       padding:12px 12px;
       font-size:15px;
       color:var(--text);
       outline:none;
     }
-    @media (prefers-color-scheme: dark){ input[type="text"]{background:rgba(255,255,255,.06);} }
+    input[type="text"]::placeholder{color:rgba(243,244,255,.45)}
     .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
     .spacer{flex:1;}
 
+    /* Visible color pickers */
+    input[type="color"]{
+      -webkit-appearance:none;
+      appearance:none;
+      width:46px;
+      height:44px;
+      padding:0;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+    input[type="color"]::-webkit-color-swatch{
+      border:none;
+      border-radius:12px;
+    }
+
     .photoCard{
-      border:1px solid var(--hair);
-      background:var(--card2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
       border-radius:var(--r20);
       padding:12px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.32);
     }
+    .fileHidden{display:none}
     .photoPreview{
       width:100%;
-      aspect-ratio: 4 / 3; /* ✅ grand */
+      aspect-ratio: 4 / 3;
       border-radius:var(--r20);
-      background:rgba(127,127,127,.18);
+      background: rgba(255,255,255,.06);
       overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);
+      border:1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow1);
       cursor:pointer;
       display:flex;
       align-items:center;
       justify-content:center;
-      color:var(--muted);
+      color:rgba(243,244,255,.70);
       font-size:13px;
+      position:relative;
     }
-    .photoPreview img{width:100%;height:100%;object-fit:cover; display:block;}
-    @media (prefers-color-scheme: dark){ .photoPreview{border-color:rgba(255,255,255,.10);} }
+    .photoPreview::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(520px 220px at 20% 20%, rgba(0,209,255,.16), transparent 60%),
+                  radial-gradient(460px 240px at 80% 85%, rgba(255,43,214,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .photoPreview img{width:100%;height:100%;object-fit:cover; display:block; position:relative; z-index:1;}
+    .photoPreview span{position:relative; z-index:1;}
 
     /* Colors grid */
     .cgrid{display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr));}
@@ -301,21 +388,28 @@
     .cswatch{
       width:100%; aspect-ratio:1/1;
       border-radius:var(--r20);
-      border:1px solid rgba(0,0,0,.05);
-      box-shadow: var(--shadow1);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 38px rgba(0,0,0,.40);
+      position:relative;
+      overflow:hidden;
     }
-    @media (prefers-color-scheme: dark){ .cswatch{border-color:rgba(255,255,255,.10);} }
-    .cname{margin:8px 2px 0; font-size:14px; font-weight:850; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .chex{margin:6px 2px 0; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);}
+    .cswatch::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(90px 60px at 25% 25%, rgba(255,255,255,.22), transparent 55%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+    .cname{margin:8px 2px 0; font-size:14px; font-weight:950; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .chex{margin:6px 2px 0; font-size:12px; letter-spacing:.10em; text-transform:uppercase; color:rgba(243,244,255,.70);}
 
     /* Overlays */
     .backdrop{
       position:fixed; inset:0; z-index:50;
-      background:rgba(0,0,0,.25);
+      background:rgba(0,0,0,.44);
       opacity:0; pointer-events:none;
       transition:opacity .18s ease;
     }
-    @media (prefers-color-scheme: dark){ .backdrop{background:rgba(0,0,0,.46);} }
     .backdrop.open{opacity:1; pointer-events:auto;}
 
     .sheet{
@@ -330,60 +424,65 @@
       border-radius:var(--r26);
       background:var(--glass);
       border:1px solid var(--glassBorder);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .grab{width:44px;height:5px;border-radius:999px;background:rgba(127,127,127,.35);margin:10px auto 0;}
+    .grab{width:44px;height:5px;border-radius:999px;background:rgba(255,255,255,.18);margin:10px auto 0;}
     .sheet-head{padding:14px 14px 10px; display:flex; gap:12px; align-items:center;}
-    .bigsw{width:54px;height:54px;border-radius:18px;border:1px solid rgba(0,0,0,.06); box-shadow:0 12px 30px rgba(0,0,0,.16); flex:0 0 auto;}
-    @media (prefers-color-scheme: dark){ .bigsw{border-color:rgba(255,255,255,.10); box-shadow:0 16px 38px rgba(0,0,0,.62);} }
+    .bigsw{
+      width:54px;height:54px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
+      flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
+    }
+    .bigsw::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(26px 20px at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
     .sheet-t{flex:1; min-width:0;}
-    .sheet-name{margin:0; font-size:18px; font-weight:900; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .sheet-hex{margin:6px 0 0; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);}
-    .sheet-body{border-top:1px solid var(--hair); padding:12px 14px 14px;}
+    .sheet-name{margin:0; font-size:18px; font-weight:980; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .sheet-hex{margin:6px 0 0; font-size:12px; letter-spacing:.10em; text-transform:uppercase; color:var(--muted);}
+    .sheet-body{border-top:1px solid rgba(255,255,255,.10); padding:12px 14px 14px;}
     .sheet-info{display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:var(--muted); margin-bottom:12px;}
     .actions{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
     .full{grid-column:1/-1;}
 
     /* Photo + pipette modal */
-    .modal{
-      position:fixed; inset:0; z-index:70;
-      display:none;
-    }
+    .modal{ position:fixed; inset:0; z-index:70; display:none; }
     .modal.open{display:block;}
-    .modal-inner{
-      position:absolute; left:0; right:0; bottom:0;
-      padding:10px 12px calc(12px + var(--safeB));
-    }
+    .modal-inner{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px calc(12px + var(--safeB)); }
     .modal-card{
-      max-width:var(--maxw);
-      margin:0 auto;
+      max-width:var(--maxw); margin:0 auto;
       border-radius:var(--r26);
       background:var(--glass);
       border:1px solid var(--glassBorder);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
     .modal-head{
       padding:14px 14px 10px;
       display:flex; align-items:center; gap:10px; justify-content:space-between;
-      border-bottom:1px solid var(--hair);
+      border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modal-head .mh-title{
-      margin:0; font-size:14px; font-weight:900; letter-spacing:.2px;
-    }
+    .modal-head .mh-title{ margin:0; font-size:14px; font-weight:980; letter-spacing:.2px; }
     .modal-body{padding:12px 14px 14px;}
     .canvasWrap{
       border-radius:var(--r20);
       overflow:hidden;
-      border:1px solid var(--hair);
-      background:rgba(127,127,127,.12);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       box-shadow: var(--shadow1);
-      touch-action:none; /* important for drag pick */
+      touch-action:none;
+      position:relative;
     }
     canvas{display:block; width:100%; height:auto;}
     .pickerRow{
@@ -391,16 +490,16 @@
       display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
     .previewSw{
-      width:44px;height:44px;border-radius:14px;border:1px solid var(--hair);
+      width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.14);
       box-shadow: var(--shadow1);
       background:#000;
       flex:0 0 auto;
     }
     .hexBox{
-      font-size:13px; letter-spacing:.09em; text-transform:uppercase;
-      color:var(--muted);
-      border:1px solid var(--hair);
-      background: var(--card2);
+      font-size:13px; letter-spacing:.10em; text-transform:uppercase;
+      color:rgba(243,244,255,.78);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
       padding:10px 12px;
       border-radius:14px;
       flex:1; min-width:140px;
@@ -413,17 +512,18 @@
       opacity:0; pointer-events:none; z-index:80;
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(0,0,0,.75);
-      color:#fff;
+      background: rgba(0,0,0,.68);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(243,244,255,.92);
       font-size:13px;
-      font-weight:800;
+      font-weight:950;
       letter-spacing:.2px;
       transition: opacity .18s ease, transform .18s ease;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
     }
     .toast.show{opacity:1; transform: translateX(-50%) translateY(0);}
-    @media (prefers-color-scheme: dark){
-      .toast{background:rgba(255,255,255,.12); color:var(--text); border:1px solid rgba(255,255,255,.14);}
-    }
   </style>
 </head>
 
@@ -446,12 +546,12 @@
     <!-- HOME -->
     <section class="view active" id="view-home" aria-label="Accueil">
       <div class="tiles">
-        <button class="tile" id="homeTakePhoto" type="button">
+        <button class="tile" id="homeTakePhoto" type="button" aria-label="Prendre photo">
           <div>
             <h3>Prendre photo</h3>
             <p>Ajoute un article, ouvre la photo, puis pipette pour P / S / A.</p>
           </div>
-          <div class="tag">Caméra</div>
+          <div class="tag"><span class="tagBadge"><span class="spark"></span> Caméra</span></div>
         </button>
 
         <button class="tile" id="homeDressing" type="button">
@@ -459,15 +559,15 @@
             <h3>Dressing</h3>
             <p>Articles & palettes. Pastilles P/S/A cliquables.</p>
           </div>
-          <div class="tag">Organisation</div>
+          <div class="tag"><span class="tagBadge"><span class="spark"></span> Organisation</span></div>
         </button>
 
         <button class="tile" id="homeColors" type="button">
           <div>
             <h3>Mes couleurs</h3>
-            <p>Grille compacte premium + détails glass.</p>
+            <p>Grille premium, détails, copie HEX.</p>
           </div>
-          <div class="tag">Bibliothèque</div>
+          <div class="tag"><span class="tagBadge"><span class="spark"></span> Bibliothèque</span></div>
         </button>
 
         <button class="tile" id="homeCompare" type="button">
@@ -475,11 +575,11 @@
             <h3>Comparer</h3>
             <p>Deux couleurs → DeltaE + contraste (V1).</p>
           </div>
-          <div class="tag">Studio</div>
+          <div class="tag"><span class="tagBadge"><span class="spark"></span> Studio</span></div>
         </button>
       </div>
 
-      <p class="note">Objectif : Apple × fashion luxe × précis. On garde V1 simple, tout est local.</p>
+      <p class="note">Tout est local. Look & feel “social” : punchy, coloré, fluide.</p>
     </section>
 
     <!-- DRESSING -->
@@ -513,28 +613,29 @@
             <label>Photo</label>
             <div class="photoCard">
               <div class="row">
-                <input type="file" id="inPhoto" accept="image/*" capture="environment" />
-                <button class="btn btn-ghost" id="btnOpenPicker" type="button">Ouvrir pipette</button>
+                <input class="fileHidden" type="file" id="inPhoto" accept="image/*" capture="environment" />
+                <button class="btn btn-primary" id="btnChoosePhoto" type="button">📸 Choisir / prendre une photo</button>
+                <button class="btn btn-ghost" id="btnOpenPicker" type="button">🎯 Ouvrir pipette</button>
               </div>
               <div class="photoPreview" id="photoPreview" title="Tap pour ouvrir">
                 <span>Ajoute une photo</span>
               </div>
-              <p class="note">Astuce : ouvre pipette → tap/glisse pour récupérer la couleur → Assigner à P / S / A.</p>
+              <p class="note">Astuce : ouvre la pipette → tap/glisse → “Assigner” à P / S / A.</p>
             </div>
           </div>
 
-          <div class="panel" style="box-shadow:none; background: transparent;">
+          <div class="panel" style="box-shadow:none; background: transparent; border:0;">
             <div class="panel-h">
               <h2>Couleurs</h2>
               <div class="small">P / S / A</div>
             </div>
-            <div class="panel-b">
+            <div class="panel-b" style="border-top:1px solid rgba(255,255,255,.10);">
 
               <div class="field">
                 <label>Couleur principale (P)</label>
                 <div class="row">
-                  <input type="color" id="pColor" value="#009AF8" />
-                  <input type="text" id="pHex" value="#009AF8" />
+                  <input type="color" id="pColor" value="#6D5BFF" />
+                  <input type="text" id="pHex" value="#6D5BFF" />
                   <div class="spacer"></div>
                   <button class="btn btn-ghost" type="button" data-auto="p">Auto</button>
                   <button class="btn btn-ghost" type="button" data-pip="p">Pipette</button>
@@ -544,8 +645,8 @@
               <div class="field">
                 <label>Couleur secondaire (S)</label>
                 <div class="row">
-                  <input type="color" id="sColor" value="#AD8967" />
-                  <input type="text" id="sHex" value="#AD8967" />
+                  <input type="color" id="sColor" value="#FF2BD6" />
+                  <input type="text" id="sHex" value="#FF2BD6" />
                   <div class="spacer"></div>
                   <button class="btn btn-ghost" type="button" data-auto="s">Auto</button>
                   <button class="btn btn-ghost" type="button" data-pip="s">Pipette</button>
@@ -555,20 +656,20 @@
               <div class="field" style="margin-bottom:0;">
                 <label>Couleur d’accent (A)</label>
                 <div class="row">
-                  <input type="color" id="aColor" value="#E0E5E8" />
-                  <input type="text" id="aHex" value="#E0E5E8" />
+                  <input type="color" id="aColor" value="#00D1FF" />
+                  <input type="text" id="aHex" value="#00D1FF" />
                   <div class="spacer"></div>
                   <button class="btn btn-ghost" type="button" data-auto="a">Auto</button>
                   <button class="btn btn-ghost" type="button" data-pip="a">Pipette</button>
                 </div>
               </div>
 
-              <p class="note">“Auto” utilise un naming cohérent. Si teintes proches → même famille + nuance.</p>
+              <p class="note">“Auto” propose un nom cohérent. Teintes proches → même famille + nuance.</p>
             </div>
           </div>
 
           <div class="row" style="margin-top:12px;">
-            <button class="btn" id="btnAdd" type="button">Ajouter</button>
+            <button class="btn btn-primary" id="btnAdd" type="button">Ajouter</button>
             <button class="btn btn-danger" id="btnReset" type="button">Réinitialiser</button>
           </div>
         </div>
@@ -584,7 +685,7 @@
         </div>
         <div class="panel-b">
           <div class="cgrid" id="colorsGrid"></div>
-          <p class="note">Grille compacte premium. Tap → détails glass.</p>
+          <p class="note">Tap → détails glass (copie HEX, comparer, supprimer si non utilisée).</p>
         </div>
       </div>
     </section>
@@ -594,7 +695,7 @@
       <div class="panel">
         <div class="panel-h">
           <h2>Comparer</h2>
-          <div class="small">V1</div>
+          <div class="small">DeltaE · Contraste</div>
         </div>
         <div class="panel-b">
           <div class="field">
@@ -617,12 +718,12 @@
             </div>
           </div>
 
-          <div class="panel" style="margin-top:12px; box-shadow:none; background:transparent;">
+          <div class="panel" style="margin-top:12px; box-shadow:none; background:transparent; border:0;">
             <div class="panel-h">
               <h2>Résultat</h2>
-              <div class="small">DeltaE · Contraste</div>
+              <div class="small">V1</div>
             </div>
-            <div class="panel-b">
+            <div class="panel-b" style="border-top:1px solid rgba(255,255,255,.10);">
               <p class="note" id="cmpResult">Sélectionne 2 couleurs.</p>
             </div>
           </div>
@@ -635,10 +736,10 @@
   <!-- Tabbar -->
   <nav class="tabbar" aria-label="Navigation">
     <div class="tabs">
-      <button class="tab active" data-view="home" type="button">Accueil</button>
-      <button class="tab" data-view="dressing" type="button">Dressing</button>
-      <button class="tab" data-view="add" type="button">Ajouter</button>
-      <button class="tab" data-view="colors" type="button">Couleurs</button>
+      <button class="tab active" data-view="home" type="button">🏠 Accueil</button>
+      <button class="tab" data-view="dressing" type="button">👗 Dressing</button>
+      <button class="tab" data-view="add" type="button">➕ Ajouter</button>
+      <button class="tab" data-view="colors" type="button">🎨 Couleurs</button>
     </div>
   </nav>
 
@@ -686,7 +787,7 @@
           <div class="pickerRow">
             <div class="previewSw" id="pipPreview"></div>
             <div class="hexBox" id="pipHex">—</div>
-            <button class="btn" id="pipAssign" type="button">Assigner</button>
+            <button class="btn btn-primary" id="pipAssign" type="button">Assigner</button>
           </div>
           <p class="note">Tap / glisse sur l’image pour prélever une couleur. Puis “Assigner” à P/S/A.</p>
         </div>
@@ -700,19 +801,18 @@
     /***********************
      * Storage
      ***********************/
-    const LS_KEY = "dressing_premium_v2";
+    const LS_KEY = "dressing_premium_v3";
     const todayFR = () => new Date().toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"}).replace(".","");
-
     const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
 
     function seed(){
       return {
         items: [],
         colors: [
-          { id: uid(), hex:"#009AF8", name:"Azur", created: todayFR(), used:0 },
-          { id: uid(), hex:"#008BEC", name:"Azur profond", created: todayFR(), used:0 },
-          { id: uid(), hex:"#E0E5E8", name:"Perle", created: todayFR(), used:0 },
-          { id: uid(), hex:"#AD8967", name:"Camel", created: todayFR(), used:0 },
+          { id: uid(), hex:"#6D5BFF", name:"Violet néon", created: todayFR(), used:0 },
+          { id: uid(), hex:"#00D1FF", name:"Cyan électrique", created: todayFR(), used:0 },
+          { id: uid(), hex:"#FF2BD6", name:"Fuchsia", created: todayFR(), used:0 },
+          { id: uid(), hex:"#FFB000", name:"Ocre intense", created: todayFR(), used:0 },
         ]
       };
     }
@@ -727,7 +827,6 @@
       }catch{ return seed(); }
     }
     function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
-
     let state = loadState();
 
     /***********************
@@ -826,7 +925,6 @@
       }
       return cand;
     }
-
     function proposeName(hex){
       const rgb = hexToRgb(hex);
       if(!rgb) return "Couleur";
@@ -844,7 +942,6 @@
       const base = familyFromHsl(hsl);
       const nu = nuanceFromHsl(hsl);
 
-      // ✅ Important : teintes proches = même famille
       if(best && best.d < 6){
         const closestBase = baseNameOnly(best.c.name);
         const n = nu ? (closestBase+" "+nu) : closestBase;
@@ -877,6 +974,7 @@
     // Add
     const inName = document.getElementById("inName");
     const inPhoto = document.getElementById("inPhoto");
+    const btnChoosePhoto = document.getElementById("btnChoosePhoto");
     const photoPreview = document.getElementById("photoPreview");
     const btnOpenPicker = document.getElementById("btnOpenPicker");
 
@@ -890,7 +988,7 @@
     const btnAdd = document.getElementById("btnAdd");
     const btnReset = document.getElementById("btnReset");
 
-    // Sheet (color details)
+    // Sheet
     const backdrop = document.getElementById("backdrop");
     const sheet = document.getElementById("sheet");
     const sheetClose = document.getElementById("sheetClose");
@@ -913,7 +1011,7 @@
     const cmpResult = document.getElementById("cmpResult");
 
     // Home buttons
-    document.getElementById("homeTakePhoto").addEventListener("click", () => { setView("add"); inPhoto.click(); });
+    document.getElementById("homeTakePhoto").addEventListener("click", () => { setView("add"); setTimeout(()=>inPhoto.click(), 80); });
     document.getElementById("homeDressing").addEventListener("click", () => setView("dressing"));
     document.getElementById("homeColors").addEventListener("click", () => setView("colors"));
     document.getElementById("homeCompare").addEventListener("click", () => setView("compare"));
@@ -928,7 +1026,7 @@
     const pipHex = document.getElementById("pipHex");
     const pipAssign = document.getElementById("pipAssign");
     const pipTargetBtn = document.getElementById("pipTargetBtn");
-    let pipTarget = "p"; // p/s/a
+    let pipTarget = "p";
     let currentPhotoDataUrl = "";
     let canvasCtx = null;
     let canvasImg = new Image();
@@ -967,7 +1065,6 @@
      * Rendering
      ***********************/
     function render(){
-      // used count
       state.colors.forEach(c => c.used = 0);
       state.items.forEach(it => {
         ["p","s","a"].forEach(k => {
@@ -1039,7 +1136,6 @@
     }
 
     function renderCompareSelects(){
-      // Populate selects with colors
       const opts = state.colors.map(c => `<option value="${c.id}">${escapeHtml(c.name)} · ${c.hex}</option>`).join("");
       cmpA.innerHTML = `<option value="">—</option>` + opts;
       cmpB.innerHTML = `<option value="">—</option>` + opts;
@@ -1099,7 +1195,7 @@
     });
 
     /***********************
-     * Compare V1 (DeltaE + contraste)
+     * Compare V1
      ***********************/
     function relLum({r,g,b}){
       const lin = v => {
@@ -1120,8 +1216,8 @@
       const aId = cmpA.value;
       const bId = cmpB.value;
       if(!aId || !bId){
-        cmpSwA.style.background = "rgba(127,127,127,.18)";
-        cmpSwB.style.background = "rgba(127,127,127,.18)";
+        cmpSwA.style.background = "rgba(255,255,255,.06)";
+        cmpSwB.style.background = "rgba(255,255,255,.06)";
         cmpHexA.textContent = "—";
         cmpHexB.textContent = "—";
         cmpResult.textContent = "Sélectionne 2 couleurs.";
@@ -1158,6 +1254,7 @@
       hexInput.addEventListener("blur", ()=>{
         const n = normalizeHex(hexInput.value);
         if(n){ picker.value=n; hexInput.value=n; }
+        else { hexInput.value = picker.value.toUpperCase(); }
       });
     }
     bindColorPair(pColor,pHex);
@@ -1193,6 +1290,8 @@
       });
     }
 
+    btnChoosePhoto.addEventListener("click", ()=> inPhoto.click());
+
     inPhoto.addEventListener("change", async ()=>{
       const file = inPhoto.files?.[0];
       const data = await readFileAsDataUrl(file);
@@ -1200,7 +1299,6 @@
       showToast(data ? "Photo ajoutée" : "—");
     });
 
-    // Tap preview = open modal (if photo)
     photoPreview.addEventListener("click", ()=>{
       if(!currentPhotoDataUrl){ showToast("Ajoute une photo"); return; }
       openPhotoModal();
@@ -1210,7 +1308,6 @@
       openPhotoModal();
     });
 
-    // Per-row "Pipette" buttons set target and open
     document.querySelectorAll("[data-pip]").forEach(b=>{
       b.addEventListener("click", ()=>{
         pipTarget = b.dataset.pip;
@@ -1221,7 +1318,6 @@
     });
 
     pipTargetBtn.addEventListener("click", ()=>{
-      // cycle P -> S -> A
       pipTarget = pipTarget==="p" ? "s" : pipTarget==="s" ? "a" : "p";
       pipTargetBtn.textContent = `Assigner : ${pipTarget.toUpperCase()}`;
       showToast(`Cible : ${pipTarget.toUpperCase()}`);
@@ -1244,13 +1340,13 @@
       canvasCtx = pipCanvas.getContext("2d", { willReadFrequently:true });
       canvasImg = new Image();
       canvasImg.onload = ()=>{
-        // Fit canvas width to container
         const maxW = canvasWrap.clientWidth;
         const scale = maxW / canvasImg.width;
-        const w = Math.floor(canvasImg.width * scale);
-        const h = Math.floor(canvasImg.height * scale);
+        const w = Math.max(1, Math.floor(canvasImg.width * scale));
+        const h = Math.max(1, Math.floor(canvasImg.height * scale));
         pipCanvas.width = w;
         pipCanvas.height = h;
+        canvasCtx.clearRect(0,0,w,h);
         canvasCtx.drawImage(canvasImg, 0, 0, w, h);
       };
       canvasImg.src = dataUrl;
@@ -1261,7 +1357,9 @@
       const rect = pipCanvas.getBoundingClientRect();
       const x = Math.round((clientX - rect.left) * (pipCanvas.width / rect.width));
       const y = Math.round((clientY - rect.top) * (pipCanvas.height / rect.height));
-      const p = canvasCtx.getImageData(Math.max(0,Math.min(x,pipCanvas.width-1)), Math.max(0,Math.min(y,pipCanvas.height-1)), 1, 1).data;
+      const xx = Math.max(0,Math.min(x,pipCanvas.width-1));
+      const yy = Math.max(0,Math.min(y,pipCanvas.height-1));
+      const p = canvasCtx.getImageData(xx, yy, 1, 1).data;
       const hex = "#" + [p[0],p[1],p[2]].map(v=>v.toString(16).padStart(2,"0")).join("").toUpperCase();
       lastPickedHex = hex;
       pipPreview.style.background = hex;
@@ -1316,7 +1414,6 @@
       });
 
       inName.value="";
-      // keep photo for speed? We keep it to allow multiple picks; user can reset if needed
       render();
       setView("dressing");
       showToast("Ajouté ✓");
@@ -1354,7 +1451,7 @@
         const src = th.getAttribute("data-photo");
         if(src){
           currentPhotoDataUrl = src;
-          openPhotoModal(); // ✅ plein écran
+          openPhotoModal();
         }else{
           showToast("Pas de photo");
         }
@@ -1365,14 +1462,6 @@
       const b = e.target.closest("[data-color]");
       if(!b) return;
       openColorSheet(b.getAttribute("data-color"));
-    });
-
-    /***********************
-     * Home "take photo" opens add view and file picker
-     ***********************/
-    document.getElementById("homeTakePhoto").addEventListener("click", ()=>{
-      setView("add");
-      setTimeout(()=>inPhoto.click(), 150);
     });
 
     /***********************
