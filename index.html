@@ -454,10 +454,10 @@
     .actions{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
     .full{grid-column:1/-1;}
 
-    /* Photo + pipette modal */
-    .modal{ position:fixed; inset:0; z-index:70; display:none; }
-    .modal.open{display:block;}
-    .modal-inner{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px calc(12px + var(--safeB)); }
+  m/* FIX iOS: le backdrop de la modale ne doit pas passer au-dessus du contenu */
+.modal { position: fixed; inset: 0; z-index: 70; }
+.modal .backdrop { z-index: 0; }              /* backdrop derrière */
+.modal .modal-inner { position: relative; z-index: 1; }  /* contenu devant */
     .modal-card{
       max-width:var(--maxw); margin:0 auto;
       border-radius:var(--r26);
